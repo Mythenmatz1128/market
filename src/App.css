@@ -56,5 +56,11 @@
   flex-grow: 0;
 }
 .ant-layout-content{
-  margin-top: 2rem;
+  margin-top:  2rem;
+}
+#root{
+  padding-bottom: 4rem;
+}
+.ant-pagination{
+  text-align: center;
 }

@@ -18,13 +18,17 @@ const contentStyle = {
   margin: "auto",
   marginTop: "10px",
 };
-
+const productNum = ["0", "1", "2", "3"]
+const productAddress = [];
+productNum.map((value, i) => {
+  productAddress[i] = "shop-detail/" + value;
+});
 function MainCarousel() {
   return (
     <Carousel autoplay>
       <div>
         <h3 style={contentStyle}>
-          <NavLink to="/shop-detail">
+          <NavLink to={productAddress[0]}>
             <img src={pic} style={imgStyle} />
           </NavLink>
         </h3>

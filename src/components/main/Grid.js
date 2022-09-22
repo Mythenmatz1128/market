@@ -14,13 +14,18 @@ const imgStyle = {
   height: "220px",
 };
 
+const productNum = ["0", "1", "2", "3", "4", "5", "6", "7"];
+const productAddress = [];
+productNum.map((value, i) => {
+  productAddress[i] = "shop-detail/" + value;
+});
 const Grid = () => (
   <>
     <Divider orientation="left"></Divider>
     <Row gutter={[16, 24]}>
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[0]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -28,7 +33,7 @@ const Grid = () => (
       </Col>
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[1]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -36,7 +41,7 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[2]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -44,7 +49,7 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[3]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -52,7 +57,7 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[4]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -60,7 +65,7 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[5]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -68,7 +73,7 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[6]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
@@ -76,13 +81,13 @@ const Grid = () => (
       </Col>{" "}
       <Col className="gutter-row" span={6}>
         <div className="main-flex-item" style={style}>
-          <NavLink to="/shop-detail" alt="profile">
+          <NavLink to={productAddress[7]} alt="profile">
             <img style={imgStyle} src={pic} />
           </NavLink>
           <Text type="success">샤인머스켓: 2000원</Text>
         </div>
       </Col>
-    </Row>
+    </Row >
   </>
 );
 

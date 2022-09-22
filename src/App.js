@@ -12,10 +12,9 @@ import Shop from "./components/shop-list/Shop";
 
 function MainLayout() {
   const { Header, Content, Sider } = Layout;
-
   return (
     <Layout>
-      <div className="titlewithlogin">
+      <div className="titlewithlogin" onClick={() => window.location.reload()}>
         <NavLink to="">
           <Title></Title>
         </NavLink>
@@ -56,16 +55,16 @@ function App() {
         <Route
           path="/"
           element={
-            <div>
+            <div >
               <MainCarousel></MainCarousel>
               <Grid></Grid>
             </div>
           }
         ></Route>
         <Route path="/first" element={<DateChoice />}></Route>
-        <Route path="/shop-list" element={<Shop/>}></Route>
-        <Route path="/third" ></Route>
-        <Route path="/shop-detail"   ></Route>
+        <Route path="/shop-list" element={<Shop />}></Route>
+        <Route path="/third"></Route>
+        <Route path="/shop-detail"></Route>
       </Routes>
     </BrowserRouter>
   );
