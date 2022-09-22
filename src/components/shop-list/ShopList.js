@@ -7,24 +7,59 @@ const imgStyle = {
   width: "200px",
   height: "220px",
 };
-const size = 2
+const size = 3;
+
 const DataFromDB = {
-  productNum: ['1','2'],
-  title : ['최고급 샤인머스켓','싸구려 사과'],
-  description : ['강대현','성호창'],
-  content: ['진짜 달달한 설탕급 당도 ','둘이 먹다가 하나가 죽을 지도 ?'],
-  commentCount : ['10','3']
-}
+  productNum: null,
+  title: null,
+  description: null,
+  content: null,
+  basket: null,
+  score: null,
+  commentCount: null,
+};
+const arrDataFromDB = [{ DataFromDB }];
+
+arrDataFromDB[0] = {
+  productNum: "0001",
+  title: "싱싱한 사과",
+  description: "강대현",
+  content: "300원",
+  commentCount: 12,
+  basket: 14,
+  score: 9.7,
+};
+arrDataFromDB[1] = {
+  productNum: "0002",
+  title: "싱싱한 포도",
+  description: "강병관",
+  content: "3000원",
+  commentCount: 13,
+  basket: 15,
+  score: 9.8,
+};
+arrDataFromDB[2] = {
+  productNum: "0003",
+  title: "싱싱한 바나나",
+  description: "성호창",
+  content: "30000원",
+  commentCount: 14,
+  basket: 16,
+  score: 9.9,
+};
+
 const data = Array.from({
-  length:size ,
+  length: size,
 }).map((_, i) => ({
-  number : i,
-  href: "shop-datail/" + i,
-  title: DataFromDB.title[i],
+  number: i,
+  href: "shop-datail/" + arrDataFromDB[i].productNum,
+  title: arrDataFromDB[i].title,
   avatar: "https://joeschmoe.io/api/v1/random",
-  description: DataFromDB.description[i],
-  content: DataFromDB.content[i],
-  commentCount : DataFromDB.commentCount[i]
+  description: arrDataFromDB[i].description,
+  content: arrDataFromDB[i].content,
+  commentCount: arrDataFromDB[i].commentCount,
+  basket: arrDataFromDB[i].basket,
+  score:arrDataFromDB[i].score
 }));
 
 const IconText = ({ icon, text }) => (
@@ -45,24 +80,23 @@ const ShopList = () => (
       pageSize: 3,
     }}
     dataSource={data}
-   
     renderItem={(item) => (
       <List.Item
         key={item.href}
         actions={[
           <IconText
             icon={StarOutlined}
-            text="12"
+            text={data[item.number].basket}
             key="list-vertical-star-o"
           />,
           <IconText
             icon={LikeOutlined}
-            text={data[item.number].commentCount}
+            text={data[item.number].score}
             key="list-vertical-like-o"
           />,
           <IconText
             icon={MessageOutlined}
-            text="2"
+            text={data[item.number].commentCount}
             key="list-vertical-message"
           />,
         ]}

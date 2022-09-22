@@ -18,7 +18,7 @@ const contentStyle = {
   margin: "auto",
   marginTop: "10px",
 };
-const productNum = ["0", "1", "2", "3"]
+const productNum = ["0001", "0002", "0003", "0004"]
 const productAddress = [];
 productNum.map((value, i) => {
   productAddress[i] = "shop-detail/" + value;
