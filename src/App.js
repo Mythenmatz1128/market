@@ -69,5 +69,5 @@ function App() {
     </BrowserRouter>
   );
 }
-//내가 보내봅니다.
+//다시 보낸다
 export default App;
