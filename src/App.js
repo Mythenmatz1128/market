@@ -9,6 +9,7 @@ import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
 import Login from "./components/main/Login";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
+import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
 import Shop from "./components/shop-list/Shop";
 
 function MainLayout() {
@@ -69,6 +70,7 @@ function App() {
         <Route path="/first" element={<DateChoice />}></Route>
         <Route path="/shop-list" element={<Shop />}></Route>
         <Route path="/third" element={<ManagerMyPage />}></Route>
+        <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
         <Route path="/shop-detail"></Route>
       </Routes>
     </BrowserRouter>
