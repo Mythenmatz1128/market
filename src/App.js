@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu ,Button} from "antd";
 import "antd/dist/antd.min.css";
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
@@ -12,14 +12,18 @@ import Shop from "./components/shop-list/Shop";
 
 function MainLayout() {
   const { Header, Content, Sider } = Layout;
+  const style = {
+    marginTop:"3rem",
+    marginRight:"3rem"
+  }
   return (
     <Layout>
       <div className="titlewithlogin" onClick={() => window.location.reload()}>
         <NavLink to="">
           <Title></Title>
         </NavLink>
-        <div className="login">
-          <Login></Login>
+        <div className="login" style={style}>
+          <Button>로그인</Button>
         </div>
       </div>
 

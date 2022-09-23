@@ -59,7 +59,7 @@ const data = Array.from({
   content: arrDataFromDB[i].content,
   commentCount: arrDataFromDB[i].commentCount,
   basket: arrDataFromDB[i].basket,
-  score:arrDataFromDB[i].score
+  score: arrDataFromDB[i].score,
 }));
 
 const IconText = ({ icon, text }) => (
@@ -86,12 +86,12 @@ const ShopList = () => (
         actions={[
           <IconText
             icon={StarOutlined}
-            text={data[item.number].basket}
+            text="판매자 등급"
             key="list-vertical-star-o"
           />,
           <IconText
             icon={LikeOutlined}
-            text={data[item.number].score}
+            text="판매자 백분위"
             key="list-vertical-like-o"
           />,
           <IconText
