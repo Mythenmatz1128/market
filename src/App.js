@@ -8,6 +8,7 @@ import MainCarousel from "./components/main/MainCarousel";
 import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
 import Login from "./components/main/Login";
+import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import Shop from "./components/shop-list/Shop";
 
 function MainLayout() {
@@ -26,9 +27,6 @@ function MainLayout() {
           <Button>로그인</Button>
         </div>
       </div>
-      //테스트 3333
-      //테스트 4444
-
 
       <Header className="header">
         <div className="logo" />
@@ -70,13 +68,11 @@ function App() {
         ></Route>
         <Route path="/first" element={<DateChoice />}></Route>
         <Route path="/shop-list" element={<Shop />}></Route>
-        <Route path="/third"></Route>
+        <Route path="/third" element={<ManagerMyPage />}></Route>
         <Route path="/shop-detail"></Route>
       </Routes>
     </BrowserRouter>
   );
 }
-//다시 보낸다
-// dkdkdldldl
-// 이제 되라 제발
+
 export default App;
