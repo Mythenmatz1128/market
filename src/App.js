@@ -1,4 +1,4 @@
-import { Layout, Menu ,Button} from "antd";
+import { Layout, Menu, Button } from "antd";
 import "antd/dist/antd.min.css";
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
@@ -7,29 +7,25 @@ import Grid from "./components/main/Grid";
 import MainCarousel from "./components/main/MainCarousel";
 import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
-import Login from "./components/main/Login";
+import Login from "./components/login/Login";
 import Shop from "./components/shop-list/Shop";
-
+import LoginModal from "./components/login/LoginModal";
 function MainLayout() {
   const { Header, Content, Sider } = Layout;
   const style = {
-    marginTop:"3rem",
-    marginRight:"3rem"
-  }
+    marginTop: "3rem",
+    marginRight: "3rem",
+  };
   return (
     <Layout>
-      <div className="titlewithlogin" onClick={() => window.location.reload()}>
+      <div className="titlewithlogin">
         <NavLink to="">
-          <Title></Title>
+          <Title onClick={() => window.location.reload()}></Title>
         </NavLink>
         <div className="login" style={style}>
-          <Button>로그인</Button>
+          <LoginModal />
         </div>
       </div>
-      //테스트 3333
-      //테스트 4444
-      //테스트 6666 in main
-      //테스트 5555 in develop branch
 
       <Header className="header">
         <div className="logo" />
@@ -63,7 +59,7 @@ function App() {
         <Route
           path="/"
           element={
-            <div >
+            <div>
               <MainCarousel></MainCarousel>
               <Grid></Grid>
             </div>
