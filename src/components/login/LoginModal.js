@@ -24,8 +24,7 @@ const LoginModal = () => {
       <Modal
         title="Basic Modal"
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        
       >
         <Login></Login>
       </Modal>

@@ -7,7 +7,7 @@ import Grid from "./components/main/Grid";
 import MainCarousel from "./components/main/MainCarousel";
 import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
-import Login from "./components/login/Login";
+
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
