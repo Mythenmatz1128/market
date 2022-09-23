@@ -78,5 +78,5 @@ function App() {
 }
 //다시 보낸다
 // dkdkdldldl
-// akaasdf
+// 이제 되라 제발
 export default App;
