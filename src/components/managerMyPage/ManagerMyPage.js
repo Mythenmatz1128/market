@@ -3,7 +3,7 @@ import { PageHeader } from "antd";
 import "antd/dist/antd.min.css";
 import pic from "../../img/회원.jpg"
 import React, { useState } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
 
 
 const style0 = {
@@ -81,8 +81,10 @@ function ManageMyPage(){
                 </div> 
             </div>
 
-            <div className = "manage-mypage-title-box" style={style1}>
-                <PageHeader className="manage-mypage-title" title="관리자 마이 페이지" />
+            <div className = "manage-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
+                <NavLink to="">
+                    <PageHeader className="manage-mypage-title" title="관리자 마이 페이지" />
+                </NavLink>  
             </div>
 
             <div className = "manage-mypage-menu-box" style={style8}>
