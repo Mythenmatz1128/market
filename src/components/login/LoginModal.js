@@ -1,30 +1,39 @@
-import { Button, Modal } from "antd";
-import React, { useState } from "react";
-import Login from "./Login";
+import { Button, Modal } from 'antd';
+import React, { useState } from 'react';
+import Login from './Login';
 const LoginModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState('Content of the modal');
 
   const showModal = () => {
-    setIsModalOpen(true);
+    setOpen(true);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setModalText('The modal will be closed after two seconds');
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    console.log('Clicked cancel button');
+    setOpen(false);
   };
 
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        로그인
       </Button>
       <Modal
-        title="Basic Modal"
-        open={isModalOpen}
+        title="Title"
+        open={open}
         onOk={handleOk}
+        confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
         <Login></Login>
