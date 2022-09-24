@@ -1,4 +1,4 @@
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu} from "antd";
 import "antd/dist/antd.min.css";
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
@@ -10,8 +10,10 @@ import Title from "./components/main/Title";
 import Login from "./components/login/Login";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
+import Business from "./components/managerMyPage/Business";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
+
 function MainLayout() {
   const { Header, Content, Sider } = Layout;
   const style = {
@@ -72,6 +74,7 @@ function App() {
         <Route path="/third" element={<ManagerMyPage />}></Route>
         <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
         <Route path="/shop-detail"></Route>
+        <Route path="/third/first/business-detail/:businessId" element={<Business />}></Route>
       </Routes>
     </BrowserRouter>
   );

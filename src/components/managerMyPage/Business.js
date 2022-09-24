@@ -1,12 +1,10 @@
-import { Layout, Menu } from "antd";
-import { PageHeader } from "antd";
+
 import "antd/dist/antd.min.css";
-import pic from "../../img/회원.jpg"
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
-import React, { useState } from "react";
-import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
+import { useParams } from 'react-router-dom';
 
 const size = 4;
 
@@ -14,16 +12,6 @@ const style0 = {
     marginLeft: "20%",
     marginRight: "20%",
     borderTop: "2px solid",
-};
-
-const style1 = {
-    fontSize: "25px",
-    fontWeight: "500",
-};
-
-const style2 = {
-    fontSize: "20px",
-    fontWeight: "500",
 };
 
 const DataFromDB = {
@@ -79,51 +67,40 @@ arrDataFromDB[0] = {
     length: size,
   }).map((_, i) => ({
     number: i,
-    href: "business-detail/" + arrDataFromDB[i].businessID,
+    businessID: arrDataFromDB[i].businessID,
     businessNum: arrDataFromDB[i].businessNum,
-    avatar: "https://joeschmoe.io/api/v1/random",
     businessName: arrDataFromDB[i].businessName,
     status: arrDataFromDB[i].status,
     createdDate: arrDataFromDB[i].createdDate,
     changeDate: arrDataFromDB[i].changeDate,
     userID: arrDataFromDB[i].userID,
   }));
-  
-  const IconText = ({ icon, text }) => (
-    <Space>
-      {React.createElement(icon)}
-      {text}
-    </Space>
-  );
 
-function BusinessApplicationInquiry(){
+
+
+const Business = () => {
+    const { businessId } = useParams();
+    let [num,setNum] = useState(0);
+
+    useEffect(()=>{ 
+        for(let i = 0; i < size; i++){
+        const tempId = arrDataFromDB[i].businessID;
+            if(businessId == tempId){
+                setNum(i);
+                break;
+            }
+    }},[])
+
+
     return (
-        <div>
+        <>
             <ManagerMyPage></ManagerMyPage>
             <div className="list-box"style={style0}>
-                <List
-                    itemLayout="vertical"
-                    size="large"
-                    pagination={{
-                    onChange: (page) => {
-                        console.log(page);
-                    },
-                    pageSize: 3,
-                    }}
-                    dataSource={data}
-                    renderItem={(item) => (
-                        <List.Item>
-                            <List.Item.Meta
-                            avatar={<Avatar src={item.avatar} />}
-                            title={<Link to={item.href} style = {style1}>{item.userID}</Link>}
-                            description={<span style = {style2}>{item.businessName}</span>}
-                            />
-                            {item.businessNum}
-                        </List.Item>
-                    )}
-                />
+            <h3>{businessId}번 상품 페이지 입니다.</h3>
+            <span>{arrDataFromDB[num].businessID}</span>
             </div>
-        </div>
+
+        </>
     );
 }
-export default BusinessApplicationInquiry;
+export default Business;
