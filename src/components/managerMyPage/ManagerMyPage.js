@@ -58,6 +58,7 @@ const style10 = {
 };
 
 
+
 function ManageMyPage(){
     return (
         <Layout className="total-box"style={style0}>
@@ -71,12 +72,13 @@ function ManageMyPage(){
                         안녕하세요 회원님.
                     </span>
                     <div className='button-box' style={style5}> 
-                        <button class="button1" type="button" style={style6}>
+                        <button className="button1" type="button" style={style6}>
                             로그아웃
                         </button>
-                        <button class="button2" type="button" style={style7}>
+                        <button className="button2" type="button" style={style7}>
                             회원탈퇴
                         </button>
+ 
                     </div>
                 </div> 
             </div>

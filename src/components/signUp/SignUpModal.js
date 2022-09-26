@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import Login from "./Login";
-const LoginModal = () => {
+import SignUp from "./SignUp.js";
+const SignUpModal = () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
@@ -27,19 +27,19 @@ const LoginModal = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        로그인
+        회원가입
       </Button>
       <Modal
-        title="로그인"
+        title="회원가입"
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <Login></Login>
+        <SignUp></SignUp>
       </Modal>
     </>
   );
 };
 
-export default LoginModal;
+export default SignUpModal;

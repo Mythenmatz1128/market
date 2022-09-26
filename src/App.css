@@ -22,10 +22,7 @@
   justify-content: space-between;
 }
 
-.loginform {
-  display: flex;
-  margin: 3rem;
-}
+
 
 .ant-page-header-heading-title {
   height: 100px;
