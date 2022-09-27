@@ -1,15 +1,17 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import SignUpModal from "../signUp/SignUpModal";
 
-function Login() {
+function SignUp() {
   const style = {
     display: "flex",
     margin: "3rem",
     width: "100%",
     textAlign: "center",
   };
+  const btnStyle = {
+    margin: "2rem",
+  };
   const onFinish = (values) => {
-    return <div>로그인 완료</div>;
+    return <div>회원가입 완료</div>;
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -36,6 +38,13 @@ function Login() {
         >
           <Input />
         </Form.Item>
+        <Form.Item
+          label="id"
+          name="id"
+          rules={[{ required: true, message: "Please input your Id!" }]}
+        >
+          <Input />
+        </Form.Item>
 
         <Form.Item
           label="Password"
@@ -44,31 +53,46 @@ function Login() {
         >
           <Input.Password />
         </Form.Item>
+
         <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
+          label="age"
+          name="age"
+          rules={[{ required: true, message: "Please input your age!" }]}
         >
-          <Checkbox>Remember</Checkbox>
+          <Input />
         </Form.Item>
-      </div>
-      <div>
+
+        <Form.Item
+          label="email"
+          name="email"
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="phone"
+          name="phone"
+          rules={[
+            { required: true, message: "Please input your phone" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button
+            style={btnStyle}
             type="primary"
             htmlType="submit"
             onClick={() => {
-              window.alert("로그인 성공");
+              window.alert("회원가입 성공");
             }}
           >
-            로그인
+            회원가입
           </Button>
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <SignUpModal></SignUpModal>
         </Form.Item>
       </div>
     </Form>
   );
 }
-export default Login;
+export default SignUp;

@@ -58,6 +58,7 @@ const style10 = {
 };
 
 
+
 function ManageMyPage(){
     return (
         <Layout className="total-box"style={style0}>
@@ -109,6 +110,4 @@ function ManageMyPage(){
         </Layout>
     );
 }
-
-
 export default ManageMyPage;
