@@ -9,13 +9,57 @@ import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
 
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
+import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
+import BusinessAcceptionInquiry from "./components/managerMyPage/BusinessAcceptionInquiry";
+import BusinessRejectionInquiry from "./components/managerMyPage/BusinessRejectionInquiry";
+import MemberInquiry from "./components/buyerMyPage/MemberInquiry";
+import MemberEdit from "./components/buyerMyPage/MemberEdit";
 import Business from "./components/managerMyPage/Business";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
 
 import CreateWriting from "./components/writing/CreateWriting";
 import OrderModal from "./components/order/OrderModal";
+
+const DataFromDB = {
+  productNum: null,
+  title: null,
+  description: null,
+  content: null,
+  basket: null,
+  score: null,
+  commentCount: null,
+};
+const arrDataFromDB = [{ DataFromDB }];
+
+arrDataFromDB[0] = {
+  productNum: "0001",
+  title: "싱싱한 사과",
+  description: "강대현",
+  content: "300원",
+  commentCount: 12,
+  basket: 14,
+  score: 9.7,
+};
+arrDataFromDB[1] = {
+  productNum: "0002",
+  title: "싱싱한 포도",
+  description: "강병관",
+  content: "3000원",
+  commentCount: 13,
+  basket: 15,
+  score: 9.8,
+};
+arrDataFromDB[2] = {
+  productNum: "0003",
+  title: "싱싱한 바나나",
+  description: "성호창",
+  content: "30000원",
+  commentCount: 14,
+  basket: 16,
+  score: 9.9,
+};
 
 function MainLayout() {
   const { Header, Content, Sider } = Layout;
@@ -69,44 +113,7 @@ function MainLayout() {
     </Layout>
   );
 }
-const DataFromDB = {
-  productNum: null,
-  title: null,
-  description: null,
-  content: null,
-  basket: null,
-  score: null,
-  commentCount: null,
-};
-const arrDataFromDB = [{ DataFromDB }];
 
-arrDataFromDB[0] = {
-  productNum: "0001",
-  title: "싱싱한 사과",
-  description: "강대현",
-  content: "300원",
-  commentCount: 12,
-  basket: 14,
-  score: 9.7,
-};
-arrDataFromDB[1] = {
-  productNum: "0002",
-  title: "싱싱한 포도",
-  description: "강병관",
-  content: "3000원",
-  commentCount: 13,
-  basket: 15,
-  score: 9.8,
-};
-arrDataFromDB[2] = {
-  productNum: "0003",
-  title: "싱싱한 바나나",
-  description: "성호창",
-  content: "30000원",
-  commentCount: 14,
-  basket: 16,
-  score: 9.9,
-};
 function App() {
   return (
     <BrowserRouter>
@@ -127,15 +134,14 @@ function App() {
           element={<Shop test={arrDataFromDB} />}
         ></Route>
         <Route path="/third" element={<ManagerMyPage />}></Route>
-        <Route
-          path="/third/first"
-          element={<BusinessApplicationInquiry />}
-        ></Route>
-        <Route path="/shop-detail/"></Route>
-        <Route
-          path="/third/first/business-detail/:businessId"
-          element={<Business />}
-        ></Route>
+        {/* <Route path="/third" element={<BuyerMyPage />}></Route> */}
+        <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
+        <Route path="/third/second" element={<BusinessAcceptionInquiry />}></Route>
+        <Route path="/third/third" element={<BusinessRejectionInquiry />}></Route>
+        {/* <Route path="/third/first" element={<MemberInquiry />}></Route> */}
+        <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
+        <Route path="/shop-detail"></Route>
+        <Route path="/third/first/business-detail/:businessId" element={<Business />}></Route>
         <Route
           path="/fourth"
           element={
@@ -156,5 +162,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

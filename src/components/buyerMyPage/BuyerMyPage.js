@@ -58,8 +58,7 @@ const style10 = {
 };
 
 
-
-function ManageMyPage(){
+function BuyerMyPage(){
     return (
         <Layout className="total-box"style={style0}>
             <div className="title"style={style1}>
@@ -72,37 +71,42 @@ function ManageMyPage(){
                         안녕하세요 회원님.
                     </span>
                     <div className='button-box' style={style5}> 
-                        <Button class="button1" type="button" style={style6}>
+                        <Button className="button1" type="button" style={style6}>
                             로그아웃
                         </Button>
-                        <Button class="button2" type="button" style={style7}>
+                        <Button className="button2" type="button" style={style7}>
                             회원탈퇴
                         </Button>
                     </div>
                 </div> 
             </div>
 
-            <div className = "manage-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
+            <div className = "buyer-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
                 <NavLink to="/third">
-                    <PageHeader className="manage-mypage-title" title="관리자 마이 페이지" />
+                    <PageHeader className="buyer-mypage-title" title="구매자 마이 페이지" />
                 </NavLink>  
             </div>
 
-            <div className = "manage-mypage-menu-box" style={style8}>
+            <div className = "buyer-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
                         <Link to="/third/first">
-                            <label style={style10}> 사업자 신청 조회</label>
+                            <label style={style10}> 회원 상세 정보</label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style9}>
                         <Link to="/third/second">
-                            <label style={style10}> 사업자 신청 승인 내역 </label>
+                            <label style={style10}> 장바구니 </label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3"style={style9}>
                         <Link to="/third/third">
-                            <label style={style10}> 사업자 신청 거부 내역 </label>
+                            <label style={style10}> 결제 내역 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="4"style={style9}>
+                        <Link to="/third/forth">
+                            <label style={style10}> 결제 금액 그래프 </label>
                         </Link>
                     </Menu.Item>
                 </Menu>
@@ -110,4 +114,4 @@ function ManageMyPage(){
         </Layout>
     );
 }
-export default ManageMyPage;
+export default BuyerMyPage;

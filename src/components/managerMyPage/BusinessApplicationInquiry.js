@@ -6,7 +6,7 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
-import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
+import ManagerMyPage from "./ManagerMyPage";
 
 const size = 4;
 
@@ -17,11 +17,19 @@ const style0 = {
 };
 
 const style1 = {
+  paddingTop: "5%",
+  paddingBottom: "5%",
   fontSize: "25px",
-  fontWeight: "500",
+  fontWeight: "700",
+  color: "black",
 };
 
 const style2 = {
+    fontSize: "25px",
+    fontWeight: "500",
+};
+
+const style3 = {
   fontSize: "20px",
   fontWeight: "500",
 };
@@ -74,7 +82,6 @@ arrDataFromDB[3] = {
   changeDate: "2019-11-13",
   userID: "강병관",
 };
-
 const data = Array.from({
   length: size,
 }).map((_, i) => ({
@@ -89,45 +96,35 @@ const data = Array.from({
   userID: arrDataFromDB[i].userID,
 }));
 
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
-
-function BusinessApplicationInquiry() {
-  return (
-    <div>
-      <ManagerMyPage></ManagerMyPage>
-      <div className="list-box" style={style0}>
-        <List
-          itemLayout="vertical"
-          size="large"
-          pagination={{
-            onChange: (page) => {
-              console.log(page);
-            },
-            pageSize: 3,
-          }}
-          dataSource={data}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={
-                  <Link to={item.href} style={style1}>
-                    {item.userID}
-                  </Link>
-                }
-                description={<span style={style2}>{item.businessName}</span>}
-              />
-              {item.businessNum}
-            </List.Item>
-          )}
-        />
-      </div>
-    </div>
-  );
+function BusinessApplicationInquiry(){
+    return (
+        <div>
+            <ManagerMyPage></ManagerMyPage>
+            <div className="list-box"style={style0}>
+              <div className="business-detail" style={style1}>사업자 신청 내역서</div>
+                <List
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                    }}
+                    dataSource={data}
+                    renderItem={(item) => (
+                        <List.Item>
+                            <List.Item.Meta
+                            avatar={<Avatar src={item.avatar} />}
+                            title={<Link to={item.href} style = {style2}>{item.userID}</Link>}
+                            description={<span style = {style3}>{item.businessName}</span>}
+                            />
+                            {item.businessNum}
+                        </List.Item>
+                    )}
+                />
+            </div>
+        </div>
+    );
 }
 export default BusinessApplicationInquiry;
