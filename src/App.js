@@ -9,7 +9,12 @@ import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
 import Login from "./components/login/Login";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
+import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
+import BusinessAcceptionInquiry from "./components/managerMyPage/BusinessAcceptionInquiry";
+import BusinessRejectionInquiry from "./components/managerMyPage/BusinessRejectionInquiry";
+import MemberInquiry from "./components/buyerMyPage/MemberInquiry";
+import MemberEdit from "./components/buyerMyPage/MemberEdit";
 import Business from "./components/managerMyPage/Business";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
@@ -72,7 +77,12 @@ function App() {
         <Route path="/first" element={<DateChoice />}></Route>
         <Route path="/shop-list" element={<Shop />}></Route>
         <Route path="/third" element={<ManagerMyPage />}></Route>
+        {/* <Route path="/third" element={<BuyerMyPage />}></Route> */}
         <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
+        <Route path="/third/second" element={<BusinessAcceptionInquiry />}></Route>
+        <Route path="/third/third" element={<BusinessRejectionInquiry />}></Route>
+        {/* <Route path="/third/first" element={<MemberInquiry />}></Route> */}
+        <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
         <Route path="/shop-detail"></Route>
         <Route path="/third/first/business-detail/:businessId" element={<Business />}></Route>
       </Routes>

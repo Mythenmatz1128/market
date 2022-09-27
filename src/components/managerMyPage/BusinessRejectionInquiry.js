@@ -1,7 +1,6 @@
 import { Layout, Menu } from "antd";
 import { PageHeader } from "antd";
 import "antd/dist/antd.min.css";
-import pic from "../../img/회원.jpg"
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
 import React, { useState } from "react";
@@ -104,12 +103,12 @@ arrDataFromDB[0] = {
     </Space>
   );
 
-function BusinessApplicationInquiry(){
+function BusinessRejectionInquiry(){
     return (
         <div>
             <ManagerMyPage></ManagerMyPage>
             <div className="list-box"style={style0}>
-              <div className="business-detail" style={style1}>사업자 신청 내역서</div>
+              <div className="business-detail" style={style1}>사업자 신청 거부 내역서</div>
                 <List
                     itemLayout="vertical"
                     size="large"
@@ -135,4 +134,4 @@ function BusinessApplicationInquiry(){
         </div>
     );
 }
-export default BusinessApplicationInquiry;
+export default BusinessRejectionInquiry;
