@@ -82,6 +82,19 @@ arrDataFromDB[3] = {
   changeDate: "2019-11-13",
   userID: "강병관",
 };
+const data = Array.from({
+  length: size,
+}).map((_, i) => ({
+  number: i,
+  href: "business-detail/" + arrDataFromDB[i].businessID,
+  businessNum: arrDataFromDB[i].businessNum,
+  avatar: "https://joeschmoe.io/api/v1/random",
+  businessName: arrDataFromDB[i].businessName,
+  status: arrDataFromDB[i].status,
+  createdDate: arrDataFromDB[i].createdDate,
+  changeDate: arrDataFromDB[i].changeDate,
+  userID: arrDataFromDB[i].userID,
+}));
 
 function BusinessApplicationInquiry(){
     return (

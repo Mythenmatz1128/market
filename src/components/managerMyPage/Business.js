@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
 import { useParams } from 'react-router-dom';
 import picture from "../../img/사업자_등록증_양식.jpg";
-import { useParams } from "react-router-dom";
 
 const size = 4;
 
