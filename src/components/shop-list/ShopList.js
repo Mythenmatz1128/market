@@ -7,7 +7,6 @@ const imgStyle = {
   width: "200px",
   height: "220px",
 };
-const size = 3;
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -16,8 +15,9 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 function binding(props) {
+  console.log(props.test)
   const arrDataFromDB = props.test;
-  return (arrDataFromDB.map((_, i) => ({
+  return arrDataFromDB.map((_, i) => ({
     number: i,
     href: "shop-detail/" + arrDataFromDB[i].productNum,
     title: arrDataFromDB[i].title,
@@ -27,11 +27,11 @@ function binding(props) {
     commentCount: arrDataFromDB[i].commentCount,
     basket: arrDataFromDB[i].basket,
     score: arrDataFromDB[i].score,
-  })));
+  }));
 }
 
 function ShopList(props) {
-  const data =binding(props);
+  const data = binding(props);
   return (
     <List
       itemLayout="vertical"
@@ -57,11 +57,7 @@ function ShopList(props) {
               text="판매자 백분위"
               key="list-vertical-like-o"
             />,
-            <IconText
-              icon={MessageOutlined}
-              text={data[item.number].commentCount}
-              key="list-vertical-message"
-            />,
+
           ]}
           extra={<img width={272} alt="logo" src={pic} style={imgStyle} />}
         >

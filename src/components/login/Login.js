@@ -1,7 +1,18 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import SignUpModal from "../signUp/SignUpModal";
-
-function Login() {
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/userState";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+function Login({onCancel}) {
+  
+  const navigate = useNavigate;
+  const [user, setUser] = useRecoilState(userState);
+  const [userData, setUserData] = useState({
+    userName: "bkkang",
+    uid: "asd1234",
+    grade: "sellor",
+  });
   const style = {
     display: "flex",
     margin: "3rem",
@@ -9,7 +20,11 @@ function Login() {
     textAlign: "center",
   };
   const onFinish = (values) => {
-    return <div>로그인 완료</div>;
+    console.log("Success:", values);
+    setUser(userData);
+    onCancel();
+ 
+  
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -54,13 +69,7 @@ function Login() {
       </div>
       <div>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={() => {
-              window.alert("로그인 성공");
-            }}
-          >
+          <Button type="primary" htmlType="submit">
             로그인
           </Button>
         </Form.Item>

@@ -4,7 +4,10 @@ import Order from "./Order";
 
 const OrderModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const btnStyle={
+    width:"8rem"
+    ,margin:"1rem"
+  }
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -19,10 +22,11 @@ const OrderModal = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
+      <Button type="primary"  style={btnStyle} onClick={showModal}>
+        구매하기{" "}
       </Button>
       <Modal
+        
         title="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
