@@ -7,7 +7,6 @@ import Grid from "./components/main/Grid";
 import MainCarousel from "./components/main/MainCarousel";
 import DateChoice from "./components/main/DateChoice";
 import Title from "./components/main/Title";
-
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
@@ -15,12 +14,15 @@ import BusinessAcceptionInquiry from "./components/managerMyPage/BusinessAccepti
 import BusinessRejectionInquiry from "./components/managerMyPage/BusinessRejectionInquiry";
 import MemberInquiry from "./components/buyerMyPage/MemberInquiry";
 import MemberEdit from "./components/buyerMyPage/MemberEdit";
-import Business from "./components/managerMyPage/Business";
+import BusinessDefault from "./components/managerMyPage/BusinessDefault";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
-
 import CreateWriting from "./components/writing/CreateWriting";
 import OrderModal from "./components/order/OrderModal";
+import BusinessAcception from "./components/managerMyPage/BusinessAcception";
+import BusinessRejection from "./components/managerMyPage/BusinessRejection";
+import MarketCondition from "./components/marketCondition/MarketCondition";
+import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
 
 const DataFromDB = {
   productNum: null,
@@ -84,7 +86,7 @@ function MainLayout() {
 
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">
-            <Link to="/first">
+            <Link to="/marketCondition">
               <label> 시세</label>
             </Link>
           </Menu.Item>
@@ -128,20 +130,26 @@ function App() {
             </div>
           }
         ></Route>
-        <Route path="/first" element={<DateChoice />}></Route>
+        <Route path="/marketCondition" element={<MarketCondition />}></Route>
+        <Route path="/marketCondition/DailyPriceInquiry" element={<DailyPriceInquiry />}></Route>
         <Route
           path="/shop-list"
           element={<Shop test={arrDataFromDB} />}
         ></Route>
+        {/*---관리자 마이 페이지--- */}
         <Route path="/third" element={<ManagerMyPage />}></Route>
-        {/* <Route path="/third" element={<BuyerMyPage />}></Route> */}
         <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
+        <Route path="/third/first/business-detail/:businessId" element={<BusinessDefault />}></Route>
         <Route path="/third/second" element={<BusinessAcceptionInquiry />}></Route>
+        <Route path="/third/second/business-detail/:businessId" element={<BusinessAcception />}></Route>
         <Route path="/third/third" element={<BusinessRejectionInquiry />}></Route>
-        {/* <Route path="/third/first" element={<MemberInquiry />}></Route> */}
+        <Route path="/third/third/business-detail/:businessId" element={<BusinessRejection />}></Route>
+        {/*---구매자 마이 페이지--- */}
+        {/* <Route path="/third" element={<BuyerMyPage />}></Route>
+        <Route path="/third/first" element={<MemberInquiry />}></Route>
         <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
-        <Route path="/shop-detail"></Route>
-        <Route path="/third/first/business-detail/:businessId" element={<Business />}></Route>
+        <Route path="/shop-detail"></Route> */}
+        {/*---판매자 마이 페이지--- */}
         <Route
           path="/fourth"
           element={
