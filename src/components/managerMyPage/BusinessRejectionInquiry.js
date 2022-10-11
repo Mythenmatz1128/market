@@ -126,7 +126,7 @@ function BusinessRejectionInquiry(){
                             title={<Link to={item.href} style = {style2}>{item.userID}</Link>}
                             description={<span style = {style3}>{item.businessName}</span>}
                             />
-                            {item.businessNum}
+                            {item.changeDate}
                         </List.Item>
                     )}
                 />
