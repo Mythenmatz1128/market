@@ -14,7 +14,7 @@ const imgStyle = {
   height: "220px",
 };
 
-const productNum = ["0", "1", "2", "3", "4", "5", "6", "7"];
+const productNum = ["0001", "0002", "0003", "3", "4", "5", "6", "7"];
 const productAddress = [];
 productNum.map((value, i) => {
   productAddress[i] = "shop-detail/" + value;

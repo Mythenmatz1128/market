@@ -33,7 +33,6 @@ const displayRender = (labels) => labels[labels.length - 1];
 const ShopCascader = () => (
   <Cascader
     options={options}
-    expandTrigger="hover"
     displayRender={displayRender}
     onChange={onChange}
   />

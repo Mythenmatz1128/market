@@ -24,6 +24,7 @@ const Address = (props) => {
                 우편번호: ${data.zonecode}
             `)
             props.setAddress(data.address)
+            props.setZipCode(data.zonecode)
             setOpenPostcode(false);
         },
     }

@@ -1,14 +1,18 @@
 import { Button, Checkbox, Form, Input } from "antd";
-
+import Address from "../order/Address";
+import { useState } from "react";
 function SignUp() {
   const style = {
     display: "flex",
-    margin: "3rem",
+    flexDirection: "column",
+
     width: "100%",
-    textAlign: "center",
+    flexWrap: "wrap",
+    alignItems: "left",
   };
   const btnStyle = {
-    margin: "2rem",
+    marginTop: "1rem",
+    
   };
   const onFinish = (values) => {
     return <div>회원가입 완료</div>;
@@ -17,6 +21,8 @@ function SignUp() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const [address, setAddress] = useState(null); // 주소
+  const [zipCode, setZipCode] = useState(null);
 
   return (
     <Form
@@ -73,15 +79,34 @@ function SignUp() {
         <Form.Item
           label="phone"
           name="phone"
+          rules={[{ required: true, message: "Please input your phone" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="address"
+          rules={[{ required: true, message: "Please input your address!" }]}
+        >
+          <Input value={address} readOnly />
+        </Form.Item>
+        <Form.Item
+          label="detailAddress"
+          name="detailAddress"
           rules={[
-            { required: true, message: "Please input your phone" },
+            { required: true, message: "Please input your detailAddress!" },
           ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item
+          label="zipCode"
+          rules={[{ required: true, message: "Please input your zipCode!" }]}
+        >
+          <Input value={zipCode} readOnly />
+        </Form.Item>
+        <Address setAddress={setAddress} setZipCode={setZipCode} />
+        <Form.Item style={btnStyle}>
           <Button
-            style={btnStyle}
             type="primary"
             htmlType="submit"
             onClick={() => {

@@ -3,6 +3,7 @@ import { Input, Space } from "antd";
 import React from "react";
 import ShopList from "./ShopList";
 import ShopCascader from "./ShopCascader";
+import ShopSelect from "./ShopSelect";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -30,8 +31,11 @@ const Shop = (props) => (
   <div>
     <div style={CasStyle}>
       <ShopCascader />
+      <ShopSelect></ShopSelect>
     </div>
+    
     <div style={style}>
+    
       <Space direction="vertical">
         <Search
           placeholder="input search text"

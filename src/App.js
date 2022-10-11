@@ -6,7 +6,7 @@ import "./App.css";
 import Grid from "./components/main/Grid";
 import MainCarousel from "./components/main/MainCarousel";
 import DateChoice from "./components/main/DateChoice";
-import Title from "./components/main/Title";
+import MainLayout from "./components/main/MainLayout";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
@@ -117,6 +117,49 @@ function MainLayout() {
 }
 
 function App() {
+  const DataFromDB = {
+    productNum: null,
+    title: null,
+    description: null,
+    sellor: null,
+    basket: null,
+    score: null,
+    price: null,
+    grade: null,
+  };
+  const arrDataFromDB = [{ DataFromDB }];
+
+  arrDataFromDB[0] = {
+    productNum: "0001",
+    title: "싱싱한 사과",
+    description: "이사과는 뉴턴의 사과입니다",
+    price: "300원",
+    sellor: "강대현",
+    basket: 14,
+    score: 9.7,
+    grade: "상"
+  };
+  arrDataFromDB[1] = {
+    productNum: "0002",
+    title: "싱싱한 포도",
+    description: "이포도는 18브릭스 입니다",
+    price: "3000원",
+    sellor: "강병관",
+    basket: 15,
+    score: 9.8,
+    grade: "상"
+  };
+  arrDataFromDB[2] = {
+    productNum: "0003",
+    title: "싱싱한 바나나",
+    description: "원숭이가 떨어트린 바나나",
+    price: "30000원",
+    sellor: "성호창",
+    basket: 16,
+    score: 9.9,
+    grade: "상"
+  };
+
   return (
     <BrowserRouter>
       <MainLayout></MainLayout>
@@ -158,11 +201,12 @@ function App() {
             </div>
           }
         ></Route>
+ 
         <Route
-          path="/fifth"
+          path="/sixth"
           element={
             <div>
-              <OrderModal />
+              <ModifyWriting />
             </div>
           }
         ></Route>

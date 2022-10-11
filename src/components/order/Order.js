@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 
 function Order() {
   const [address, setAddress] = useState(null); // 주소
+  const [zipCode, setZipCode] = useState(null);
   const [price, setPrice] = useState(1000);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState();
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -16,11 +17,18 @@ function Order() {
   };
 
   const onFinish = (values) => {
-    console.log("successed:", values);
+    console.log(
+      "successed:",
+      values.count,
+      "\n address:",
+      address,
+      "\n totalPrice ",
+      totalPrice
+    );
   };
 
   const onValuesChange = (values) => {
-    setTotalPrice(values.count * price);
+    if (values.count) setTotalPrice(values.count * price);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -49,9 +57,10 @@ function Order() {
         <Form.Item
           label="count"
           name="count"
+          initialValue={1}
           rules={[{ required: true, message: "Please input your count!" }]}
         >
-          <InputNumber  min={1}/>
+          <InputNumber min={1} />
         </Form.Item>
 
         <Form.Item
@@ -60,7 +69,22 @@ function Order() {
         >
           <Input value={address} readOnly />
         </Form.Item>
-        <Address setAddress={setAddress} />
+        <Form.Item
+          label="detailAddress"
+          name="detailAddress"
+          rules={[
+            { required: true, message: "Please input your detailAddress!" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="zipCode"
+          rules={[{ required: true, message: "Please input your zipCode!" }]}
+        >
+          <Input value={zipCode} readOnly />
+        </Form.Item>
+        <Address setAddress={setAddress} setZipCode={setZipCode} />
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button
             type="primary"
