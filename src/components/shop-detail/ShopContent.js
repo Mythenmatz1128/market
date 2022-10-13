@@ -41,7 +41,7 @@ const ShopContent = (props) => {
 
   useEffect(() => {
     const arrDataFromDB = props.test;
-    //console.log(arrDataFromDB)
+    console.log(arrDataFromDB)
     const res = arrDataFromDB.filter((i) => i.productNum === id);
     setProduct(res[0]);
   }, []);

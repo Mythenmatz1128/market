@@ -23,7 +23,8 @@ import BusinessAcception from "./components/managerMyPage/BusinessAcception";
 import BusinessRejection from "./components/managerMyPage/BusinessRejection";
 import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
-
+import ModifyWritng from "./components/writing/ModifyWriting";
+import ShopContent from "./components/shop-detail/ShopContent"
 const DataFromDB = {
   productNum: null,
   title: null,
@@ -140,8 +141,9 @@ function App() {
         {/* <Route path="/third" element={<BuyerMyPage />}></Route>
         <Route path="/third/first" element={<MemberInquiry />}></Route>
         <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
-        <Route path="/shop-detail"></Route> */}
+       
         {/*---판매자 마이 페이지--- */}
+         <Route path="/shop-detail/:productId" element={<ShopContent />}></Route> 
         <Route
           path="/fourth"
           element={
@@ -155,7 +157,7 @@ function App() {
           path="/sixth"
           element={
             <div>
-              <ModifyWriting />
+              <ModifyWritng />
             </div>
           }
         ></Route>
