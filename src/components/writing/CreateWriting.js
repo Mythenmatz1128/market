@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
   Form,
@@ -27,11 +27,12 @@ function CreateWriting() {
     "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
   );
   const [unit, setUnit] = useState(null);
+  const id = useRef(0);
   const imgStyle = {
     textAlign: "center",
     marginTop: "2rem",
   };
-  
+
   const [options, setOptions] = useState(null);
 
   useEffect(() => {
@@ -42,10 +43,9 @@ function CreateWriting() {
   }, []);
 
   const onChange = (value) => {
-     const id = value[value.length - 1];
-    console.log(id);
+    id.current = value[value.length - 1];
     axios
-      .get(`/api/item-category/${id}`, {
+      .get(`/api/item-category/${id.current}`, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -62,15 +62,16 @@ function CreateWriting() {
   };
 
   const onFinish = (values) => {
-    if (fileList.length === 0 || fileList.length === 0) {
+    if (sigList.length === 0 || fileList.length === 0) {
       alert("빈 공간이 있습니다");
       return;
     }
     const formData = new FormData();
-    formData.append("kindGradeId", 432);
-    formData.append("name", "사가가ㅏ사가사가사가");
-    formData.append("price", 10000);
-    formData.append("info", "values.설명");
+    console.log("id", id.current);
+    formData.append("kindGradeId", id.current);
+    formData.append("name", values.상품명);
+    formData.append("price", values.가격);
+    formData.append("info", values.설명);
     sigList.forEach((file) => {
       formData.append("sigImg", file);
     });
@@ -84,7 +85,7 @@ function CreateWriting() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => console.log(response.data))
-      .catch((error)=>alert(error));
+      .catch((error) => alert(error));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -124,7 +125,11 @@ function CreateWriting() {
             }}
           />
         </Form.Item>
-
+        <Form.Item label="상품명" name="상품명">
+          <span>
+            <Input />
+          </span>
+        </Form.Item>
         <Form.Item label="가격" name="가격">
           <span>
             <InputNumber />
@@ -138,13 +143,16 @@ function CreateWriting() {
         <Form.Item label="대표이미지" name="대표이미지">
           <Upload
             beforeUpload={(file) => {
-              setSigList(sigList.concat(file));
+              if (sigList.length < 1) {
+                setSigList((sigList) => sigList.concat(file));
+              }
               return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
             }}
-            maxCount="1"
-            multiple={false}
-            listType="picture-card"
-            file={sigList}
+            listType="picture"
+            maxCount={1.5}
+            onRemove={(file) => {
+              setSigList(sigList.filter((i) => i.uid !== file.uid));
+            }}
           >
             <div>
               <PlusOutlined />
@@ -159,28 +167,29 @@ function CreateWriting() {
           </Upload>
         </Form.Item>
         <Form.Item label="이미지" name="이미지">
-        <Upload
-          maxCount="5"
-          multiple={true}
-          beforeUpload={(file) => {
-            setFileList(fileList.concat(file));
-            return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
-          }}
-          listType="picture-card"
-          fileList={fileList}
-        >
-          <div>
-            <PlusOutlined />
-            <div
-              style={{
-                marginTop: 8,
-              }}
-            >
-              Upload
+          <Upload
+            beforeUpload={(file) => {
+              if (sigList.length <= 4) setFileList(fileList.concat(file));
+              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+            }}
+            listType="picture"
+            maxCount={3}
+            onRemove={(file) => {
+              setFileList(fileList.filter((i) => i.uid !== file.uid));
+            }}
+          >
+            <div>
+              <PlusOutlined />
+              <div
+                style={{
+                  marginTop: 8,
+                }}
+              >
+                Upload
+              </div>
             </div>
-          </div>
-        </Upload>
-      </Form.Item>
+          </Upload>
+        </Form.Item>
         <div>
           <Form.Item label="제출">
             <Button type="primary" htmlType="submit">

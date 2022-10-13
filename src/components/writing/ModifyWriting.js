@@ -24,18 +24,18 @@ function ModifyWritng() {
   const [sigList, setSigList] = useState([]);
   const [options, setOptions] = useState(null);
   const style = { margin: "2rem" };
-  useEffect(() => {
-    axios.get("/api/item-category").then((response) => {
-      console.log(response.data.category);
-      setOptions(response.data.category);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("/api/item-category").then((response) => {
+  //     console.log(response.data.category);
+  //     setOptions(response.data.category);
+  //   });
+  // }, []);
   const onChange = (value) => {
     console.log(value);
-    const id =value[value.length-1]
+    const id = value[value.length - 1];
   };
   const onFinish = (values) => {
-    if (fileList.length === 0 || fileList.length === 0) {
+    if (sigList.length === 0 || fileList.length === 0) {
       alert("빈 공간이 있습니다");
       return;
     }
@@ -83,7 +83,6 @@ function ModifyWritng() {
       <Form.Item label="품목" name="품목">
         <Cascader
           options={options}
-      
           onChange={onChange}
           fieldNames={{
             label: "name",
@@ -100,16 +99,18 @@ function ModifyWritng() {
       <Form.Item label="설명" info="설명">
         <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
       </Form.Item>
-      <Form.Item label="대표이미지" name="대표이미지" >
+      <Form.Item label="대표이미지" name="대표이미지">
         <Upload
           beforeUpload={(file) => {
             setSigList(sigList.concat(file));
             return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
           }}
-          maxCount="1"
-          multiple={false}
-          listType="picture-card"
-          file={sigList}
+        
+          listType="picture"
+          maxCount={1}
+          onRemove={(file) => {
+            setSigList(sigList.filter((i) => i.uid !== file.uid));
+          }}
         >
           <div>
             <PlusOutlined />
@@ -125,14 +126,16 @@ function ModifyWritng() {
       </Form.Item>
       <Form.Item label="이미지" name="이미지">
         <Upload
-          maxCount="5"
-          multiple={true}
           beforeUpload={(file) => {
             setFileList(fileList.concat(file));
             return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
           }}
-          listType="picture-card"
-          fileList={fileList}
+          listType="picture"
+          maxCount={5}
+          onRemove={(file) => {
+            setFileList(fileList.filter((i) => i.uid !== file.uid));
+          }}
+          
         >
           <div>
             <PlusOutlined />

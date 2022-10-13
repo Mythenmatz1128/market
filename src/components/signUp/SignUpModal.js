@@ -36,7 +36,7 @@ const SignUpModal = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <SignUp></SignUp>
+        <SignUp onCancel={handleCancel}></SignUp>
       </Modal>
     </>
   );

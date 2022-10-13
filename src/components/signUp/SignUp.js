@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import axios from "axios";
 import { json } from "react-router-dom";
-function SignUp() {
+function SignUp({ onCancel }) {
   const [address, setAddress] = useState(null); // 주소
   const [jibun, setJibun] = useState(null);
   const [zipCode, setZipCode] = useState(null);
@@ -25,14 +25,17 @@ function SignUp() {
     console.log(object);
     object.road = address;
     object.jibun = jibun;
-    object.zipcode = parseInt(zipCode,10);
+    object.zipcode = parseInt(zipCode, 10);
     const json = JSON.stringify(object);
-    console.log(json)
-    axios.post("/api/user", json, {
+    console.log(json);
+    axios
+      .post("/api/user", json, {
         headers: { "Content-Type": "application/json" },
-      }).then((response) => console.log(response.data));
-      
-   
+      })
+      .then((response) => console.log(response.data))
+      .then(() => alert("가입성공"))
+      .catch((error) => alert("실패"))
+      .then(() => onCancel());
   };
 
   const onFinishFailed = (errorInfo) => {

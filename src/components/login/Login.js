@@ -9,8 +9,6 @@ function Login({ onCancel }) {
   const navigate = useNavigate;
   const [user, setUser] = useRecoilState(userState);
 
-
-
   const style = {
     display: "flex",
     margin: "3rem",
@@ -25,10 +23,13 @@ function Login({ onCancel }) {
       .post("/api/user/login", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => {console.log(response.data) ; response.data ? setUser(object) : console.log("로그인실패")})
-      .then( onCancel)
-      .catch((error) => alert("실패"))
-    
+      .then((response) => {
+        console.log(response.data);
+        response.data ? setUser(object) : console.log("로그인실패");
+      })
+     
+      .then(() => onCancel())
+      .catch((error) => alert("실패"));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -41,7 +42,6 @@ function Login({ onCancel }) {
       style={style}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-    
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -63,7 +63,6 @@ function Login({ onCancel }) {
         >
           <Input.Password />
         </Form.Item>
-       
       </div>
       <div>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
