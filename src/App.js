@@ -63,58 +63,7 @@ arrDataFromDB[2] = {
   score: 9.9,
 };
 
-function MainLayout() {
-  const { Header, Content, Sider } = Layout;
-  const style = {
-    marginTop: "3rem",
-    marginRight: "3rem",
-  };
-  return (
-    <Layout>
-      <div className="titlewithlogin">
-        <div onClick={() => window.location.assign("/")}>
-          <Title></Title>
-        </div>
 
-        <div className="login" style={style}>
-          <LoginModal />
-        </div>
-      </div>
-
-      <Header className="header">
-        <div className="logo" />
-
-        <Menu theme="dark" mode="horizontal">
-          <Menu.Item key="1">
-            <Link to="/marketCondition">
-              <label> 시세</label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Link to="/shop-list">
-              <label> 농산물 </label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/third">
-              <label> 마이페이지 </label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Link to="/fourth">
-              <label> 임시(상품등록) </label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="5">
-            <Link to="/fifth">
-              <label> 임시(상품주문) </label>
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </Header>
-    </Layout>
-  );
-}
 
 function App() {
   const DataFromDB = {
