@@ -2,7 +2,7 @@ import "antd/dist/antd.min.css";
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Avatar, List, Space } from "antd";
 import React, { useState, useEffect } from "react";
-import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
+import ManagerMyPage from "./ManagerMyPage";
 import { useParams } from 'react-router-dom';
 import picture from "../../img/사업자_등록증_양식.jpg";
 
@@ -101,7 +101,7 @@ const data = Array.from({
   userID: arrDataFromDB[i].userID,
 }));
 
-const Business = () => {
+const BusinessAcception = () => {
   const { businessId } = useParams();
   let [num, setNum] = useState(0);
 
@@ -119,7 +119,7 @@ const Business = () => {
         <>
             <ManagerMyPage></ManagerMyPage>
             <div className="list-box" style={style0}>
-              <div className="business-detail" style={style1}>사업자 신청 내역서</div>
+              <div className="business-detail" style={style1}>사업자 신청 승인 내역서</div>
               <table>
                   <thead>
                     <tr>
@@ -137,8 +137,8 @@ const Business = () => {
                       <td>{arrDataFromDB[num].businessName}</td>
                     </tr>
                     <tr>
-                      <th>신청 날짜</th>
-                      <td>{arrDataFromDB[num].createdDate}</td>
+                      <th>승인 날짜</th>
+                      <td>{arrDataFromDB[num].changeDate}</td>
                     </tr>
                     <tr>
                       <th>회원 아이디</th>
@@ -147,15 +147,9 @@ const Business = () => {
                   </tbody>
               </table>
               <img style={imgStyle} src={picture} />
-              <Button className="button1" type="primary" style={style2}>
-                승인
-              </Button>
-              <Button className="button2" type="primary" style={style2}>
-                거부
-              </Button>
               <div className="padding" style={style3}></div>
             </div>
         </>
     );
 }
-export default Business;
+export default BusinessAcception;
