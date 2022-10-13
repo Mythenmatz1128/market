@@ -21,6 +21,8 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 function CreateWriting() {
+  const [fileList, setFileList] = useState([]);
+  const [sigList, setSigList] = useState([]);
   const [url, setUrl] = useState(
     "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
   );
@@ -29,7 +31,7 @@ function CreateWriting() {
     textAlign: "center",
     marginTop: "2rem",
   };
-
+  
   const [options, setOptions] = useState(null);
 
   useEffect(() => {
@@ -40,8 +42,8 @@ function CreateWriting() {
   }, []);
 
   const onChange = (value) => {
-    var id = value[value.length - 1];
-    console.log(value[value.length - 1]);
+     const id = value[value.length - 1];
+    console.log(id);
     axios
       .get(`/api/item-category/${id}`, {
         headers: { "Content-Type": "application/json" },
@@ -60,12 +62,28 @@ function CreateWriting() {
   };
 
   const onFinish = (values) => {
+    if (fileList.length === 0 || fileList.length === 0) {
+      alert("빈 공간이 있습니다");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("kindGradeId", 432);
+
+    formData.append("price", 10000);
+    formData.append("info", "values.설명");
+    sigList.forEach((file) => {
+      formData.append("sigImg", file);
+    });
+    fileList.forEach((file) => formData.append("img", file));
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
+
     axios
-      .get("/gradeCriteria")
-      .then((response) => {
-        setUrl(response.data.path);
+      .post("/api/products", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       })
-      .catch((error) => console.log(error));
+      .then((response) => console.log(response.data));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -116,16 +134,16 @@ function CreateWriting() {
         <Form.Item label="설명" name="설명">
           <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
         </Form.Item>
-        <Form.Item
-          label="대표이미지"
-          name="대표이미지"
-          valuePropName="filelist"
-        >
+        <Form.Item label="대표이미지" name="대표이미지">
           <Upload
+            beforeUpload={(file) => {
+              setSigList(sigList.concat(file));
+              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+            }}
             maxCount="1"
-            action="k"
-            beforeUpload="false"
+            multiple={false}
             listType="picture-card"
+            file={sigList}
           >
             <div>
               <PlusOutlined />
@@ -139,26 +157,29 @@ function CreateWriting() {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="이미지" name="이미지" valuePropName="filelist">
-          <Upload
-            action="and.to"
-            maxCount="5"
-            multiple={true}
-            beforeUpload="false"
-            listType="picture-card"
-          >
-            <div>
-              <PlusOutlined />
-              <div
-                style={{
-                  marginTop: 8,
-                }}
-              >
-                Upload
-              </div>
+        <Form.Item label="이미지" name="이미지">
+        <Upload
+          maxCount="5"
+          multiple={true}
+          beforeUpload={(file) => {
+            setFileList(fileList.concat(file));
+            return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+          }}
+          listType="picture-card"
+          fileList={fileList}
+        >
+          <div>
+            <PlusOutlined />
+            <div
+              style={{
+                marginTop: 8,
+              }}
+            >
+              Upload
             </div>
-          </Upload>
-        </Form.Item>
+          </div>
+        </Upload>
+      </Form.Item>
         <div>
           <Form.Item label="제출">
             <Button type="primary" htmlType="submit">

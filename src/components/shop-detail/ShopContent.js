@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import Review from "./Review";
 import OrderModal from "../order/OrderModal";
 const ShopContent = (props) => {
-  const { id } = useParams();
+
   const style = {
     marginTop: "2rem",
     textAlign: "center",
@@ -38,12 +38,13 @@ const ShopContent = (props) => {
     price: null,
     grade: null,
   });
-
+  const { productNum } = useParams();
   useEffect(() => {
-    const arrDataFromDB = props.test;
-    console.log(arrDataFromDB)
-    const res = arrDataFromDB.filter((i) => i.productNum === id);
+    const arrDataFromDB = props.test ;
+    
+    const res = arrDataFromDB.filter((i) => i.productNum === productNum);
     setProduct(res[0]);
+
   }, []);
 
   return (

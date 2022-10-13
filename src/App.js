@@ -141,9 +141,9 @@ function App() {
         {/* <Route path="/third" element={<BuyerMyPage />}></Route>
         <Route path="/third/first" element={<MemberInquiry />}></Route>
         <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
-       
         {/*---판매자 마이 페이지--- */}
-         <Route path="/shop-detail/:productId" element={<ShopContent />}></Route> 
+
+         <Route path="/shop-detail/:productNum" element={<ShopContent test={arrDataFromDB}></ShopContent>}/>
         <Route
           path="/fourth"
           element={

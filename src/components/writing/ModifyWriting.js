@@ -53,7 +53,7 @@ function ModifyWritng() {
     }
 
     axios
-      .post("/api/product", formData, {
+      .post("/api/products", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => console.log(response.data));
@@ -100,7 +100,7 @@ function ModifyWritng() {
       <Form.Item label="설명" info="설명">
         <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
       </Form.Item>
-      <Form.Item label="대표이미지" name="대표이미지" valuePropName="sigList">
+      <Form.Item label="대표이미지" name="대표이미지" >
         <Upload
           beforeUpload={(file) => {
             setSigList(sigList.concat(file));
