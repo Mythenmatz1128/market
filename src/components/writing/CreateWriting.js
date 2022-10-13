@@ -68,7 +68,7 @@ function CreateWriting() {
     }
     const formData = new FormData();
     formData.append("kindGradeId", 432);
-
+    formData.append("name", "사가가ㅏ사가사가사가");
     formData.append("price", 10000);
     formData.append("info", "values.설명");
     sigList.forEach((file) => {
@@ -83,7 +83,8 @@ function CreateWriting() {
       .post("/api/products", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((response) => console.log(response.data));
+      .then((response) => console.log(response.data))
+      .catch((error)=>alert(error));
   };
 
   const onFinishFailed = (errorInfo) => {
