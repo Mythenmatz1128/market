@@ -14,67 +14,58 @@ import {
   Checkbox,
   Upload,
 } from "antd";
-import ImageUpload from "./ImgaeUpload";
-import { Typography } from "antd";
-import ImgCrop from "antd-img-crop";
+
 import axios from "axios";
-const { Title } = Typography;
-const { RangePicker } = DatePicker;
+import { useEffect } from "react";
 const { TextArea } = Input;
+
 function ModifyWritng() {
+  const [fileList, setFileList] = useState([]);
+  const [sigList, setSigList] = useState([]);
+  const [options, setOptions] = useState(null);
+  const style = { margin: "2rem" };
+  useEffect(() => {
+    axios.get("/api/item-category").then((response) => {
+      console.log(response.data.category);
+      setOptions(response.data.category);
+    });
+  }, []);
+  const onChange = (value) => {
+    console.log(value);
+    const id =value[value.length-1]
+  };
   const onFinish = (values) => {
-    const img=values.이미지
-    delete values.이미지
+    if (fileList.length === 0 || fileList.length === 0) {
+      alert("빈 공간이 있습니다");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("id", 432);
 
-    const sig=values.대표이미지
-    delete values.대표이미지
+    formData.append("price", 10000);
+    formData.append("info", "values.설명");
+    sigList.forEach((file) => {
+      formData.append("sigImg", file);
+    });
+    fileList.forEach((file) => formData.append("img", file));
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
 
-    const json = JSON.stringify(values);
-    const jsonImg = JSON.stringify(img);
-    const jsonSig = JSON.stringify(sig);
-    console.log(json);
-    console.log(jsonImg);
-    console.log(jsonSig);
-    axios.post("http://localhost:3000/api/data", json, {
-      header: { "Content-Type": "application/json" },
-    });
-    axios.post("http://localhost:3000/api/imgdata", jsonImg, {
-      header: { "Content-Type": "multipart/form-data" },
-    });
-    axios.post("http://localhost:3000/api/sigdata", jsonSig, {
-      header: { "Content-Type": "multipart/form-data" },
-    });
+    axios
+      .post("/api/product", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => console.log(response.data));
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  const options = [
-    {
-      value: "과일",
-      label: "과일",
-      children: [
-        {
-          value: "포도",
-          label: "포도",
-          children: [
-            {
-              value: "샤인머스켓",
-              label: "샤인머스켓",
-            },
-            {
-              value: "거봉",
-              label: "거봉",
-            },
-          ],
-        },
-      ],
-    },
-  ];
 
-  const style = { margin: "2rem" };
   return (
     <Form
+      id="1"
       name="basic"
       style={style}
       labelCol={{
@@ -90,24 +81,36 @@ function ModifyWritng() {
       initialValues={{ 품목: "과일/포도/샤인머스켓" }}
     >
       <Form.Item label="품목" name="품목">
-        <Cascader options={options} />
-      </Form.Item>
-      <Form.Item label="등급" name="등급">
-        <Select>
-          <Select.Option value="A">A</Select.Option>
-          <Select.Option value="B">B</Select.Option>
-          <Select.Option value="C">C</Select.Option>
-        </Select>
+        <Cascader
+          options={options}
+      
+          onChange={onChange}
+          fieldNames={{
+            label: "name",
+            value: "id",
+
+            children: "category",
+          }}
+        />
       </Form.Item>
 
-      <Form.Item label="가격" name="가격">
+      <Form.Item label="가격" price="가격">
         <InputNumber />
       </Form.Item>
-      <Form.Item label="설명" name="설명">
+      <Form.Item label="설명" info="설명">
         <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
       </Form.Item>
-      <Form.Item label="대표이미지" name="대표이미지" valuePropName="filelist">
-        <Upload maxCount="1" re beforeUpload="false" listType="picture-card">
+      <Form.Item label="대표이미지" name="대표이미지" valuePropName="sigList">
+        <Upload
+          beforeUpload={(file) => {
+            setSigList(sigList.concat(file));
+            return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+          }}
+          maxCount="1"
+          multiple={false}
+          listType="picture-card"
+          file={sigList}
+        >
           <div>
             <PlusOutlined />
             <div
@@ -120,12 +123,16 @@ function ModifyWritng() {
           </div>
         </Upload>
       </Form.Item>
-      <Form.Item label="이미지" name="이미지" valuePropName="filelist">
+      <Form.Item label="이미지" name="이미지">
         <Upload
           maxCount="5"
           multiple={true}
-          beforeUpload="false"
+          beforeUpload={(file) => {
+            setFileList(fileList.concat(file));
+            return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+          }}
           listType="picture-card"
+          fileList={fileList}
         >
           <div>
             <PlusOutlined />

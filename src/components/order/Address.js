@@ -20,10 +20,12 @@ const Address = (props) => {
         // 주소 선택 이벤트
         selectAddress: (data) => {
             console.log(`
+               
                 주소: ${data.address},
                 우편번호: ${data.zonecode}
             `)
-            props.setAddress(data.address)
+            props.setAddress(data.roadAddress)
+            props.setJibun(data.jibunAddress)
             props.setZipCode(data.zonecode)
             setOpenPostcode(false);
         },

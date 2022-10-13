@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
   Form,
@@ -21,34 +21,44 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 function CreateWriting() {
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState(
+    "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
+  );
+  const [unit, setUnit] = useState(null);
   const imgStyle = {
     textAlign: "center",
     marginTop: "2rem",
-
   };
-  const options = [
-    {
-      value: "과일",
-      label: "과일",
-      children: [
-        {
-          value: "포도",
-          label: "포도",
-          children: [
-            {
-              value: "샤인머스켓",
-              label: "샤인머스켓",
-            },
-            {
-              value: "거봉",
-              label: "거봉",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api/item-category").then((response) => {
+      console.log(response.data.category);
+      setOptions(response.data.category);
+    });
+  }, []);
+
+  const onChange = (value) => {
+    var id = value[value.length - 1];
+    console.log(value[value.length - 1]);
+    axios
+      .get(`/api/item-category/${id}`, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data.result);
+        response.data.result.criteriaSrc
+          ? setUrl(response.data.result.criteriaSrc)
+          : setUrl(
+              "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
+            );
+
+        setUnit(response.data.result.retailUnit);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const onFinish = (values) => {
     axios
       .get("/gradeCriteria")
@@ -65,12 +75,9 @@ function CreateWriting() {
   return (
     <div>
       <div style={imgStyle}>
-        <Image
-          width={600}
-          height={200}
-          src="https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
-        />
+        <Image width={600} height={200} src={url} />
       </div>
+
       <Form
         name="basic"
         style={style}
@@ -86,17 +93,25 @@ function CreateWriting() {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item label="품목" name="품목">
-          <Cascader options={options} />
+          <Cascader
+            options={options}
+            //changeOnSelect
+            onChange={onChange}
+            fieldNames={{
+              label: "name",
+              value: "id",
+
+              children: "category",
+            }}
+          />
         </Form.Item>
-        <Form.Item label="등급" name="등급">
-          <Select>
-            <Select.Option value="A">A</Select.Option>
-            <Select.Option value="B">B</Select.Option>
-            <Select.Option value="C">C</Select.Option>
-          </Select>
-        </Form.Item>
+
         <Form.Item label="가격" name="가격">
-          <InputNumber />
+          <span>
+            <InputNumber />
+
+            <p> 단위 {unit}</p>
+          </span>
         </Form.Item>
         <Form.Item label="설명" name="설명">
           <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />

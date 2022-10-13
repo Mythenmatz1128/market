@@ -1,7 +1,14 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import Address from "../order/Address";
 import { useState } from "react";
+
+import axios from "axios";
+import { json } from "react-router-dom";
 function SignUp() {
+  const [address, setAddress] = useState(null); // 주소
+  const [jibun, setJibun] = useState(null);
+  const [zipCode, setZipCode] = useState(null);
+
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -12,17 +19,25 @@ function SignUp() {
   };
   const btnStyle = {
     marginTop: "1rem",
-    
   };
   const onFinish = (values) => {
-    return <div>회원가입 완료</div>;
+    var object = new Object(values);
+    console.log(object);
+    object.road = address;
+    object.jibun = jibun;
+    object.zipcode = parseInt(zipCode,10);
+    const json = JSON.stringify(object);
+    console.log(json)
+    axios.post("/api/user", json, {
+        headers: { "Content-Type": "application/json" },
+      }).then((response) => console.log(response.data));
+      
+   
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  const [address, setAddress] = useState(null); // 주소
-  const [zipCode, setZipCode] = useState(null);
 
   return (
     <Form
@@ -38,22 +53,22 @@ function SignUp() {
     >
       <div>
         <Form.Item
-          label="Username"
-          name="username"
+          label="name"
+          name="name"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="id"
-          name="id"
+          label="loginId"
+          name="loginId"
           rules={[{ required: true, message: "Please input your Id!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label="password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
@@ -61,9 +76,9 @@ function SignUp() {
         </Form.Item>
 
         <Form.Item
-          label="age"
-          name="age"
-          rules={[{ required: true, message: "Please input your age!" }]}
+          label="birth"
+          name="birth"
+          rules={[{ required: true, message: "Please input your birth!" }]}
         >
           <Input />
         </Form.Item>
@@ -77,17 +92,23 @@ function SignUp() {
         </Form.Item>
 
         <Form.Item
-          label="phone"
-          name="phone"
+          label="phoneNumber"
+          name="phoneNumber"
           rules={[{ required: true, message: "Please input your phone" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="address"
+          label="road"
           rules={[{ required: true, message: "Please input your address!" }]}
         >
           <Input value={address} readOnly />
+        </Form.Item>
+        <Form.Item
+          label="jibun"
+          rules={[{ required: true, message: "Please input your address!" }]}
+        >
+          <Input value={jibun} readOnly />
         </Form.Item>
         <Form.Item
           label="detailAddress"
@@ -99,20 +120,18 @@ function SignUp() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="zipCode"
+          label="zipcode"
           rules={[{ required: true, message: "Please input your zipCode!" }]}
         >
           <Input value={zipCode} readOnly />
         </Form.Item>
-        <Address setAddress={setAddress} setZipCode={setZipCode} />
+        <Address
+          setAddress={setAddress}
+          setZipCode={setZipCode}
+          setJibun={setJibun}
+        />
         <Form.Item style={btnStyle}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            onClick={() => {
-              window.alert("회원가입 성공");
-            }}
-          >
+          <Button type="primary" htmlType="submit">
             회원가입
           </Button>
         </Form.Item>

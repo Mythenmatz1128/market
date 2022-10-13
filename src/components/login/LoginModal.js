@@ -4,6 +4,8 @@ import Login from "./Login";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
 import { useNavigate } from "react-router-dom";
+import { LogoutOutlined } from "@ant-design/icons";
+import axios from "axios";
 const LoginModal = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate;
@@ -31,10 +33,18 @@ const LoginModal = () => {
     setOpen(false);
   };
 
+  const logout = () => {
+    console.log("logout btn is clicked")
+    axios
+    .get("/api/user/logout", {
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((response) => {console.log(response.data) ; if (response.data) setUser(null)})
+  }
   return (
     <>
-      <Button type="primary" onClick={()=>{(user===null)? showModal():setUser(null)}}>
-        {(user===null)?"로그인":`${user.userName}님 로그아웃`}
+      <Button type="primary" onClick={()=>{(user===null)? showModal():logout()}}>
+        {(user===null)?"로그인":`${user.loginId}님 로그아웃`}
       </Button>
       <Modal
         title="로그인"
@@ -42,6 +52,7 @@ const LoginModal = () => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        destroyOnClose="true"
       >
         <Login  onCancel={handleCancel} ></Login>
       </Modal>

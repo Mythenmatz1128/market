@@ -3,7 +3,7 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Avatar, List, Space, Divider, Image, Rate } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
+import PriceComparison from "./PriceComparison";
 import { useParams } from "react-router-dom";
 import Review from "./Review";
 import OrderModal from "../order/OrderModal";
@@ -32,10 +32,11 @@ const ShopContent = (props) => {
     productNum: null,
     title: null,
     description: null,
-    content: null,
+    sellor: null,
     basket: null,
     score: null,
-    commentCount: null,
+    price: null,
+    grade: null,
   });
 
   useEffect(() => {
@@ -82,7 +83,10 @@ const ShopContent = (props) => {
         </div>
       </div>
       <Divider />
+      <PriceComparison price={product.price}/>
+      <Divider />
       <p>각종그래프추가예정</p>
+      <Divider />
       <Review></Review>
     </div>
   );
