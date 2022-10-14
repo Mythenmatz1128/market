@@ -20,7 +20,7 @@ import Chart from 'chart.js/auto';
 import MarketCondition from "./MarketCondition";
 import ShopCascader from "../shop-list/ShopCascader";
 import DateChoice from "../main/DateChoice";
-import LineGraph from "../main/LineGraph"
+import LineGraph from "./LineGraph"
 
 const style0 = {
     marginLeft: "20%",
