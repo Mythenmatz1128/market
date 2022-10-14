@@ -25,7 +25,7 @@ function MainLayout() {
 
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="1">
-            <Link to="/first">
+            <Link to="/marketCondition">
               <label> 시세</label>
             </Link>
           </Menu.Item>

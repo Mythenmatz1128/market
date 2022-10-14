@@ -46,10 +46,19 @@ const style5 = {
     paddingBottom: "20%",
 };
 
-function DailyPriceInquiry(props){
-    const [name, setName] = useState([]);
+function DailyPriceInquiry(){
+    const [data1, setData1] = useState([]);
+    const [data2, setData2] = useState([]);
+    const [date, setDate] = useState([]);
+    const [options, setOptions] = useState([]);
+    const status1 = "일간-소매"; 
+    const status2 = "일간-도매"; 
 
-    const setData = (e) => {
+    function setDatas(){
+        console.log(options);
+        console.log(date);
+        setData1([status1,options,date]);
+        setData2([status2,options,date]);
     }
 
     return (      
@@ -69,7 +78,7 @@ function DailyPriceInquiry(props){
                     layout="horizontal"
                 >
                     <Form.Item label="품목">
-                    <ShopCascader></ShopCascader>
+                    <ShopCascader setOptions = {setOptions}></ShopCascader>
                     </Form.Item>
                     <Form.Item label="등급">
                     <Select>
@@ -80,12 +89,13 @@ function DailyPriceInquiry(props){
                     </Form.Item>
                 </Form>
                 <div style = {style3}>
-                    <DateChoice></DateChoice>
-                    <Button className="button1" type="primary" style={style4} onClick={setData}>
+                    <DateChoice setDate = {setDate}></DateChoice>
+                    <Button className="button1" type="primary" style={style4} onClick={setDatas}>
                         조회
                     </Button>
                 </div>
-                <LineGraph></LineGraph>
+                <LineGraph data = {data1}></LineGraph>
+                <LineGraph data = {data2}></LineGraph>
             </div>
             <div className="padding" style={style5}></div>
         </div>

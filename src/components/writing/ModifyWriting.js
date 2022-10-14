@@ -36,13 +36,13 @@ function ModifyWritng() {
     console.log(jsonImg);
     console.log(jsonSig);
     axios.post("http://localhost:3000/api/data", json, {
-      header: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
     });
     axios.post("http://localhost:3000/api/imgdata", jsonImg, {
-      header: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data" },
     });
     axios.post("http://localhost:3000/api/sigdata", jsonSig, {
-      header: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data" },
     });
   };
 

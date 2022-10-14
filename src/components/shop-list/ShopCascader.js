@@ -24,18 +24,28 @@ const options = [
   },
 ];
 
-const onChange = (value) => {
-  console.log(value);
-}; // Just show the latest item.
+// const onChange = (value,props) => {
+//   console.log(value);
+//   console.log(props.options);
+//   //props.setOptions(value);
+// }; // Just show the latest item.
 
-const displayRender = (labels) => labels[labels.length - 1];
+// const displayRender = (labels) => labels[labels.length - 1];
 
-const ShopCascader = () => (
-  <Cascader
-    options={options}
-    displayRender={displayRender}
-    onChange={onChange}
-  />
-);
+function ShopCascader(props){
+  const onChange = (value) => {
+    console.log(value);
+    props.setOptions(value);
+  }; // Just show the latest item.
+  
+  const displayRender = (labels) => labels[labels.length - 1];
 
+  return(
+    <Cascader
+      options={options}
+      displayRender={displayRender}
+      onChange={onChange}
+    />
+  );
+};
 export default ShopCascader;
