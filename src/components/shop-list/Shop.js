@@ -4,6 +4,8 @@ import React from "react";
 import ShopList from "./ShopList";
 import ShopCascader from "./ShopCascader";
 import ShopSelect from "./ShopSelect";
+import { useRef, useState } from "react";
+import ShopSearch from "./ShopSearch";
 const { Search } = Input;
 const suffix = (
   <AudioOutlined
@@ -23,32 +25,38 @@ const style = {
   textAlign: "right",
 };
 
+const Shop = () => {
+  const casId = useRef(["", "", "", ""]);
+  const selId = useRef("latest");
+  const searchText = useRef("");
+  const [serverData, setServerData] = useState([]);
+  return (
+    <div>
+      <div style={CasStyle}>
+        <ShopCascader casId={casId} />
+        <ShopSelect selId={selId}></ShopSelect>
+      </div>
 
+      <div style={style}>
+        <Space direction="vertical">
+          <ShopSearch
+            casId={casId}
+            selId={selId}
+            searchText={searchText}
+            serverData={serverData}
+            setServerData={setServerData}
+          ></ShopSearch>
+        </Space>
+      </div>
 
-const onSearch = (value) => console.log(value);
-
-const Shop = (props) => (
-  <div>
-    <div style={CasStyle}>
-      <ShopCascader />
-      <ShopSelect></ShopSelect>
+      <ShopList
+        casId={casId}
+        selId={selId}
+        serverData={serverData}
+        setServerData={setServerData}
+      ></ShopList>
     </div>
-    
-    <div style={style}>
-    
-      <Space direction="vertical">
-        <Search
-          placeholder="input search text"
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={onSearch}
-        />
-      </Space>
-    </div>
-
-    <ShopList test={props.test} ></ShopList>
-  </div>
-);
+  );
+};
 
 export default Shop;

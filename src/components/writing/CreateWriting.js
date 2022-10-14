@@ -52,9 +52,7 @@ function CreateWriting() {
         console.log(response.data.result);
         response.data.result.criteriaSrc
           ? setUrl(response.data.result.criteriaSrc)
-          : setUrl(
-              "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
-            );
+          : setUrl(null);
 
         setUnit(response.data.result.retailUnit);
       })
@@ -72,10 +70,16 @@ function CreateWriting() {
     formData.append("name", values.상품명);
     formData.append("price", values.가격);
     formData.append("info", values.설명);
+
     sigList.forEach((file) => {
+      console.log(file);
       formData.append("sigImg", file);
     });
-    fileList.forEach((file) => formData.append("img", file));
+
+    fileList.forEach((file) => {
+      console.log(file);
+      formData.append("img", file);
+    });
     for (let key of formData.keys()) {
       console.log(key, ":", formData.get(key));
     }
@@ -85,7 +89,7 @@ function CreateWriting() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => console.log(response.data))
-      .catch((error) => alert(error));
+      .catch((error) => alert(error.response.data.msg));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -144,6 +148,7 @@ function CreateWriting() {
           <Upload
             beforeUpload={(file) => {
               if (sigList.length < 1) {
+                console.log("file", file);
                 setSigList((sigList) => sigList.concat(file));
               }
               return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
@@ -169,11 +174,12 @@ function CreateWriting() {
         <Form.Item label="이미지" name="이미지">
           <Upload
             beforeUpload={(file) => {
+              console.log("file", file);
               if (sigList.length <= 4) setFileList(fileList.concat(file));
               return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
             }}
             listType="picture"
-            maxCount={3}
+            maxCount={5}
             onRemove={(file) => {
               setFileList(fileList.filter((i) => i.uid !== file.uid));
             }}
