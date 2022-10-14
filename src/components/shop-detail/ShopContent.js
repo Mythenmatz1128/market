@@ -3,12 +3,12 @@ import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Avatar, List, Space, Divider, Image, Rate } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ManagerMyPage from "../../components/managerMyPage/ManagerMyPage";
+import PriceComparison from "./PriceComparison";
 import { useParams } from "react-router-dom";
 import Review from "./Review";
 import OrderModal from "../order/OrderModal";
 const ShopContent = (props) => {
-  const { id } = useParams();
+
   const style = {
     marginTop: "2rem",
     textAlign: "center",
@@ -32,17 +32,19 @@ const ShopContent = (props) => {
     productNum: null,
     title: null,
     description: null,
-    content: null,
+    sellor: null,
     basket: null,
     score: null,
-    commentCount: null,
+    price: null,
+    grade: null,
   });
-
+  const { productNum } = useParams();
   useEffect(() => {
-    const arrDataFromDB = props.test;
-    //console.log(arrDataFromDB)
-    const res = arrDataFromDB.filter((i) => i.productNum === id);
+    const arrDataFromDB = props.test ;
+    
+    const res = arrDataFromDB.filter((i) => i.productNum === productNum);
     setProduct(res[0]);
+
   }, []);
 
   return (
@@ -82,7 +84,10 @@ const ShopContent = (props) => {
         </div>
       </div>
       <Divider />
+      <PriceComparison price={product.price}/>
+      <Divider />
       <p>각종그래프추가예정</p>
+      <Divider />
       <Review></Review>
     </div>
   );

@@ -14,20 +14,27 @@ const style = {
   textAlign: "left",
 };
 const Review = () => {
-  const [comments, setComments] = useRecoilState(commentState);
+  const [comments, setComments] = useState([]);
+
 
   function remove(id) {
     const res = comments.filter((i) => i.uid !== id);
-    console.log("res ",res)
-    console.log("delete uid: ",id)
+    console.log("res ", res);
+    console.log("delete uid: ", id);
     setComments(res);
-    return comments
+  
+
   }
- 
 
   return (
     <>
-      {<CommentList comments={comments} remove={remove} setComments={setComments}/>}
+      {
+        <CommentList
+          comments={comments}
+          remove={remove}
+          setComments={setComments}
+        />
+      }
       <ReviewWriting comments={comments} setComments={setComments} />
     </>
   );

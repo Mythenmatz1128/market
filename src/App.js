@@ -23,7 +23,48 @@ import BusinessAcception from "./components/managerMyPage/BusinessAcception";
 import BusinessRejection from "./components/managerMyPage/BusinessRejection";
 import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
-import ModifyWriting from "./components/writing/ModifyWriting"
+import ModifyWritng from "./components/writing/ModifyWriting";
+import ShopContent from "./components/shop-detail/ShopContent"
+const DataFromDB = {
+  productNum: null,
+  title: null,
+  description: null,
+  content: null,
+  basket: null,
+  score: null,
+  commentCount: null,
+};
+const arrDataFromDB = [{ DataFromDB }];
+
+arrDataFromDB[0] = {
+  productNum: "0001",
+  title: "싱싱한 사과",
+  description: "강대현",
+  content: "300원",
+  commentCount: 12,
+  basket: 14,
+  score: 9.7,
+};
+arrDataFromDB[1] = {
+  productNum: "0002",
+  title: "싱싱한 포도",
+  description: "강병관",
+  content: "3000원",
+  commentCount: 13,
+  basket: 15,
+  score: 9.8,
+};
+arrDataFromDB[2] = {
+  productNum: "0003",
+  title: "싱싱한 바나나",
+  description: "성호창",
+  content: "30000원",
+  commentCount: 14,
+  basket: 16,
+  score: 9.9,
+};
+
+
 
 function App() {
   const DataFromDB = {
@@ -42,7 +83,7 @@ function App() {
     productNum: "0001",
     title: "싱싱한 사과",
     description: "이사과는 뉴턴의 사과입니다",
-    price: "300원",
+    price: 30000,
     sellor: "강대현",
     basket: 14,
     score: 9.7,
@@ -52,7 +93,7 @@ function App() {
     productNum: "0002",
     title: "싱싱한 포도",
     description: "이포도는 18브릭스 입니다",
-    price: "3000원",
+    price: 3000,
     sellor: "강병관",
     basket: 15,
     score: 9.8,
@@ -62,7 +103,7 @@ function App() {
     productNum: "0003",
     title: "싱싱한 바나나",
     description: "원숭이가 떨어트린 바나나",
-    price: "30000원",
+    price: 30000,
     sellor: "성호창",
     basket: 16,
     score: 9.9,
@@ -100,8 +141,9 @@ function App() {
         {/* <Route path="/third" element={<BuyerMyPage />}></Route>
         <Route path="/third/first" element={<MemberInquiry />}></Route>
         <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
-        <Route path="/shop-detail"></Route> */}
         {/*---판매자 마이 페이지--- */}
+
+         <Route path="/shop-detail/:productNum" element={<ShopContent test={arrDataFromDB}></ShopContent>}/>
         <Route
           path="/fourth"
           element={
@@ -115,7 +157,7 @@ function App() {
           path="/sixth"
           element={
             <div>
-              <ModifyWriting />
+              <ModifyWritng />
             </div>
           }
         ></Route>

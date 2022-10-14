@@ -1,7 +1,7 @@
 import { DatePicker, Space } from "antd";
 import React, { useState } from "react";
-const { RangePicker } = DatePicker
 
+const { RangePicker } = DatePicker
 
 function DateChoice(props) {
     const [dates, setDates] = useState(null);
@@ -29,3 +29,4 @@ function DateChoice(props) {
     );
   }
   export default DateChoice
+

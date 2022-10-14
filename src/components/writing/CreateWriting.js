@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import {
   Form,
@@ -21,41 +21,71 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 function CreateWriting() {
-  const [url, setUrl] = useState();
+  const [fileList, setFileList] = useState([]);
+  const [sigList, setSigList] = useState([]);
+  const [url, setUrl] = useState(
+    "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
+  );
+  const [unit, setUnit] = useState(null);
+  const id = useRef(0);
   const imgStyle = {
     textAlign: "center",
     marginTop: "2rem",
-
   };
-  const options = [
-    {
-      value: "과일",
-      label: "과일",
-      children: [
-        {
-          value: "포도",
-          label: "포도",
-          children: [
-            {
-              value: "샤인머스켓",
-              label: "샤인머스켓",
-            },
-            {
-              value: "거봉",
-              label: "거봉",
-            },
-          ],
-        },
-      ],
-    },
-  ];
-  const onFinish = (values) => {
+
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api/item-category").then((response) => {
+      console.log(response.data.category);
+      setOptions(response.data.category);
+    });
+  }, []);
+
+  const onChange = (value) => {
+    id.current = value[value.length - 1];
     axios
-      .get("/gradeCriteria")
+      .get(`/api/item-category/${id.current}`, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((response) => {
-        setUrl(response.data.path);
+        console.log(response.data.result);
+        response.data.result.criteriaSrc
+          ? setUrl(response.data.result.criteriaSrc)
+          : setUrl(
+              "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
+            );
+
+        setUnit(response.data.result.retailUnit);
       })
       .catch((error) => console.log(error));
+  };
+
+  const onFinish = (values) => {
+    if (sigList.length === 0 || fileList.length === 0) {
+      alert("빈 공간이 있습니다");
+      return;
+    }
+    const formData = new FormData();
+    console.log("id", id.current);
+    formData.append("kindGradeId", id.current);
+    formData.append("name", values.상품명);
+    formData.append("price", values.가격);
+    formData.append("info", values.설명);
+    sigList.forEach((file) => {
+      formData.append("sigImg", file);
+    });
+    fileList.forEach((file) => formData.append("img", file));
+    for (let key of formData.keys()) {
+      console.log(key, ":", formData.get(key));
+    }
+
+    axios
+      .post("/api/products", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => alert(error));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -65,12 +95,9 @@ function CreateWriting() {
   return (
     <div>
       <div style={imgStyle}>
-        <Image
-          width={600}
-          height={200}
-          src="https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
-        />
+        <Image width={600} height={200} src={url} />
       </div>
+
       <Form
         name="basic"
         style={style}
@@ -86,31 +113,46 @@ function CreateWriting() {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item label="품목" name="품목">
-          <Cascader options={options} />
+          <Cascader
+            options={options}
+            //changeOnSelect
+            onChange={onChange}
+            fieldNames={{
+              label: "name",
+              value: "id",
+
+              children: "category",
+            }}
+          />
         </Form.Item>
-        <Form.Item label="등급" name="등급">
-          <Select>
-            <Select.Option value="A">A</Select.Option>
-            <Select.Option value="B">B</Select.Option>
-            <Select.Option value="C">C</Select.Option>
-          </Select>
+        <Form.Item label="상품명" name="상품명">
+          <span>
+            <Input />
+          </span>
         </Form.Item>
         <Form.Item label="가격" name="가격">
-          <InputNumber />
+          <span>
+            <InputNumber />
+
+            <p> 단위 {unit}</p>
+          </span>
         </Form.Item>
         <Form.Item label="설명" name="설명">
           <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
         </Form.Item>
-        <Form.Item
-          label="대표이미지"
-          name="대표이미지"
-          valuePropName="filelist"
-        >
+        <Form.Item label="대표이미지" name="대표이미지">
           <Upload
-            maxCount="1"
-            action="k"
-            beforeUpload="false"
-            listType="picture-card"
+            beforeUpload={(file) => {
+              if (sigList.length < 1) {
+                setSigList((sigList) => sigList.concat(file));
+              }
+              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+            }}
+            listType="picture"
+            maxCount={1.5}
+            onRemove={(file) => {
+              setSigList(sigList.filter((i) => i.uid !== file.uid));
+            }}
           >
             <div>
               <PlusOutlined />
@@ -124,13 +166,17 @@ function CreateWriting() {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item label="이미지" name="이미지" valuePropName="filelist">
+        <Form.Item label="이미지" name="이미지">
           <Upload
-            action="and.to"
-            maxCount="5"
-            multiple={true}
-            beforeUpload="false"
-            listType="picture-card"
+            beforeUpload={(file) => {
+              if (sigList.length <= 4) setFileList(fileList.concat(file));
+              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+            }}
+            listType="picture"
+            maxCount={3}
+            onRemove={(file) => {
+              setFileList(fileList.filter((i) => i.uid !== file.uid));
+            }}
           >
             <div>
               <PlusOutlined />

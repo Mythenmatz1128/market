@@ -6,29 +6,15 @@ import CommentList from "./CommentList.js";
 import Editor from "./Editor.js";
 import { RestOutlined, FormOutlined } from "@ant-design/icons";
 import uuid from "react-uuid";
+import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
+import { resolveOnChange } from "antd/lib/input/Input.js";
 const { TextArea } = Input;
 const ReviewWriting = ({ comments, setComments, comment, remove }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState(comment!=null?comment.value:"");
+  const [value, setValue] = useState(comment != null ? comment.value : "");
   const [count, setCount] = useState();
-
-  const style = {
-    textAlign: "left",
-  };
-  const date = new Date();
-  let [uid, setUid] = useState(uuid);
-
-  function update(){
-    new Promise((resolve)=>{
-        remove(comment.uid)
-    }).then(handleSubmit)
-  }
-
-
-    const  handleSubmit = async() => {
-    if (!value) return;
-    if (comment) remove(comment.uid);
-    setUid(uuid());
+  function update() {
+    setUid(comments.uid);
     setSubmitting(true);
     setTimeout(
       () => {
@@ -39,7 +25,7 @@ const ReviewWriting = ({ comments, setComments, comment, remove }) => {
           {
             value: value,
             count: count,
-            uid: uid + 1,
+            uid: uid,
             author: "Han Solo",
             avatar: "https://joeschmoe.io/api/v1/random",
             content: <span style={style}>{value}</span>,
@@ -53,6 +39,47 @@ const ReviewWriting = ({ comments, setComments, comment, remove }) => {
 
       0
     );
+  }
+
+  const style = {
+    textAlign: "left",
+  };
+  const date = new Date();
+  let [uid, setUid] = useState(uuid);
+
+  const handleSubmit = async() => {
+    if (!value) return;
+
+    if (comment) {
+     await (remove(comment.uid));
+      console.log("시벌2222",comments)
+    }
+    setUid(uuid());
+    setSubmitting(true);
+ 
+    
+        setSubmitting(false);
+        setValue("");
+        console.log("시벌1111",comments)
+        setComments([
+          ...comments,
+          {
+            value: value,
+            count: count,
+            uid: uid,
+            author: "Han Solo",
+            avatar: "https://joeschmoe.io/api/v1/random",
+            content: <span style={style}>{value}</span>,
+
+            rate: <Rate allowHalf disabled value={count}></Rate>,
+
+            datetime: date.toLocaleString(),
+          },
+        ]);
+    
+
+      
+
   };
 
   const handleChange = (e) => {

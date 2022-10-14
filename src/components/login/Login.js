@@ -3,16 +3,12 @@ import SignUpModal from "../signUp/SignUpModal";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-function Login({onCancel}) {
-  
+import { json, useNavigate } from "react-router-dom";
+import axios from "axios";
+function Login({ onCancel }) {
   const navigate = useNavigate;
   const [user, setUser] = useRecoilState(userState);
-  const [userData, setUserData] = useState({
-    userName: "bkkang",
-    uid: "asd1234",
-    grade: "sellor",
-  });
+
   const style = {
     display: "flex",
     margin: "3rem",
@@ -20,11 +16,20 @@ function Login({onCancel}) {
     textAlign: "center",
   };
   const onFinish = (values) => {
-    console.log("Success:", values);
-    setUser(userData);
-    onCancel();
- 
-  
+    var object = new Object(values);
+
+    const json = JSON.stringify(object);
+    axios
+      .post("/api/user/login", json, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data);
+        response.data ? setUser(object) : console.log("로그인실패");
+      })
+     
+      .then(() => onCancel())
+      .catch((error) => alert("실패"));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -37,7 +42,6 @@ function Login({onCancel}) {
       style={style}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -45,26 +49,19 @@ function Login({onCancel}) {
     >
       <div>
         <Form.Item
-          label="Username"
-          name="username"
+          label="loginId"
+          name="loginId"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label="password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
           <Input.Password />
-        </Form.Item>
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember</Checkbox>
         </Form.Item>
       </div>
       <div>
