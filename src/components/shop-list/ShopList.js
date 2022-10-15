@@ -3,6 +3,7 @@ import { Avatar, List, Space } from "antd";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const imgStyle = {
   width: "200px",
@@ -73,7 +74,7 @@ function ShopList({ selId, casId, serverData, setServerData }) {
         onChange: (page) => {
           console.log(page);
         },
-        pageSize: 2,
+        pageSize: 5,
       }}
       dataSource={serverData}
       renderItem={(item) => {
@@ -103,7 +104,12 @@ function ShopList({ selId, casId, serverData, setServerData }) {
           >
             <List.Item.Meta
               title={
-                <a href={`shop-detail/${item.productId}`}>{item.productName}</a>
+                <p>
+                  <Link to={`shop-detail/${item.productId}`}>
+                    {" "}
+                    {item.productName}
+                  </Link>
+                </p>
               }
               description={item.sellerName}
             />

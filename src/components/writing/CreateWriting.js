@@ -12,6 +12,7 @@ import {
   Image,
   Upload,
 } from "antd";
+import { useNavigate } from "react-router-dom";
 import ImageUpload from "./ImgaeUpload";
 import { Typography } from "antd";
 import ImgCrop from "antd-img-crop";
@@ -35,6 +36,11 @@ function CreateWriting() {
 
   const [options, setOptions] = useState(null);
 
+  const navigate = useNavigate();
+
+  const refreshPage = () => {
+    navigate(0);
+  };
   useEffect(() => {
     axios.get("/api/item-category").then((response) => {
       console.log(response.data.category);
@@ -89,6 +95,12 @@ function CreateWriting() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => console.log(response.data))
+      .then(() => {
+        alert("상품 등록 성공");
+      })
+      .then(() => {
+        refreshPage();
+      })
       .catch((error) => alert(error.response.data.msg));
   };
 
@@ -142,7 +154,7 @@ function CreateWriting() {
           </span>
         </Form.Item>
         <Form.Item label="설명" name="설명">
-          <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
+          <TextArea rows={10} placeholder="maxLength is 6" maxLength={300} />
         </Form.Item>
         <Form.Item label="대표이미지" name="대표이미지">
           <Upload
@@ -155,6 +167,7 @@ function CreateWriting() {
             }}
             listType="picture"
             maxCount={1.5}
+            onPreview={() => false}
             onRemove={(file) => {
               setSigList(sigList.filter((i) => i.uid !== file.uid));
             }}
@@ -173,6 +186,7 @@ function CreateWriting() {
         </Form.Item>
         <Form.Item label="이미지" name="이미지">
           <Upload
+            onPreview={() => false}
             beforeUpload={(file) => {
               console.log("file", file);
               if (sigList.length <= 4) setFileList(fileList.concat(file));

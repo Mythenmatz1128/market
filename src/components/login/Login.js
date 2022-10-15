@@ -2,13 +2,14 @@ import { Button, Checkbox, Form, Input } from "antd";
 import SignUpModal from "../signUp/SignUpModal";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { json, useNavigate } from "react-router-dom";
 import axios from "axios";
 function Login({ onCancel }) {
   const navigate = useNavigate;
   const [user, setUser] = useRecoilState(userState);
-
+  
   const style = {
     display: "flex",
     margin: "3rem",
@@ -25,9 +26,13 @@ function Login({ onCancel }) {
       })
       .then((response) => {
         console.log(response.data);
-        response.data ? setUser(object) : console.log("로그인실패");
+        if (response.data) {
+          setUser(object);
+        } else {
+          console.log("로그인실패");
+        }
       })
-     
+
       .then(() => onCancel())
       .catch((error) => alert("실패"));
   };
@@ -35,6 +40,11 @@ function Login({ onCancel }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  useEffect(() => {
+    if (user) {
+      onFinish();
+    }
+  }, []);
 
   return (
     <Form
