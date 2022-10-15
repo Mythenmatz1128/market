@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu,Spin } from "antd";
 import "antd/dist/antd.min.css";
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
@@ -25,6 +25,7 @@ import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
 import ModifyWritng from "./components/writing/ModifyWriting";
 import ShopContent from "./components/shop-detail/ShopContent";
+
 const DataFromDB = {
   productNum: null,
   title: null,
@@ -107,8 +108,9 @@ function App() {
     score: 9.9,
     grade: "상",
   };
-
+ 
   return (
+ 
     <BrowserRouter>
       <MainLayout></MainLayout>
       <Routes>
@@ -185,6 +187,7 @@ function App() {
         ></Route>
       </Routes>
     </BrowserRouter>
+
   );
 }
 export default App;

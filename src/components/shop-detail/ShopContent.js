@@ -9,6 +9,9 @@ import {
   Image,
   Rate,
   Typography,
+  Skeleton,
+  Spin,
+  Card,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -19,6 +22,7 @@ import OrderModal from "../order/OrderModal";
 import axios from "axios";
 const ShopContent = () => {
   const { Text, Link, Title } = Typography;
+
   const style = {
     marginTop: "2rem",
     textAlign: "center",
@@ -27,7 +31,7 @@ const ShopContent = () => {
     alignItems: "center",
   };
   const dataStyle = {
-    color: "red",
+    fontWeight: "bolder",
   };
   const imgStyle = {
     textAlign: "center",
@@ -84,11 +88,17 @@ const ShopContent = () => {
     sellerRank: null,
     sellerPercent: null,
     ordinalImgSrc: [],
+    signatureImgSrc: null,
+    productAvgPrice: null,
+    latestMarketPrice: {
+      retail: { price: null, latestDate: null },
+      wholesale: { price: null, latestDate: null },
+    },
+    retailUnit: null,
   });
-
+  const [isloading, setIsLoading] = useState(true);
   const { productNum } = useParams();
   useEffect(() => {
-    console.log("productNum", productNum);
     axios
       .get(`/api/products/${productNum}`, {
         headers: { "Content-Type": "application/json" },
@@ -97,93 +107,88 @@ const ShopContent = () => {
         const data = response.data.result;
         console.log(data);
         setProduct(data);
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <div style={style}>
-      <div style={boxStyle}>
-        <div style={metaStyle}>
-          <Title>
-            <Text>{product.productName}</Text>
-          </Title>
-
-          <Title level={3}>
-            판매자
-            <Text type="warning">
+      <Spin spinning={isloading} size="large">
+        <div style={boxStyle}>
+          <Card title={product.productName} style={{ width: 300 }}>
+            <p>
               {" "}
-              {product.sellerName} {product.sellerRank} ({product.sellerPercent}
-              )
-            </Text>
-          </Title>
-          <Title level={3}>
-            단위 당<Text type="danger"> {product.price}</Text> 원
-          </Title>
-          <Title level={5}>
-            등록일자
-            <Text mark> {product.createdDate}</Text> 일
-          </Title>
-        </div>
+              판매자
+              <Text type="danger"> {product.sellerName} </Text>
+            </p>
+            <p>
+              판매자 등급{" "}
+              <Text type="danger">
+                {product.sellerRank} 상위({product.sellerPercent})%
+              </Text>
+            </p>
+            <p>
+              {product.retailUnit} 당{" "}
+              <Text type="danger"> {product.price}</Text> 원
+            </p>
+            <p>
+              사이트 내 평균 가격은 {product.retailUnit} 당{" "}
+              <Text type="danger"> {product.productAvgPrice}</Text> 원
+            </p>
+            <p>
+              등록일자
+              <Text type="danger"> {product.createdDate}</Text> 일
+            </p>
+          </Card>
 
-        <Image
-          width={200}
-          height={200}
-          src="https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
+          <Image
+            width={250}
+            height={250}
+            src={`http://localhost:8080/${product.signatureImgSrc}`}
+          />
+          <div style={buttonBoxStyle}>
+            <OrderModal style={btnStyle}></OrderModal>
+
+            <Button style={btnStyle}>
+              {" "}
+              <Link to="/shop-list">장바구니 추가</Link>{" "}
+            </Button>
+          </div>
+        </div>
+        <Divider />
+        <div style={infoStyle}>
+          <h3> {product.info}</h3>
+        </div>
+        <Divider />
+        <div style={boxStyle}>
+          <div style={imgArrStyle}>
+            {Object.values(product.ordinalImgSrc).map((value, i) => {
+              return (
+                <div key={i}>
+                  <Image
+                    width="800px"
+                    height="600px"
+                    src={`http://localhost:8080/${product.ordinalImgSrc[i]}`}
+                  ></Image>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <Divider />
+
+        <PriceComparison
+          price={product.price}
+          retail={product.latestMarketPrice.retail}
+          wholesale={product.latestMarketPrice.wholesale}
         />
-        <div style={buttonBoxStyle}>
-          <OrderModal style={btnStyle}></OrderModal>
-
-          <Button style={btnStyle}>
-            {" "}
-            <Link to="/shop-list">장바구니 추가</Link>{" "}
-          </Button>
-        </div>
-      </div>
-
-      <Divider />
-      <div style={infoStyle}>
-        {/* <div>
-          {Object.keys(product).map((key, i) => {
-            return <h2 key={i}>{key} : </h2>;
-          })}
-        </div>
-
-        <div>
-          {Object.values(product).map((value, i) => {
-            return (
-              <h2 key={i} style={dataStyle}>
-                {value}{" "}
-              </h2>
-            );
-          })}
+        <Divider />
+        <p>각종그래프추가예정</p>
+        <Divider />
+        {/* <div style={commetStyle}>
+         <Review></Review>
         </div> */}
-
-        <h3> {product.info}</h3>
-      </div>
-      <Divider />
-      <div style={boxStyle}>
-        <div style={imgArrStyle}>
-          {Object.values(product.ordinalImgSrc).map((value, i) => {
-            return (
-              <div>
-                <Image
-                  width="800px"
-                  height="600px"
-                  src={`http://localhost:8080/${product.ordinalImgSrc[i]}`}
-                ></Image>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <Divider />
-      <PriceComparison price={product.price} />
-      <Divider />
-      <p>각종그래프추가예정</p>
-      <Divider />
-      <div style={commetStyle}>
-        <Review></Review>
-      </div>
+      </Spin>
     </div>
   );
 };
