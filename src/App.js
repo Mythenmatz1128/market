@@ -24,7 +24,7 @@ import BusinessRejection from "./components/managerMyPage/BusinessRejection";
 import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
 import ModifyWritng from "./components/writing/ModifyWriting";
-import ShopContent from "./components/shop-detail/ShopContent"
+import ShopContent from "./components/shop-detail/ShopContent";
 const DataFromDB = {
   productNum: null,
   title: null,
@@ -64,8 +64,6 @@ arrDataFromDB[2] = {
   score: 9.9,
 };
 
-
-
 function App() {
   const DataFromDB = {
     productNum: null,
@@ -87,7 +85,7 @@ function App() {
     sellor: "강대현",
     basket: 14,
     score: 9.7,
-    grade: "상"
+    grade: "상",
   };
   arrDataFromDB[1] = {
     productNum: "0002",
@@ -97,7 +95,7 @@ function App() {
     sellor: "강병관",
     basket: 15,
     score: 9.8,
-    grade: "상"
+    grade: "상",
   };
   arrDataFromDB[2] = {
     productNum: "0003",
@@ -107,7 +105,7 @@ function App() {
     sellor: "성호창",
     basket: 16,
     score: 9.9,
-    grade: "상"
+    grade: "상",
   };
 
   return (
@@ -124,26 +122,50 @@ function App() {
           }
         ></Route>
         <Route path="/marketCondition" element={<MarketCondition />}></Route>
-        <Route path="/marketCondition/DailyPriceInquiry" element={<DailyPriceInquiry />}></Route>
+        <Route
+          path="/marketCondition/DailyPriceInquiry"
+          element={<DailyPriceInquiry />}
+        ></Route>
         <Route
           path="/shop-list"
           element={<Shop test={arrDataFromDB} />}
         ></Route>
         {/*---관리자 마이 페이지--- */}
         <Route path="/third" element={<ManagerMyPage />}></Route>
-        <Route path="/third/first" element={<BusinessApplicationInquiry />}></Route>
-        <Route path="/third/first/business-detail/:businessId" element={<BusinessDefault />}></Route>
-        <Route path="/third/second" element={<BusinessAcceptionInquiry />}></Route>
-        <Route path="/third/second/business-detail/:businessId" element={<BusinessAcception />}></Route>
-        <Route path="/third/third" element={<BusinessRejectionInquiry />}></Route>
-        <Route path="/third/third/business-detail/:businessId" element={<BusinessRejection />}></Route>
+        <Route
+          path="/third/first"
+          element={<BusinessApplicationInquiry />}
+        ></Route>
+        <Route
+          path="/third/first/business-detail/:businessId"
+          element={<BusinessDefault />}
+        ></Route>
+        <Route
+          path="/third/second"
+          element={<BusinessAcceptionInquiry />}
+        ></Route>
+        <Route
+          path="/third/second/business-detail/:businessId"
+          element={<BusinessAcception />}
+        ></Route>
+        <Route
+          path="/third/third"
+          element={<BusinessRejectionInquiry />}
+        ></Route>
+        <Route
+          path="/third/third/business-detail/:businessId"
+          element={<BusinessRejection />}
+        ></Route>
         {/*---구매자 마이 페이지--- */}
         {/* <Route path="/third" element={<BuyerMyPage />}></Route>
         <Route path="/third/first" element={<MemberInquiry />}></Route>
         <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
         {/*---판매자 마이 페이지--- */}
 
-         <Route path="/shop-detail/:productNum" element={<ShopContent test={arrDataFromDB}></ShopContent>}/>
+        <Route
+          path="/shop-list/shop-detail/:productNum"
+          element={<ShopContent></ShopContent>}
+        />
         <Route
           path="/fourth"
           element={
@@ -152,7 +174,7 @@ function App() {
             </div>
           }
         ></Route>
- 
+
         <Route
           path="/sixth"
           element={
