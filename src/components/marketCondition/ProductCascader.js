@@ -6,7 +6,7 @@ import {
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
 
-function ShopCascader(props){
+function ProductCascader(props){
   // const onChange = (value) => {
   //   console.log(value);
   //   props.setOptions(value);
@@ -44,4 +44,4 @@ function ShopCascader(props){
     </Form.Item>
   );
 };
-export default ShopCascader;
+export default ProductCascader;

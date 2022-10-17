@@ -2,7 +2,7 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import React from "react";
 import ShopList from "./ShopList";
-import ShopCascader from "../marketCondition/ShopCascader";
+import ShopCascader from "./ShopCascader";
 import ShopSelect from "./ShopSelect";
 import { useRef, useState } from "react";
 import ShopSearch from "./ShopSearch";

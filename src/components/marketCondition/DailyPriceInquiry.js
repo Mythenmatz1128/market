@@ -18,7 +18,7 @@ import {
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
 import Chart from 'chart.js/auto';
 import MarketCondition from "./MarketCondition";
-import ShopCascader from "../shop-list/ShopCascader";
+import ProductCascader from "./ProductCascader";
 import DateChoice from "../main/DateChoice";
 import LineGraph from "./LineGraph"
 
@@ -79,7 +79,7 @@ function DailyPriceInquiry(){
                     layout="horizontal"
                 >
                 <Form.Item label="품목">
-                    <ShopCascader setCode = {setCode}></ShopCascader>
+                    <ProductCascader setCode = {setCode}></ProductCascader>
                     </Form.Item>
                 </Form>
                 <div style = {style3}>
