@@ -1,36 +1,79 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-function PriceComparison({ price }) {
+function PriceComparison({ price, retail, wholesale }) {
   const redStyle = {
     color: "red",
   };
   const blueStyle = {
     color: "blue",
   };
-  const [retailPrice, setRetailPrice] = useState(40000);
-  const [wholeSalePrice, setWholeSalePrice] = useState(25000);
-  console.log(price);
-  const retailGap = retailPrice - price;
-  const wholeSaleGap = price - wholeSalePrice;
-  const retailGapPer = Math.floor((retailGap / price) * 100);
-  const wholeSaleGapPer = Math.floor((wholeSaleGap / price) * 100);
-  return (
-    <div>
-      <h2>
-        현재 도매가보다{" "}
-        <span style={redStyle}>
-          {wholeSaleGap} ({wholeSaleGapPer}%)
-        </span>{" "}
-        원 비싸고
-      </h2>
-      <h2>
-       현재 소매가보다{" "}
-        <span style={blueStyle}>
-          {retailGap} ({retailGapPer}%){" "}
-        </span>
-        원 싸다
-      </h2>
-    </div>
-  );
+  const [retailGap, setRetailGap] = useState(0);
+  const [retailGapPer, setRetailGapPer] = useState(0);
+  const [wholeSaleGap, setwholeSaleGap] = useState(0);
+  const [wholeSaleGapPer, setwholeSaleGapPer] = useState(0);
+
+  useEffect(() => {
+    console.log(retail);
+    console.log(wholesale);
+    if (retail.price) {
+      setRetailGap(Math.abs(retail.price - price));
+      setRetailGapPer(Math.floor(retailGap / 100));
+    }
+
+    if (wholesale.price) {
+      setwholeSaleGap(Math.abs(wholesale.price - price));
+      setwholeSaleGapPer(Math.floor(wholeSaleGap / 100));
+    }
+  });
+  if (retail.price != null && wholesale.price != null) {
+    return (
+      <div>
+        <h2>
+          {wholesale.latestDate} 도매가 {wholesale.price}원 보다{" "}
+          <span style={redStyle}>
+            {wholeSaleGap} ({wholeSaleGapPer}%)
+          </span>{" "}
+          원 차이
+        </h2>
+        <h2>
+          {retail.latestDate} 소매가 {retail.price}원 보다{" "}
+          <span style={blueStyle}>
+            {retailGap} ({retailGapPer}%){" "}
+          </span>
+          원 차이
+        </h2>
+      </div>
+    );
+  } else if (wholesale.price != null) {
+    return (
+      <div>
+        <h2>
+          {wholesale.latestDate} 도매가 ({wholesale.price}) 보다{" "}
+          <span style={redStyle}>
+            {wholeSaleGap} ({wholeSaleGapPer}%)
+          </span>{" "}
+          원 차이
+        </h2>
+      </div>
+    );
+  } else if (retail.price != null) {
+    return (
+      <div>
+        <h2>
+          {retail.latestDate} 소매가 {retail.price}원 보다{" "}
+          <span style={blueStyle}>
+            {retailGap} ({retailGapPer}%){" "}
+          </span>
+          원 차이
+        </h2>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h2>시세 데이터 없음</h2>
+      </div>
+    );
+  }
 }
 export default PriceComparison;

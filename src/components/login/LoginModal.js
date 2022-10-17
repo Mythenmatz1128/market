@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import Login from "./Login";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
+
 import { useNavigate } from "react-router-dom";
 import { LogoutOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { useResetRecoilState } from "recoil";
 const LoginModal = () => {
   const [user, setUser] = useRecoilState(userState);
+
   const navigate = useNavigate;
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -24,9 +27,8 @@ const LoginModal = () => {
       setOpen(false);
       setConfirmLoading(false);
     }, 1000);
-    navigate("/")
+    navigate("/");
   };
-
 
   const handleCancel = () => {
     console.log("Clicked cancel button");
@@ -34,17 +36,29 @@ const LoginModal = () => {
   };
 
   const logout = () => {
-    console.log("logout btn is clicked")
+    console.log("logout btn is clicked");
     axios
-    .get("/api/user/logout", {
-      headers: { "Content-Type": "application/json" },
-    })
-    .then((response) => {console.log(response.data) ; if (response.data) setUser(null)})
-  }
+      .get("/api/user/logout", {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) {
+          setUser(null);
+
+        }
+      });
+  };
+
   return (
     <>
-      <Button type="primary" onClick={()=>{(user===null)? showModal():logout()}}>
-        {(user===null)?"로그인":`${user.loginId}님 로그아웃`}
+      <Button
+        type="primary"
+        onClick={() => {
+          user === null ? showModal() : logout();
+        }}
+      >
+        {user === null ? "로그인" : `${user.loginId}님 로그아웃`}
       </Button>
       <Modal
         title="로그인"
@@ -54,7 +68,7 @@ const LoginModal = () => {
         onCancel={handleCancel}
         destroyOnClose="true"
       >
-        <Login  onCancel={handleCancel} ></Login>
+        <Login onCancel={handleCancel}></Login>
       </Modal>
     </>
   );

@@ -1,8 +1,15 @@
 import { Layout, Menu } from "antd";
 import LoginModal from "../login/LoginModal";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Title from "../main/Title";
+
 function MainLayout() {
+  const navigate = useNavigate();
+
+  const refreshPage = () => {
+    navigate(0);
+  };
   const { Header, Content, Sider } = Layout;
   const style = {
     marginTop: "3rem",
@@ -11,7 +18,7 @@ function MainLayout() {
   return (
     <Layout>
       <div className="titlewithlogin">
-        <div onClick={() => window.location.assign("/")}>
+        <div onClick={refreshPage}>
           <Title></Title>
         </div>
 
@@ -24,6 +31,11 @@ function MainLayout() {
         <div className="logo" />
 
         <Menu theme="dark" mode="horizontal">
+          <Menu.Item key="10">
+            <Link to="/">
+              <label> 메인 </label>
+            </Link>
+          </Menu.Item>
           <Menu.Item key="1">
             <Link to="/marketCondition">
               <label> 시세</label>
@@ -44,7 +56,7 @@ function MainLayout() {
               <label> 임시(상품등록) </label>
             </Link>
           </Menu.Item>
-  
+
           <Menu.Item key="6">
             <Link to="/sixth">
               <label> 임시(상품수정) </label>
