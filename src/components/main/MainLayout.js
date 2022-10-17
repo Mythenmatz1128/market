@@ -37,7 +37,7 @@ function MainLayout() {
             </Link>
           </Menu.Item>
           <Menu.Item key="1">
-            <Link to="/first">
+            <Link to="/marketCondition">
               <label> 시세</label>
             </Link>
           </Menu.Item>

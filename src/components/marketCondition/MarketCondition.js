@@ -34,12 +34,12 @@ function MarketCondition(){
             <div className = "manage-mypage-menu-box" style={style2}>
                 <Menu>
                     <Menu.Item key="1"style={style4}>
-                        <Link to="/marketCondition/first">
+                        <Link to="/marketCondition/YearlyPriceInquiry">
                             <label style={style5}> 연간 가격</label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style4}>
-                        <Link to="/marketCondition/second">
+                        <Link to="/marketCondition/MonthlyPriceInquiry">
                             <label style={style5}> 월간 가격 </label>
                         </Link>
                     </Menu.Item>
