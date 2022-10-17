@@ -7,8 +7,7 @@ function DateChoice(props) {
     const [dates, setDates] = useState(null);
     const [hackValue, setHackValue] = useState(null);
     const [value, setValue] = useState(null);
-    const dateFormat = 'YYYY/MM/DD';
-
+  
     const onOpenChange = (open) => {
       if (open) {
         setHackValue([null, null]);

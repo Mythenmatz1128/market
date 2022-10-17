@@ -23,6 +23,8 @@ import BusinessAcception from "./components/managerMyPage/BusinessAcception";
 import BusinessRejection from "./components/managerMyPage/BusinessRejection";
 import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
+import MonthlyPriceInquiry from "./components/marketCondition/MonthlyPriceInquiry";
+import YearlyPriceInquiry from "./components/marketCondition/YearlyPriceInquiry";
 import ModifyWritng from "./components/writing/ModifyWriting";
 import ShopContent from "./components/shop-detail/ShopContent"
 const DataFromDB = {
@@ -125,6 +127,8 @@ function App() {
         ></Route>
         <Route path="/marketCondition" element={<MarketCondition />}></Route>
         <Route path="/marketCondition/DailyPriceInquiry" element={<DailyPriceInquiry />}></Route>
+        <Route path="/marketCondition/MonthlyPriceInquiry" element={<MonthlyPriceInquiry />}></Route>
+        <Route path="/marketCondition/YearlyPriceInquiry" element={<YearlyPriceInquiry />}></Route>
         <Route
           path="/shop-list"
           element={<Shop test={arrDataFromDB} />}

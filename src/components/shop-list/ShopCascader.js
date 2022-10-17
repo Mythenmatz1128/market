@@ -1,51 +1,47 @@
-import { Cascader } from "antd";
-import React from "react";
-
-const options = [
-  {
-    value: "과일",
-    label: "과일",
-    children: [
-      {
-        value: "포도",
-        label: "포도",
-        children: [
-          {
-            value: "샤인머스켓",
-            label: "샤인머스켓",
-          },
-          {
-            value: "거봉",
-            label: "거봉",
-          },
-        ],
-      },
-    ],
-  },
-];
-
-// const onChange = (value,props) => {
-//   console.log(value);
-//   console.log(props.options);
-//   //props.setOptions(value);
-// }; // Just show the latest item.
-
-// const displayRender = (labels) => labels[labels.length - 1];
+import {
+  Form,
+  Select,
+  Cascader,
+} from "antd";
+import React, { useState,useEffect } from "react";
+import axios from 'axios';
 
 function ShopCascader(props){
+  // const onChange = (value) => {
+  //   console.log(value);
+  //   props.setOptions(value);
+  // }; // Just show the latest item.
+  const [options, setOptions] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api/item-category").then((response) => {
+      console.log(response.data.category);
+      setOptions(response.data.category);
+    });
+  }, []);
+
   const onChange = (value) => {
-    console.log(value);
-    props.setOptions(value);
-  }; // Just show the latest item.
+    let current = value[value.length - 1];
+    console.log(current);
+    props.setCode(current);
+  };
   
-  const displayRender = (labels) => labels[labels.length - 1];
+  //const displayRender = (labels) => labels[labels.length - 1];
 
   return(
-    <Cascader
-      options={options}
-      displayRender={displayRender}
-      onChange={onChange}
-    />
+    <Form.Item>
+          <Cascader
+            options={options}
+            //changeOnSelect
+            onChange={onChange}
+            fieldNames={{
+              label: "name",
+              value: "id",
+
+              children: "category",
+            }}
+          />
+    </Form.Item>
   );
 };
 export default ShopCascader;
