@@ -22,6 +22,7 @@ const { TextArea } = Input;
 
 function CreateWriting() {
   const [fileList, setFileList] = useState([]);
+  const temp = useRef([]);
   const [sigList, setSigList] = useState([]);
   const [url, setUrl] = useState(
     "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
@@ -32,26 +33,89 @@ function CreateWriting() {
     textAlign: "center",
     marginTop: "2rem",
   };
-
+  const [ori, setOri] = useState({
+    category: null,
+    kindGradeId: null,
+    productName: null,
+    price: 0,
+    info: null,
+    retailUnit: null,
+    ordinalImgList: [
+      {
+        src: null,
+        name: null,
+      },
+      {
+        src: null,
+        name: null,
+      },
+    ],
+    signatureImg: {
+      url: null,
+      name: null,
+    },
+  });
+  const [def, setDef] = useState({
+    productName: null,
+  });
+  const [form] = Form.useForm();
   const [options, setOptions] = useState(null);
 
-  const urlToObject = async () => {
-    const response = await fetch(
-      "img/product/e930cc3d-5b4f-4719-b88c-c06eb5edc9d1.jpg"
-    );
-    const blob = await response.blob();
-    const file = new File([blob], "살려줘.jpg", { type: blob.Image });
-    setFileList(fileList.concat(file));
-    console.log(file);
+  const urlToObject = async (props) => {
+    let tempArr=[]
+    for (let i = 0; i < props.length; i++) {
+      if (props[i].src && fileList.length < props.length) {
+        const response = await fetch(props[i].src);
+        const blob = await response.blob();
+        const file = new File([blob], props[i].name, { type: blob.Image });
+        tempArr=tempArr.concat(file)
+        console.log(file);
+      }
+    }
+    setFileList(tempArr);
+  };
+  const urlToSig = async (props) => {
+    if (props.src) {
+      const response = await fetch(props.src);
+      const blob = await response.blob();
+      const file = new File([blob], props.name, { type: blob.Image });
+      setSigList(sigList.concat(file));
+
+      console.log(file);
+    }
   };
 
   useEffect(() => {
-    const result = urlToObject();
+    axios
+      .get("/api/products/update/93")
+      .then((response) => {
+        console.log(response.data.result);
+        setOri(response.data.result);
+        //setDef(response.data.result.productName);
+      })
+      .then(() => {
+        console.log(def);
+      });
+
     axios.get("/api/item-category").then((response) => {
       console.log(response.data.category);
       setOptions(response.data.category);
     });
   }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      상품명: ori.productName,
+      가격: ori.price,
+      설명: ori.info,
+      품목: ori.category,
+    });
+
+    urlToObject(ori.ordinalImgList);
+
+    urlToSig(ori.signatureImg);
+    setId(ori.kindGradeId);
+  }, [ori]);
 
   const onChange = (value) => {
     id.current = value[value.length - 1];
@@ -70,12 +134,26 @@ function CreateWriting() {
       .catch((error) => console.log(error));
   };
 
+  const setId = (value) => {
+    id.current = value;
+    axios
+      .get(`/api/item-category/${id.current}`, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data.result);
+        response.data.result.criteriaSrc
+          ? setUrl(response.data.result.criteriaSrc)
+          : setUrl(null);
+
+        setUnit(response.data.result.retailUnit);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const onFinish = (values) => {
-    if (sigList.length === 0 || fileList.length === 0) {
-      alert("빈 공간이 있습니다");
-      return;
-    }
     const formData = new FormData();
+    console.log(values);
     console.log("id", id.current);
     formData.append("kindGradeId", id.current);
     formData.append("name", values.상품명);
@@ -106,15 +184,18 @@ function CreateWriting() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   const style = { margin: "2rem" };
   return (
     <div>
       <div style={imgStyle}>
         <Image width={600} height={200} src={url} />
+        <h2> 단위 {unit || ori.retailUnit}</h2>
       </div>
 
       <Form
-        name="basic"
+        form={form}
+        name="form-name"
         style={style}
         labelCol={{
           span: 4,
@@ -126,11 +207,10 @@ function CreateWriting() {
         autoComplete="off"
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        initialValues={{"품목":" 식량작물 / 쌀 / 일반계 / 상품"}}
+        initialValues={ori}
       >
         <Form.Item label="품목" name="품목">
           <Cascader
-            
             options={options}
             //changeOnSelect
             onChange={onChange}
@@ -143,16 +223,10 @@ function CreateWriting() {
           />
         </Form.Item>
         <Form.Item label="상품명" name="상품명">
-          <span>
-            <Input />
-          </span>
+          <Input />
         </Form.Item>
         <Form.Item label="가격" name="가격">
-          <span>
-            <InputNumber />
-
-            <p> 단위 {unit}</p>
-          </span>
+          <InputNumber />
         </Form.Item>
         <Form.Item label="설명" name="설명">
           <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
@@ -166,6 +240,7 @@ function CreateWriting() {
               }
               return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
             }}
+            fileList={sigList}
             listType="text"
             maxCount={1.5}
             onRemove={(file) => {

@@ -22,7 +22,7 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 function CreateWriting() {
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState([null]);
   const [sigList, setSigList] = useState([]);
   const [url, setUrl] = useState(
     "https://previews.123rf.com/images/redrockerz/redrockerz1303/redrockerz130300043/18435157-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%8A%94-%EC%82%AC%EB%9E%8C.jpg"
@@ -112,6 +112,7 @@ function CreateWriting() {
     <div>
       <div style={imgStyle}>
         <Image width={600} height={200} src={url} />
+        <h2> 단위 {unit}</h2>
       </div>
 
       <Form
@@ -147,11 +148,7 @@ function CreateWriting() {
           </span>
         </Form.Item>
         <Form.Item label="가격" name="가격">
-          <span>
-            <InputNumber />
-
-            <p> 단위 {unit}</p>
-          </span>
+          <InputNumber />
         </Form.Item>
         <Form.Item label="설명" name="설명">
           <TextArea rows={10} placeholder="maxLength is 6" maxLength={300} />

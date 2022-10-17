@@ -170,12 +170,12 @@ const ShopContent = () => {
                     height="600px"
                     src={`http://localhost:8080/${product.ordinalImgSrc[i]}`}
                   ></Image>
+                  <Divider />
                 </div>
               );
             })}
           </div>
         </div>
-        <Divider />
 
         <PriceComparison
           price={product.price}
@@ -185,9 +185,9 @@ const ShopContent = () => {
         <Divider />
         <p>각종그래프추가예정</p>
         <Divider />
-        {/* <div style={commetStyle}>
-         <Review></Review>
-        </div> */}
+        <div style={commetStyle}>
+          <Review></Review>
+        </div>
       </Spin>
     </div>
   );
