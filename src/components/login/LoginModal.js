@@ -58,7 +58,7 @@ const LoginModal = () => {
           user === null ? showModal() : logout();
         }}
       >
-        {user === null ? "로그인" : `${user.loginId}님 로그아웃`}
+        {user === null ? "로그인" : `${user.id}님 로그아웃 ${user.userType}`}
       </Button>
       <Modal
         title="로그인"
