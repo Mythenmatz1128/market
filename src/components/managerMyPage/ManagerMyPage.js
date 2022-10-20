@@ -4,7 +4,8 @@ import "antd/dist/antd.min.css";
 import pic from "../../img/회원.jpg"
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
-
+import { userState } from "../../recoil/userState";
+import { useRecoilValue, } from 'recoil';
 
 const style0 = {
     marginLeft: "20%",
@@ -60,6 +61,8 @@ const style10 = {
 
 
 function ManageMyPage(){
+    const user = useRecoilValue(userState); 
+    console.log(user);
     return (
         <Layout className="total-box"style={style0}>
             <div className="title"style={style1}>
@@ -72,10 +75,10 @@ function ManageMyPage(){
                         안녕하세요 회원님.
                     </span>
                     <div className='button-box' style={style5}> 
-                        <Button class="button1" type="button" style={style6}>
+                        <Button className="button1" type="button" style={style6}>
                             로그아웃
                         </Button>
-                        <Button class="button2" type="button" style={style7}>
+                        <Button className="button2" type="button" style={style7}>
                             회원탈퇴
                         </Button>
                     </div>
