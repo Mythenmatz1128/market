@@ -16,6 +16,7 @@ import ImageUpload from "./ImgaeUpload";
 import { Typography } from "antd";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -61,14 +62,19 @@ function CreateWriting() {
   const [form] = Form.useForm();
   const [options, setOptions] = useState(null);
 
+  const navigate = useNavigate();
+
+  const refreshPage = () => {
+    navigate(0);
+  };
   const urlToObject = async (props) => {
-    let tempArr=[]
+    let tempArr = [];
     for (let i = 0; i < props.length; i++) {
       if (props[i].src && fileList.length < props.length) {
         const response = await fetch(props[i].src);
         const blob = await response.blob();
         const file = new File([blob], props[i].name, { type: blob.Image });
-        tempArr=tempArr.concat(file)
+        tempArr = tempArr.concat(file);
         console.log(file);
       }
     }
@@ -95,7 +101,8 @@ function CreateWriting() {
       })
       .then(() => {
         console.log(def);
-      });
+      })
+      .catch((error) => alert(error.response.data.msg));
 
     axios.get("/api/item-category").then((response) => {
       console.log(response.data.category);
@@ -152,11 +159,15 @@ function CreateWriting() {
   };
 
   const onFinish = (values) => {
+    if (sigList.length === 0 || fileList.length === 0) {
+      alert("빈 공간이 있습니다");
+      return;
+    }
     const formData = new FormData();
-    console.log(values);
+    console.log("hihihiuhiuhi", values);
     console.log("id", id.current);
     formData.append("kindGradeId", id.current);
-    formData.append("name", values.상품명);
+    formData.append("productName", values.상품명);
     formData.append("price", values.가격);
     formData.append("info", values.설명);
 
@@ -174,10 +185,13 @@ function CreateWriting() {
     }
 
     axios
-      .post("/api/products", formData, {
+      .post("/api/products/update/93", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((response) => console.log(response.data))
+      .then((response) => alert(response.data.result.message))
+      .then(() => {
+        refreshPage();
+      })
       .catch((error) => alert(error.response.data.msg));
   };
 

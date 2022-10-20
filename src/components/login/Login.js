@@ -9,7 +9,7 @@ import axios from "axios";
 function Login({ onCancel }) {
   const navigate = useNavigate;
   const [user, setUser] = useRecoilState(userState);
-  
+
   const style = {
     display: "flex",
     margin: "3rem",
@@ -27,13 +27,15 @@ function Login({ onCancel }) {
       .then((response) => {
         console.log(response.data);
         if (response.data) {
-          setUser(object);
+          setUser(response.data.result);
         } else {
           console.log("로그인실패");
         }
       })
 
-      .then(() => onCancel())
+      .then(() => {
+        onCancel();
+      })
       .catch((error) => alert("실패"));
   };
 
