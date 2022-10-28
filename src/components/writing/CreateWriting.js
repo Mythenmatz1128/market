@@ -95,12 +95,10 @@ function CreateWriting() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => console.log(response.data))
-      .then(() => {
-        alert("상품 등록 성공");
-      })
-      .then(() => {
-        refreshPage();
-      })
+    
+      // .then(() => {
+      //   refreshPage();
+      // })
       .catch((error) => alert(error.response.data.msg));
   };
 

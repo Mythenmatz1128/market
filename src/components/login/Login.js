@@ -36,7 +36,7 @@ function Login({ onCancel }) {
       .then(() => {
         onCancel();
       })
-      .catch((error) => alert("실패"));
+      .catch((error) => alert(error.response.data.msg));
   };
 
   const onFinishFailed = (errorInfo) => {
