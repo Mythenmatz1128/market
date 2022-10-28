@@ -77,6 +77,21 @@ const ShopContent = () => {
     alignSelf: "center",
   };
 
+  function handleClick(){
+    var object = new Object();
+    object.count = 1;
+    object.productId = product.productId;
+    const json = JSON.stringify(object);
+    console.log(json);
+
+    axios
+      .post("/api/cart", json, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => alert(response.data.result.message))
+
+      .catch((error) => alert(error.response.data.msg));
+  };
   const [product, setProduct] = useState({
     productId: null,
     kindGradeId: null,
@@ -147,11 +162,15 @@ const ShopContent = () => {
             src={`http://localhost:8080/${product.signatureImgSrc}`}
           />
           <div style={buttonBoxStyle}>
-            <OrderModal style={btnStyle}></OrderModal>
+            <OrderModal
+              style={btnStyle}
+              price={product.price}
+              productId={product.productId}
+            ></OrderModal>
 
-            <Button style={btnStyle}>
+            <Button style={btnStyle} onClick={handleClick}>
               {" "}
-              <Link to="/shop-list">장바구니 추가</Link>{" "}
+              장바구니 추가
             </Button>
           </div>
         </div>

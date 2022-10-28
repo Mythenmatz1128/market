@@ -2,7 +2,7 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import Order from "./Order";
 
-const OrderModal = () => {
+const OrderModal = ({price,productId}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const btnStyle={
     width:"8rem"
@@ -32,7 +32,7 @@ const OrderModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <Order></Order>
+        <Order price={price} productId={productId}></Order>
       </Modal>
     </>
   );

@@ -32,9 +32,9 @@ function SignUp({ onCancel }) {
       .post("/api/user", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => console.log(response.data))
-      .then(() => alert("가입성공"))
-      .catch((error) => alert("실패"))
+      .then((response) => alert(response.data.result.message))
+  
+      .catch((error) => alert(error.response.data.msg))
       .then(() => onCancel());
   };
 
