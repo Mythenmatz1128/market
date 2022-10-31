@@ -45,7 +45,7 @@ const LoginModal = () => {
         console.log(response.data);
         if (response.data) {
           setUser(null);
-
+          alert(response.data.result.message)
         }
       });
   };
@@ -55,10 +55,10 @@ const LoginModal = () => {
       <Button
         type="primary"
         onClick={() => {
-          user === null ? showModal() : logout();
+          user === null ? showModal() : logout(); 
         }}
       >
-        {user === null ? "로그인" : `${user.id}님 로그아웃 ${user.userType}`}
+        {user === null ? "로그인" : `${user.name}님 로그아웃 `}
       </Button>
       <Modal
         title="로그인"
