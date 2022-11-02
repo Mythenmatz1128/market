@@ -8,38 +8,30 @@ import { RestOutlined, FormOutlined } from "@ant-design/icons";
 import uuid from "react-uuid";
 import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE } from "recoil";
 import { resolveOnChange } from "antd/lib/input/Input.js";
+import { json } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const { TextArea } = Input;
-const ReviewWriting = ({ comments, setComments, comment, remove }) => {
+const ReviewWriting = ({
+  comments,
+  setComments,
+  comment,
+  remove,
+  productNum,
+}) => {
   const [submitting, setSubmitting] = useState(false);
-  const [value, setValue] = useState(comment != null ? comment.value : "");
-  const [count, setCount] = useState();
-  function update() {
-    setUid(comments.uid);
-    setSubmitting(true);
-    setTimeout(
-      () => {
-        setSubmitting(false);
-        setValue("");
-        setComments([
-          ...comments,
-          {
-            value: value,
-            count: count,
-            uid: uid,
-            author: "Han Solo",
-            avatar: "https://joeschmoe.io/api/v1/random",
-            content: <span style={style}>{value}</span>,
+  const [value, setValue] = useState(
+    comment != null ? comment.content.props.children : ""
+  );
+  const [count, setCount] = useState(
+    comment != null ? comment.rate.props.value : ""
+  );
 
-            rate: <Rate allowHalf disabled value={count}></Rate>,
+  const navigate = useNavigate();
 
-            datetime: date.toLocaleString(),
-          },
-        ]);
-      },
-
-      0
-    );
-  }
+  const refreshPage = () => {
+    navigate(0);
+  };
 
   const style = {
     textAlign: "left",
@@ -47,41 +39,45 @@ const ReviewWriting = ({ comments, setComments, comment, remove }) => {
   const date = new Date();
   let [uid, setUid] = useState(uuid);
 
-  const handleSubmit = async() => {
-    if (!value) return;
+  const handleSubmit = async () => {
+    var object = new Object();
 
+    object.rate = count;
+    object.content = value;
+
+    const json = JSON.stringify(object);
+    console.log(json);
+    console.log("commentddd", comment);
     if (comment) {
-     await (remove(comment.uid));
-      console.log("시벌2222",comments)
+      axios
+        .patch(`/api/review/${comment.uid}`, json, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((response) => {
+          const data = response.data.result;
+          console.log(data);
+          alert(data.msg);
+        })
+        .then(() => {
+          refreshPage();
+        })
+        .catch((error) => console.log(error.response.data.msg));
+    } else {
+      axios
+        .post(`/api/review/${productNum}`, json, {
+          headers: { "Content-Type": "application/json" },
+        })
+        .then((response) => {
+          const data = response.data.result;
+          console.log(data);
+          alert(data.msg);
+        })
+        .then(() => {
+          refreshPage();
+        })
+        .catch((error) => console.log(error));
     }
-    setUid(uuid());
-    setSubmitting(true);
- 
-    
-        setSubmitting(false);
-        setValue("");
-        console.log("시벌1111",comments)
-        setComments([
-          ...comments,
-          {
-            value: value,
-            count: count,
-            uid: uid,
-            author: "Han Solo",
-            avatar: "https://joeschmoe.io/api/v1/random",
-            content: <span style={style}>{value}</span>,
-
-            rate: <Rate allowHalf disabled value={count}></Rate>,
-
-            datetime: date.toLocaleString(),
-          },
-        ]);
-    
-
-      
-
   };
-
   const handleChange = (e) => {
     setValue(e.target.value);
   };

@@ -43,7 +43,7 @@ function Login({ onCancel }) {
     console.log("Failed:", errorInfo);
   };
   useEffect(() => {
-    if (user) {
+    if (user===null) {
       onFinish();
     }
   }, []);

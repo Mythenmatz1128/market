@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Editor from "./Editor.js";
 import Review from "./Review.js";
 import ReviewWriting from "./ReviewWriting.js";
-
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/userState.js";
 const CommentUpdateModal = ({ comments, setComments, comment, remove }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -13,7 +14,7 @@ const CommentUpdateModal = ({ comments, setComments, comment, remove }) => {
     setOpen(true);
   
     console.log("comment :", comment);
-    console.log("comments :", comments);
+
   };
 
   const handleOk = () => {
@@ -29,10 +30,14 @@ const CommentUpdateModal = ({ comments, setComments, comment, remove }) => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
+  const displayBtn={
+    display:"none"
+  }
+  const [user, setUser] = useRecoilState(userState);
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button  type="primary" onClick={showModal}>
         수정
       </Button>
       <Modal
