@@ -42,7 +42,7 @@ function Login({ onCancel }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
+//
   return (
     <Form
       name="basic"
