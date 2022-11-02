@@ -42,11 +42,6 @@ function Login({ onCancel }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  useEffect(() => {
-    if (user===null) {
-      onFinish();
-    }
-  }, []);
 
   return (
     <Form

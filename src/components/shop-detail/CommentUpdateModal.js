@@ -47,6 +47,7 @@ const CommentUpdateModal = ({ comments, setComments, comment, remove }) => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={null}
       >
         <ReviewWriting
           comment={comment}
