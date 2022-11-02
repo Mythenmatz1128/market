@@ -94,17 +94,17 @@ function ManageMyPage(){
             <div className = "manage-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
-                        <Link to="/third/first">
+                        <Link to="/BuyerMyPage/first">
                             <label style={style10}> 사업자 신청 조회</label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style9}>
-                        <Link to="/third/second">
+                        <Link to="/BuyerMyPage/second">
                             <label style={style10}> 사업자 신청 승인 내역 </label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3"style={style9}>
-                        <Link to="/third/third">
+                        <Link to="/BuyerMyPage/third">
                             <label style={style10}> 사업자 신청 거부 내역 </label>
                         </Link>
                     </Menu.Item>

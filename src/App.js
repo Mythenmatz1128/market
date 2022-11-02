@@ -134,35 +134,35 @@ function App() {
           element={<Shop test={arrDataFromDB} />}
         ></Route>
         {/*---관리자 마이 페이지--- */}
-        <Route path="/third" element={<ManagerMyPage />}></Route>
+        <Route path="/ManagerMyPage" element={<ManagerMyPage />}></Route>
         <Route
-          path="/third/first"
+          path="/ManagerMyPage/first"
           element={<BusinessApplicationInquiry />}
         ></Route>
         <Route
-          path="/third/first/business-detail/:businessId"
+          path="/ManagerMyPage/first/business-detail/:businessId"
           element={<BusinessDefault />}
         ></Route>
         <Route
-          path="/third/second"
+          path="/ManagerMyPage/second"
           element={<BusinessAcceptionInquiry />}
         ></Route>
         <Route
-          path="/third/second/business-detail/:businessId"
+          path="/ManagerMyPage/second/business-detail/:businessId"
           element={<BusinessAcception />}
         ></Route>
         <Route
-          path="/third/third"
+          path="/ManagerMyPage/third"
           element={<BusinessRejectionInquiry />}
         ></Route>
         <Route
-          path="/third/third/business-detail/:businessId"
+          path="/ManagerMyPage/third/business-detail/:businessId"
           element={<BusinessRejection />}
         ></Route>
         {/*---구매자 마이 페이지--- */}
-        {/* <Route path="/third" element={<BuyerMyPage />}></Route>
-        <Route path="/third/first" element={<MemberInquiry />}></Route>
-        <Route path="/third/first/memberEidt" element={<MemberEdit />}></Route>
+        <Route path="/BuyerMyPage" element={<BuyerMyPage />}></Route>
+        <Route path="/BuyerMyPage/first" element={<MemberInquiry />}></Route>
+        <Route path="/BuyerMyPage/first/memberEidt" element={<MemberEdit />}></Route>
         {/*---판매자 마이 페이지--- */}
 
         <Route
