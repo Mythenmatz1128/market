@@ -188,7 +188,7 @@ function CreateWriting() {
       .post("/api/products/update/93", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((response) => alert(response.data.result.message))
+      .then((response) => alert(response.data.result.msg))
       .then(() => {
         refreshPage();
       })

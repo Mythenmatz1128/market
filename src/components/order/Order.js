@@ -47,7 +47,7 @@ function Order({ price, productId }) {
       .post("/api/order", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => alert(response.data.result.message))
+      .then((response) => alert(response.data.result.msg))
 
       .catch((error) => alert(error.response.data.msg));
   };

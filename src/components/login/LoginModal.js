@@ -45,13 +45,14 @@ const LoginModal = () => {
         console.log(response.data);
         if (response.data) {
           setUser(null);
-          alert(response.data.result.message)
+          alert(response.data.result.msg)
         }
       });
   };
 
-  return (
+  return ( 
     <>
+    
       <Button
         type="primary"
         onClick={() => {

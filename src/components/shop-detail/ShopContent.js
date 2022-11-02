@@ -88,7 +88,7 @@ const ShopContent = () => {
       .post("/api/cart", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => alert(response.data.result.message))
+      .then((response) => alert(response.data.result.msg))
 
       .catch((error) => alert(error.response.data.msg));
   };
@@ -205,7 +205,7 @@ const ShopContent = () => {
         <p>각종그래프추가예정</p>
         <Divider />
         <div style={commetStyle}>
-          <Review></Review>
+          <Review productNum={productNum}></Review>
         </div>
       </Spin>
     </div>
