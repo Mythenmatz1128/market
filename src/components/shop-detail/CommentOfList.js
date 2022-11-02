@@ -13,9 +13,7 @@ const CommentOfList = (props) => {
   const actions = [
     <span>{props.comment.rate}</span>,
 
-    <Button onClick={(() =>  props.remove(props.comment.uid))}>
-      삭제
-    </Button>,
+    <Button onClick={() => props.remove(props.comment.uid)}>삭제</Button>,
 
     <span>
       <CommentUpdateModal
@@ -34,8 +32,8 @@ const CommentOfList = (props) => {
       avatar={<Avatar src={props.comment.avatar} alt="Han Solo" />}
       content={<p>{props.comment.content}</p>}
       datetime={
-        <Tooltip title={props.comment.datetime}>
-          <p></p>
+        <Tooltip>
+          <p>{props.comment.datetime}</p>
         </Tooltip>
       }
     />

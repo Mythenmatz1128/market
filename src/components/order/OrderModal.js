@@ -2,12 +2,12 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import Order from "./Order";
 
-const OrderModal = ({price,productId}) => {
+const OrderModal = ({ price, productId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const btnStyle={
-    width:"8rem"
-    ,margin:"1rem"
-  }
+  const btnStyle = {
+    width: "8rem",
+    margin: "1rem",
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -22,11 +22,11 @@ const OrderModal = ({price,productId}) => {
 
   return (
     <>
-      <Button type="primary"  style={btnStyle} onClick={showModal}>
+      <Button type="primary" style={btnStyle} onClick={showModal}>
         구매하기{" "}
       </Button>
       <Modal
-        
+        destroyOnClose="true"
         title="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
