@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import "antd/dist/antd.min.css";
 import "./Table.css";
 import { Button, Space, Table, Tag } from 'antd';
@@ -6,29 +7,66 @@ import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
 import BuyerMyPage from "../buyerMyPage/BuyerMyPage";
 
 const style0 = {
-    marginLeft: "20%",
-    marginRight: "20%",
-    //textAlign : "center",
-    borderTop: "2px solid",
+  marginLeft: "20%",
+  marginRight: "20%",
+  //textAlign : "center",
+  borderTop: "2px solid",
 };
 
 const style1 = {
-    marginTop: "5%",
-    marginBottom: "5%",
-    fontSize: "25px",
-    fontWeight: "700",
+  marginTop: "5%",
+  marginBottom: "5%",
+  fontSize: "25px",
+  fontWeight: "700",
 };
 
 const style2 = {
-    marginTop: "5%",
-    float: "right",
+  marginTop: "5%",
+  float: "right",
 };
   
-  const style3 = {
-    paddingBottom: "20%",
+const style3 = {
+  paddingBottom: "20%",
 };
 
 function MemberEdit(){
+  let [userInfo,setUserInfo] = useState({ });
+  const { name, loginId, password, email, phoneNumber, jibun, road, zipcode, detailAddress} = userInfo; 
+
+  useEffect(() => {
+    axios
+      .get("/api/user", 
+        { withCredentials: true })
+      .then((res) => {
+      //console.log(res.data.result);
+      setUserInfo(res.data.result);
+      console.log(userInfo);
+      })
+      .catch((err) => {console.log(err);});
+  }, []);
+
+  const onChange = (e) => {
+    const { name, value } = e.target   
+
+    const nextInputs = {            
+      ...userInfo,  
+      [name]: value,
+    }
+
+    setUserInfo(nextInputs)
+    console.log(userInfo);;       
+  }  
+  
+  const updateUserInfo = () => {
+    axios
+      .patch("/api/user", userInfo,
+      { withCredentials: true })
+      .then((res) => {
+
+      })
+      .catch((err) => {console.log(err);});
+  }
+
     return (
         <div>
             <BuyerMyPage></BuyerMyPage>
@@ -45,48 +83,125 @@ function MemberEdit(){
                   <tbody>
                     <tr>
                       <th>이름</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="name" 
+                          type = "text" 
+                          placeholder={userInfo.name}
+                          onChange={onChange}
+                          value={name} 
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>ID</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="loginId" 
+                          type = "text" 
+                          placeholder={userInfo.loginId}
+                          onChange={onChange}
+                          value={loginId}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>비밀 번호</th>
-                      <td><input type = "password"></input></td>
-                    </tr>
-                    <tr>
-                      <th>나이</th>
-                      <td><input type = "number"></input></td>
+                      <td>
+                        <input 
+                          name="password" 
+                          type = "password" 
+                          placeholder={userInfo.password}
+                          onChange={onChange}
+                          value={password}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>e-mail</th>
-                      <td><input type = "email"></input></td>
+                      <td>
+                        <input 
+                          name="email" 
+                          type = "email" 
+                          placeholder={userInfo.email}
+                          onChange={onChange}
+                          value={email}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>전화 번호</th>
-                      <td><input type = "tel"></input></td>
+                      <td>
+                        <input 
+                          name="phoneNumber" 
+                          type = "tel" 
+                          placeholder={userInfo.phoneNumber}
+                          onChange={onChange}
+                          value={phoneNumber}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>지번</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="jibun" 
+                          type = "text" 
+                          placeholder={userInfo.jibun}
+                          onChange={onChange}
+                          value={jibun}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>도로</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="road" 
+                          type = "text" 
+                          placeholder={userInfo.road}
+                          onChange={onChange}
+                          value={road}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>우편번호</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="zipcode" 
+                          type = "text" 
+                          placeholder={userInfo.zipcode}
+                          onChange={onChange}
+                          value={zipcode}
+                          >
+                        </input>
+                      </td>
                     </tr>
                     <tr>
                       <th>상세주소</th>
-                      <td><input type = "text"></input></td>
+                      <td>
+                        <input 
+                          name="detailAddress" 
+                          type = "text" 
+                          placeholder={userInfo.detailAddress}
+                          onChange={onChange}
+                          value={detailAddress}
+                          >
+                        </input>
+                      </td>
                     </tr>
                   </tbody>
               </table>
-              <Link to="/third/first">
-                <Button className="button1" type="primary" style={style2} onClick={MemberEdit}>
+              <Link to="/BuyerMyPage/first">
+                <Button className="button1" type="primary" style={style2} onChange = {updateUserInfo}>
                   수정
                 </Button>
               </Link>  

@@ -1,22 +1,9 @@
 import React, { useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
 import {
   PageHeader,
   Form,
-  Input,
   Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
-  Upload,
 } from "antd";
-import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
-import Chart from 'chart.js/auto';
 import MarketCondition from "./MarketCondition";
 import ProductCascader from "./ProductCascader";
 import DateChoice from "../main/DateChoice";
