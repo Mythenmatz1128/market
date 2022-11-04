@@ -4,7 +4,7 @@ import axios from 'axios';
 import "antd/dist/antd.min.css";
 import pic from "../../img/회원.jpg"
 import React, { location, useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes, NavLink, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
 
@@ -63,11 +63,12 @@ const style10 = {
 function BuyerMyPage(){
     const [user, setUser] = useRecoilState(userState);
     const [userName, setUserName] = useState(" ");
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(user);
         if(user == null){
-            window.location.href = "http://localhost:3000/";
+            navigate('/');
         }
         else{
             setUserName(user.name);

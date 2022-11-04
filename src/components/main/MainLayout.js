@@ -32,9 +32,8 @@ function MainLayout() {
   }, [user]);
   const option = (e) => {
     if(user == null){
-      navigate(0);
       alert("로그인해주십시오.");
-      //location.replace("/");
+      navigate(0);
     }
   };
   const { Header, Content, Sider } = Layout;
