@@ -41,6 +41,7 @@ const Review = ({ productNum }) => {
             content: null,
             rate: null,
             datetime: null,
+            userId: null,
           };
           console.log(data.length);
           console.log("chk", tempArr);
@@ -51,6 +52,7 @@ const Review = ({ productNum }) => {
           temp.content = <span style={style}>{data[i].content}</span>;
           temp.rate = <Rate allowHalf disabled value={data[i].rate}></Rate>;
           temp.datetime = data[i].createdDate;
+          temp.userId= data[i].userId
           tempArr = tempArr.concat(temp);
           console.log("TEMP", temp);
           console.log("TEMP", tempArr);
@@ -64,7 +66,8 @@ const Review = ({ productNum }) => {
         console.log("TEMP", tempArr);
 
         console.log(comments);
-      });
+      })
+      .catch((error) => alert(error.response.data.msg));
   }, []);
 
   function remove(id) {

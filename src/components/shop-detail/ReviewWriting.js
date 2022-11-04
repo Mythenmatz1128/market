@@ -61,7 +61,7 @@ const ReviewWriting = ({
         .then(() => {
           refreshPage();
         })
-        .catch((error) => console.log(error.response.data.msg));
+        .catch((error) => alert(error.response.data.msg));
     } else {
       axios
         .post(`/api/review/${productNum}`, json, {
@@ -75,7 +75,7 @@ const ReviewWriting = ({
         .then(() => {
           refreshPage();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => alert(error.response.data.msg));
     }
   };
   const handleChange = (e) => {
