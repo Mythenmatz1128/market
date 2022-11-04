@@ -2,7 +2,8 @@ import "./Table.css";
 import "antd/dist/antd.min.css";
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Tag } from 'antd';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
 import BuyerMyPage from "../buyerMyPage/BuyerMyPage";
 import MemberEdit from "../buyerMyPage/MemberEdit";
@@ -32,36 +33,6 @@ const style3 = {
   paddingBottom: "20%",
 };
 
-const DataFromDB = {
-    userID: null,
-    name: null,
-    loginID: null,
-    password: null,
-    age: null,
-    eMail: null,
-    phoneNum: null,
-    jibun: null,
-    road: null,
-    zipCode: null,
-    detailAddress: null,
-};
-
-const arrDataFromDB = [{ DataFromDB }];
-
-arrDataFromDB[0] = {
-  userID: "1",
-  name: "강대현",
-  loginID: "rkdeogus1128",
-  password: "kj961128",
-  age: "27",
-  eMail: "tbqkdlcj1128@naver.com",
-  phoneNum: "010-6415-6940",
-  jibun: "어쩌구",
-  road: "저쩌구",
-  zipCode: "얄리얄리얄랴셩",
-  detailAddress: "알아서뭐하게",
-};
-  
   const IconText = ({ icon, text }) => (
     <Space>
       {React.createElement(icon)}
@@ -70,6 +41,19 @@ arrDataFromDB[0] = {
   );
 
 function MemberInquiry(){
+  let [userInfo,setUserInfo] = useState({ });
+  useEffect(() => {
+    axios
+      .get("/api/user", 
+        { withCredentials: true })
+          .then((res) => {
+            //console.log(res.data.result);
+            setUserInfo(res.data.result);
+            console.log(userInfo);
+          })
+          .catch((err) => {console.log(err);});
+  }, []);
+
     return (
         <div>
             <BuyerMyPage></BuyerMyPage>
@@ -86,48 +70,44 @@ function MemberInquiry(){
                   <tbody>
                     <tr>
                       <th>이름</th>
-                      <td>{arrDataFromDB[0].name}</td>
+                      <td>{userInfo.name}</td>
                     </tr>
                     <tr>
                       <th>ID</th>
-                      <td>{arrDataFromDB[0].loginID}</td>
+                      <td>{userInfo.loginId}</td>
                     </tr>
                     <tr>
                       <th>비밀 번호</th>
-                      <td>{arrDataFromDB[0].password}</td>
-                    </tr>
-                    <tr>
-                      <th>나이</th>
-                      <td>{arrDataFromDB[0].age}</td>
+                      <td>{userInfo.password}</td>
                     </tr>
                     <tr>
                       <th>e-mail</th>
-                      <td>{arrDataFromDB[0].eMail}</td>
+                      <td>{userInfo.email}</td>
                     </tr>
                     <tr>
                       <th>전화 번호</th>
-                      <td>{arrDataFromDB[0].phoneNum}</td>
+                      <td>{userInfo.phoneNumber}</td>
                     </tr>
                     <tr>
                       <th>지번</th>
-                      <td>{arrDataFromDB[0].jibun}</td>
+                      <td>{userInfo.jibun}</td>
                     </tr>
                     <tr>
                       <th>도로</th>
-                      <td>{arrDataFromDB[0].road}</td>
+                      <td>{userInfo.road}</td>
                     </tr>
                     <tr>
                       <th>우편번호</th>
-                      <td>{arrDataFromDB[0].zipCode}</td>
+                      <td>{userInfo.zipcode}</td>
                     </tr>
                     <tr>
                       <th>상세주소</th>
-                      <td>{arrDataFromDB[0].detailAddress}</td>
+                      <td>{userInfo.detailAddress}</td>
                     </tr>
                   </tbody>
               </table>
-              <Link to="/third/first/memberEidt">
-                <Button className="button1" type="primary" style={style2} onClick={MemberEdit}>
+              <Link to="/BuyerMyPage/first/memberEidt">
+                <Button className="button1" type="primary" style={style2}>
                   회원 정보 수정
                 </Button>
               </Link>  

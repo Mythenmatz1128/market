@@ -1,14 +1,40 @@
 import { Layout, Menu } from "antd";
+import {location,useState, useEffect } from "react";
 import LoginModal from "../login/LoginModal";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Title from "../main/Title";
+import { userState } from "../../recoil/userState";
+import { useRecoilValue, } from 'recoil';
 
 function MainLayout() {
   const navigate = useNavigate();
+  const user = useRecoilValue(userState); 
 
+  let [myPage,setMyPage] = useState("/");
   const refreshPage = () => {
     navigate(0);
+  };
+  useEffect(() => {
+    console.log(user);
+    if(user == null){
+      setMyPage("/");
+    }
+    else if(user.userType == "SELLER"){
+      setMyPage("/SellerMyPage");
+    }
+    else if(user.userType == "BUYER"){
+      setMyPage("/BuyerMyPage");
+    }
+    else if(user.userType == "MANAGER"){
+      setMyPage("/ManagerMyPage");
+    }
+  }, [user]);
+  const option = (e) => {
+    if(user == null){
+      alert("로그인해주십시오.");
+      navigate(0);
+    }
   };
   const { Header, Content, Sider } = Layout;
   const style = {
@@ -28,8 +54,8 @@ function MainLayout() {
       </div>
 
       <Header className="header">
-        <div className="logo" />
-
+        <div className="logo">
+        </div>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="10">
             <Link to="/">
@@ -46,8 +72,8 @@ function MainLayout() {
               <label> 농산물 </label>
             </Link>
           </Menu.Item>
-          <Menu.Item key="3">
-            <Link to="/third">
+          <Menu.Item key="3" onClick={option}>
+            <Link to = {myPage}>
               <label> 마이페이지 </label>
             </Link>
           </Menu.Item>

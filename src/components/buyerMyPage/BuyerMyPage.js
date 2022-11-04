@@ -1,10 +1,12 @@
 import { Button, Layout, Menu } from "antd";
 import { PageHeader } from "antd";
+import axios from 'axios';
 import "antd/dist/antd.min.css";
 import pic from "../../img/회원.jpg"
-import React, { useState } from "react";
-import { BrowserRouter, Link, Route, Routes, NavLink } from "react-router-dom";
-
+import React, { location, useState, useEffect } from "react";
+import { BrowserRouter, Link, Route, Routes, NavLink, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/userState";
 
 const style0 = {
     marginLeft: "20%",
@@ -59,6 +61,35 @@ const style10 = {
 
 
 function BuyerMyPage(){
+    const [user, setUser] = useRecoilState(userState);
+    const [userName, setUserName] = useState(" ");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log(user);
+        if(user == null){
+            navigate('/');
+        }
+        else{
+            setUserName(user.name);
+        }
+    }, [user]);
+
+    const logout = (e) => {
+        console.log("logout btn is clicked");
+        axios
+          .get("/api/user/logout", {
+            headers: { "Content-Type": "application/json" },
+          })
+          .then((response) => {
+            console.log(response.data);
+            if (response.data) {
+              setUser(null);
+              alert(response.data.result.msg)
+            }
+          });
+    };
+
     return (
         <Layout className="total-box"style={style0}>
             <div className="title"style={style1}>
@@ -68,10 +99,10 @@ function BuyerMyPage(){
             <div className='guest-info-box' style={style2}><img style={imgStyle} src={pic}/>
                 <div className='guest-info' style={style3}> 
                     <span className = "guest-text" style={style4}>
-                        안녕하세요 회원님.
+                        안녕하세요 {userName}님.
                     </span>
                     <div className='button-box' style={style5}> 
-                        <Button className="button1" type="button" style={style6}>
+                        <Button className="button1" type="button" style={style6} onClick = {logout}>
                             로그아웃
                         </Button>
                         <Button className="button2" type="button" style={style7}>
@@ -82,7 +113,7 @@ function BuyerMyPage(){
             </div>
 
             <div className = "buyer-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
-                <NavLink to="/third">
+                <NavLink to="/BuyerMyPage">
                     <PageHeader className="buyer-mypage-title" title="구매자 마이 페이지" />
                 </NavLink>  
             </div>
@@ -90,23 +121,28 @@ function BuyerMyPage(){
             <div className = "buyer-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
-                        <Link to="/third/first">
+                        <Link to="/BuyerMyPage/first">
                             <label style={style10}> 회원 상세 정보</label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style9}>
-                        <Link to="/third/second">
+                        <Link to="/BuyerMyPage/second">
                             <label style={style10}> 장바구니 </label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3"style={style9}>
-                        <Link to="/third/third">
+                        <Link to="/BuyerMyPage/third">
                             <label style={style10}> 결제 내역 </label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="4"style={style9}>
-                        <Link to="/third/forth">
+                        <Link to="/BuyerMyPage/forth">
                             <label style={style10}> 결제 금액 그래프 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="5"style={style9}>
+                        <Link to="/BuyerMyPage/fifth">
+                            <label style={style10}> 사업자 신청 </label>
                         </Link>
                     </Menu.Item>
                 </Menu>
