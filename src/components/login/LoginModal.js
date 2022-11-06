@@ -45,18 +45,17 @@ const LoginModal = () => {
         console.log(response.data);
         if (response.data) {
           setUser(null);
-          alert(response.data.result.msg)
+          alert(response.data.result.msg);
         }
       });
   };
 
-  return ( 
+  return (
     <>
-    
       <Button
         type="primary"
         onClick={() => {
-          user === null ? showModal() : logout(); 
+          user === null ? showModal() : logout();
         }}
       >
         {user === null ? "로그인" : `${user.name}님 로그아웃 `}
@@ -68,6 +67,7 @@ const LoginModal = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         destroyOnClose="true"
+        footer={false}
       >
         <Login onCancel={handleCancel}></Login>
       </Modal>

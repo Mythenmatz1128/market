@@ -31,6 +31,7 @@ const OrderModal = ({ price, productId }) => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={false}
       >
         <Order price={price} productId={productId}></Order>
       </Modal>
