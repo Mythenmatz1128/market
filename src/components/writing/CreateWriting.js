@@ -94,11 +94,11 @@ function CreateWriting() {
       .post("/api/products", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((response) => console.log(response.data))
-    
-      // .then(() => {
-      //   refreshPage();
-      // })
+      .then((response) => alert(response.data.result.msg))
+
+      .then(() => {
+        refreshPage();
+      })
       .catch((error) => alert(error.response.data.msg));
   };
 
