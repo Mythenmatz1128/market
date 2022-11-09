@@ -3,7 +3,7 @@ import { PageHeader } from "antd";
 import axios from 'axios';
 import "antd/dist/antd.min.css";
 import pic from "../../img/회원.jpg"
-import React, { useState,useEffect } from "react";
+import React, { location, useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes, NavLink, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
@@ -15,6 +15,7 @@ const style0 = {
 const style1 = {
     borderBottom: "2px solid",
     backgroundColor: "white",
+    //display: "flex",
 };
 const style2 = {
     display: "flex",
@@ -58,10 +59,15 @@ const style9 = {
 const style10 = {
     fontSize: "40px",
 };
+const style11 = {
+    fontSize: "25px",
+    position: "relative",
+    left: "65%",
+    marginBottom: "2%",
+};
 
 
-
-function ManageMyPage(){
+function SellerMyPage(){
     const [user, setUser] = useRecoilState(userState);
     const [userName, setUserName] = useState(" ");
     const navigate = useNavigate();
@@ -113,17 +119,35 @@ function ManageMyPage(){
                 </div> 
             </div>
 
-            <div className = "manage-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
-                <NavLink to="/ManagerMyPage">
-                    <PageHeader className="manage-mypage-title" title="관리자 마이 페이지" />
+            <div className = "seller-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
+                <NavLink to="/SellerMyPage">
+                    <PageHeader className="seller-mypage-title" title="판매자 마이 페이지" />
                 </NavLink>  
+                <NavLink to="/BuyerMyPage">
+                <div style={style11}>구매자 마이 페이지로 이동</div>
+                </NavLink> 
             </div>
 
-            <div className = "manage-mypage-menu-box" style={style8}>
+            <div className = "seller-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
-                        <Link to="/ManagerMyPage/BusinessApplicationInquiry">
-                            <label style={style10}> 사업자 신청 조회</label>
+                        <Link to="/SellerMyPage/first">
+                            <label style={style10}> 상품 등록</label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="2"style={style9}>
+                        <Link to="/SellerMyPage/second">
+                            <label style={style10}> 등록 상품 관리 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="3"style={style9}>
+                        <Link to="/SellerMyPage/third">
+                            <label style={style10}> 판매자 등급 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="4"style={style9}>
+                        <Link to="/SellerMyPage/forth">
+                            <label style={style10}> 판매 내역 </label>
                         </Link>
                     </Menu.Item>
                 </Menu>
@@ -131,4 +155,4 @@ function ManageMyPage(){
         </Layout>
     );
 }
-export default ManageMyPage;
+export default SellerMyPage;

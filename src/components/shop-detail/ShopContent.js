@@ -85,7 +85,7 @@ const ShopContent = () => {
     console.log(json);
 
     axios
-      .post("/api/cart", json, {
+      .post("/api/carts", json, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => alert(response.data.result.msg))

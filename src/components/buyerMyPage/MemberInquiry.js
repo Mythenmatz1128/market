@@ -85,6 +85,10 @@ function MemberInquiry(){
                       <td>{userInfo.email}</td>
                     </tr>
                     <tr>
+                      <th>생년월일</th>
+                      <td>{userInfo.birth}</td>
+                    </tr>
+                    <tr>
                       <th>전화 번호</th>
                       <td>{userInfo.phoneNumber}</td>
                     </tr>
@@ -106,7 +110,7 @@ function MemberInquiry(){
                     </tr>
                   </tbody>
               </table>
-              <Link to="/BuyerMyPage/first/memberEidt">
+              <Link to="/BuyerMyPage/MemberInquiry/memberEidt">
                 <Button className="button1" type="primary" style={style2}>
                   회원 정보 수정
                 </Button>

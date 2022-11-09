@@ -75,6 +75,7 @@ function ShopList({ selId, casId, serverData, setServerData }) {
           console.log(page);
         },
         pageSize: 5,
+        total : 25,
       }}
       dataSource={serverData}
       renderItem={(item) => {
