@@ -224,7 +224,7 @@ const ShopContent = () => {
         />
         <Divider />
 
-        <ProductLineGraph product={product.kindGradeId} />
+        <ProductLineGraph kindGradeId={product.kindGradeId} />
 
         <Divider />
 

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useResetRecoilState } from "recoil";
 
 const imgStyle = {
   width: "200px",
@@ -16,39 +17,11 @@ const IconText = ({ icon, text }) => (
     {text}
   </Space>
 );
-// function binding(props) {
-//   console.log(props.test)
-//   const arrDataFromDB = props.test;
-//   return arrDataFromDB.map((_, i) => ({
-//     number: i,
-//     href: "shop-detail/" + arrDataFromDB[i].productNum,
-//     title: arrDataFromDB[i].title,
-//     avatar: "https://joeschmoe.io/api/v1/random",
-//     description: arrDataFromDB[i].description,
-//     content: arrDataFromDB[i].content,
-//     commentCount: arrDataFromDB[i].commentCount,
-//     basket: arrDataFromDB[i].basket,
-//     score: arrDataFromDB[i].score,
-//   }));
-// }
-// function binding({ serverData }) {
-//   console.log(serverData);
-//   const arrDataFromDB = serverData;
-//   return arrDataFromDB.map((_, i) => ({
-//     number: i,
-//     href: "shop-detail/" + arrDataFromDB[i].productNum,
-//     title: arrDataFromDB[i].title,
-//     avatar: "https://joeschmoe.io/api/v1/random",
-//     description: arrDataFromDB[i].description,
-//     content: arrDataFromDB[i].content,
-//     commentCount: arrDataFromDB[i].commentCount,
-//     basket: arrDataFromDB[i].basket,
-//     score: arrDataFromDB[i].score,
-//   }));
-// }
 
 //function ShopList(props) {
 function ShopList({ selId, casId, serverData, setServerData }) {
+  const pageNum=useRef(1);
+  const pageSize="5";
   useEffect(() => {
     axios
       .get(
@@ -72,10 +45,11 @@ function ShopList({ selId, casId, serverData, setServerData }) {
       size="large"
       pagination={{
         onChange: (page) => {
+          pageNum.current=page;
           console.log(page);
         },
-        pageSize: 5,
-        total : 25,
+        //total
+        pageSize: pageSize,
       }}
       dataSource={serverData}
       renderItem={(item) => {
