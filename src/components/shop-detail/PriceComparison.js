@@ -24,7 +24,7 @@ function PriceComparison({ price, retail, wholesale }) {
       setwholeSaleGap(Math.abs(wholesale.price - price));
       setwholeSaleGapPer(Math.floor(price /wholesale.price * 100));
     }
-  });
+  },[]);
   if (retail.price != null && wholesale.price != null) {
     return (
       <div>

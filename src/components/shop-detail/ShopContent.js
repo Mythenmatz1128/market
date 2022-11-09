@@ -12,7 +12,10 @@ import {
   Skeleton,
   Spin,
   Card,
+  Menu,
 } from "antd";
+import { InputNumber } from "antd";
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PriceComparison from "./PriceComparison";
@@ -20,8 +23,17 @@ import { useParams } from "react-router-dom";
 import Review from "./Review";
 import OrderModal from "../order/OrderModal";
 import axios from "axios";
+import YearlyPriceInquiry from "./ProductStatistics.js/YearlyPriceInquiry";
+import MonthlyPriceInquiry from "./ProductStatistics.js/MonthlyPriceInquiry";
+import DailyPriceInquiry from "./ProductStatistics.js/DailyPriceInquiry";
+import ProductPieGraph from "./ProductPieGraph";
+import ProductLineGraph from "./ProductStatistics.js/ProductLineGraph";
 const ShopContent = () => {
   const { Text, Link, Title } = Typography;
+  const [count,setCount] = useState();
+  const onChange = (value) => {
+    setCount(value)
+  };
 
   const style = {
     marginTop: "2rem",
@@ -73,13 +85,15 @@ const ShopContent = () => {
 
     width: "800px",
   };
-  const priceStyle = {
-    alignSelf: "center",
+  const basketStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems : "strech"
   };
 
-  function handleClick(){
+  function handleClick() {
     var object = new Object();
-    object.count = 1;
+    object.count = count;
     object.productId = product.productId;
     const json = JSON.stringify(object);
     console.log(json);
@@ -91,7 +105,7 @@ const ShopContent = () => {
       .then((response) => alert(response.data.result.msg))
 
       .catch((error) => alert(error.response.data.msg));
-  };
+  }
   const [product, setProduct] = useState({
     productId: null,
     kindGradeId: null,
@@ -167,11 +181,19 @@ const ShopContent = () => {
               price={product.price}
               productId={product.productId}
             ></OrderModal>
-
-            <Button style={btnStyle} onClick={handleClick}>
-              {" "}
-              장바구니 추가
-            </Button>
+            <div style={basketStyle}>
+              <InputNumber
+                style={btnStyle}
+                min={1}
+                max={100}
+                defaultValue={1}
+                onChange={onChange}
+              ></InputNumber>
+              <Button style={btnStyle} onClick={handleClick}>
+                {" "}
+                장바구니 추가
+              </Button>
+            </div>
           </div>
         </div>
         <Divider />
@@ -195,14 +217,19 @@ const ShopContent = () => {
             })}
           </div>
         </div>
-
         <PriceComparison
           price={product.price}
           retail={product.latestMarketPrice.retail}
           wholesale={product.latestMarketPrice.wholesale}
         />
         <Divider />
-        <p>각종그래프추가예정</p>
+
+        <ProductLineGraph product={product.kindGradeId} />
+
+        <Divider />
+
+        <ProductPieGraph productId={productNum}></ProductPieGraph>
+
         <Divider />
         <div style={commetStyle}>
           <Review productNum={productNum}></Review>

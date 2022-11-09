@@ -35,6 +35,7 @@ const SignUpModal = () => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        footer={false}
       >
         <SignUp onCancel={handleCancel}></SignUp>
       </Modal>

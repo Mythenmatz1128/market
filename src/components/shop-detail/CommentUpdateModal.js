@@ -30,14 +30,15 @@ const CommentUpdateModal = ({ comments, setComments, comment, remove }) => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
-  const displayBtn={
+  const ndisplayBtn={
     display:"none"
   }
+
   const [user, setUser] = useRecoilState(userState);
 
   return (
     <>
-      <Button  type="primary" onClick={showModal}>
+      <Button  type="primary" onClick={showModal} style={user===null?null:user.id===comment.userId? null:ndisplayBtn}>
         수정
       </Button>
       <Modal

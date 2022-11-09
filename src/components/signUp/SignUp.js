@@ -32,7 +32,7 @@ function SignUp({ onCancel }) {
       .post("/api/user", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => alert(response.data.result.message))
+      .then((response) => alert(response.data.result.msg))
   
       .catch((error) => alert(error.response.data.msg))
       .then(() => onCancel());

@@ -8,12 +8,19 @@ import { Avatar, Comment, Tooltip, Button } from "antd";
 import React, { createElement, useState } from "react";
 import CommentUpdateModal from "./CommentUpdateModal";
 import { useNavigate } from "react-router-dom";
-
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/userState.js";
 const CommentOfList = (props) => {
+  const ndisplayBtn={
+    display:"none"
+  }
+
+  const [user, setUser] = useRecoilState(userState);
+
   const actions = [
     <span>{props.comment.rate}</span>,
 
-    <Button onClick={() => props.remove(props.comment.uid)}>삭제</Button>,
+    <Button onClick={() => props.remove(props.comment.uid) }style={user===null?null:user.id===props.comment.userId? null:ndisplayBtn}>삭제</Button>,
 
     <span>
       <CommentUpdateModal

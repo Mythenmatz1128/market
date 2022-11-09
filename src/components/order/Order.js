@@ -74,6 +74,7 @@ function Order({ price, productId }) {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         onValuesChange={onValuesChange}
+   
       >
         <Form.Item
           label="totalPrice"
