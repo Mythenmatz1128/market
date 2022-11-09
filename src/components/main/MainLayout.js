@@ -26,7 +26,7 @@ function MainLayout() {
     else if(user.userType == "BUYER"){
       setMyPage("/BuyerMyPage");
     }
-    else if(user.userType == "MANAGER"){
+    else if(user.userType == "ADMIN"){
       setMyPage("/ManagerMyPage");
     }
   }, [user]);

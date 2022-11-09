@@ -9,18 +9,18 @@ import DateChoice from "./components/main/DateChoice";
 import MainLayout from "./components/main/MainLayout";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
+import SellerMyPage from "./components/sellerMyPage/SellerMyPage";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
-import BusinessAcceptionInquiry from "./components/managerMyPage/BusinessAcceptionInquiry";
-import BusinessRejectionInquiry from "./components/managerMyPage/BusinessRejectionInquiry";
 import MemberInquiry from "./components/buyerMyPage/MemberInquiry";
 import MemberEdit from "./components/buyerMyPage/MemberEdit";
+import Cart from "./components/buyerMyPage/Cart";
+import BusinessApplication from "./components/buyerMyPage/BusinessApplication";
+import BusinessApplicationList from "./components/buyerMyPage/BusinessApplicationList";
 import BusinessDefault from "./components/managerMyPage/BusinessDefault";
 import Shop from "./components/shop-list/Shop";
 import LoginModal from "./components/login/LoginModal";
 import CreateWriting from "./components/writing/CreateWriting";
 import OrderModal from "./components/order/OrderModal";
-import BusinessAcception from "./components/managerMyPage/BusinessAcception";
-import BusinessRejection from "./components/managerMyPage/BusinessRejection";
 import MarketCondition from "./components/marketCondition/MarketCondition";
 import DailyPriceInquiry from "./components/marketCondition/DailyPriceInquiry";
 import MonthlyPriceInquiry from "./components/marketCondition/MonthlyPriceInquiry";
@@ -58,35 +58,22 @@ function App() {
         {/*---관리자 마이 페이지--- */}
         <Route path="/ManagerMyPage" element={<ManagerMyPage />}></Route>
         <Route
-          path="/ManagerMyPage/first"
+          path="/ManagerMyPage/BusinessApplicationInquiry"
           element={<BusinessApplicationInquiry />}
         ></Route>
         <Route
-          path="/ManagerMyPage/first/business-detail/:businessId"
+          path="/ManagerMyPage/BusinessApplicationInquiry/business-detail/:businessId"
           element={<BusinessDefault />}
-        ></Route>
-        <Route
-          path="/ManagerMyPage/second"
-          element={<BusinessAcceptionInquiry />}
-        ></Route>
-        <Route
-          path="/ManagerMyPage/second/business-detail/:businessId"
-          element={<BusinessAcception />}
-        ></Route>
-        <Route
-          path="/ManagerMyPage/third"
-          element={<BusinessRejectionInquiry />}
-        ></Route>
-        <Route
-          path="/ManagerMyPage/third/business-detail/:businessId"
-          element={<BusinessRejection />}
         ></Route>
         {/*---구매자 마이 페이지--- */}
         <Route path="/BuyerMyPage" element={<BuyerMyPage />}></Route>
-        <Route path="/BuyerMyPage/first" element={<MemberInquiry />}></Route>
-        <Route path="/BuyerMyPage/first/memberEidt" element={<MemberEdit />}></Route>
+        <Route path="/BuyerMyPage/MemberInquiry" element={<MemberInquiry />}></Route>
+        <Route path="/BuyerMyPage/MemberInquiry/memberEidt" element={<MemberEdit />}></Route>
+        <Route path="/BuyerMyPage/Cart" element={<Cart />}></Route>
+        <Route path="/BuyerMyPage/BusinessApplication" element={<BusinessApplication />}></Route>
+        <Route path="/BuyerMyPage/BusinessApplicationList" element={<BusinessApplicationList />}></Route>
         {/*---판매자 마이 페이지--- */}
-
+        <Route path="/SellerMyPage" element={<SellerMyPage />}></Route>
         <Route
           path="/shop-list/shop-detail/:productNum"
           element={<ShopContent></ShopContent>}

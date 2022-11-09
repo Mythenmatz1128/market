@@ -58,7 +58,12 @@ const style9 = {
 const style10 = {
     fontSize: "40px",
 };
-
+const style11 = {
+    fontSize: "25px",
+    position: "relative",
+    left: "65%",
+    marginBottom: "2%",
+};
 
 function BuyerMyPage(){
     const [user, setUser] = useRecoilState(userState);
@@ -74,6 +79,18 @@ function BuyerMyPage(){
             setUserName(user.name);
         }
     }, [user]);
+
+    const ifBuyer = ()=>{
+        if(user != null){
+            if(user.userType == "SELLER"){
+                return (
+                    <NavLink to="/SellerMyPage">
+                    <div style={style11}>판매자 마이 페이지로 이동</div>
+                    </NavLink> 
+                );
+            }
+        }
+    };
 
     const logout = (e) => {
         console.log("logout btn is clicked");
@@ -115,18 +132,19 @@ function BuyerMyPage(){
             <div className = "buyer-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
                 <NavLink to="/BuyerMyPage">
                     <PageHeader className="buyer-mypage-title" title="구매자 마이 페이지" />
-                </NavLink>  
+                </NavLink> 
+                {ifBuyer(() => { })}
             </div>
 
             <div className = "buyer-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
-                        <Link to="/BuyerMyPage/first">
+                        <Link to="/BuyerMyPage/MemberInquiry">
                             <label style={style10}> 회원 상세 정보</label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style9}>
-                        <Link to="/BuyerMyPage/second">
+                        <Link to="/BuyerMyPage/Cart">
                             <label style={style10}> 장바구니 </label>
                         </Link>
                     </Menu.Item>
@@ -141,8 +159,13 @@ function BuyerMyPage(){
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="5"style={style9}>
-                        <Link to="/BuyerMyPage/fifth">
+                        <Link to="/BuyerMyPage/BusinessApplication">
                             <label style={style10}> 사업자 신청 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="6"style={style9}>
+                        <Link to="/BuyerMyPage/BusinessApplicationList">
+                            <label style={style10}> 사업자 신청 확인 </label>
                         </Link>
                     </Menu.Item>
                 </Menu>

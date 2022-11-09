@@ -2,9 +2,9 @@ import "antd/dist/antd.min.css";
 import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Avatar, List, Space } from "antd";
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import ManagerMyPage from "./ManagerMyPage";
 import { useParams } from 'react-router-dom';
-import picture from "../../img/사업자_등록증_양식.jpg";
 
 const size = 4;
 
@@ -39,81 +39,42 @@ const imgStyle = {
   marginRight: "auto",
 };
 
-const DataFromDB = {
-  businessID: null,
-  businessNum: null,
-  businessName: null,
-  status: null,
-  createdDate: null,
-  changeDate: null,
-  userID: null,
-};
-
-const arrDataFromDB = [{ DataFromDB }];
-
-arrDataFromDB[0] = {
-  businessID: "0001",
-  businessNum: "20180004",
-  businessName: "대현상회",
-  status: "wait",
-  createdDate: "2019-11-13",
-  changeDate: "2019-11-13",
-  userID: "강대현",
-};
-arrDataFromDB[1] = {
-  businessID: "0002",
-  businessNum: "20180584",
-  businessName: "호창상회",
-  status: "wait",
-  createdDate: "2019-11-13",
-  changeDate: "2019-11-13",
-  userID: "성호창",
-};
-arrDataFromDB[2] = {
-  businessID: "0003",
-  businessNum: "20180333",
-  businessName: "현민상회",
-  status: "wait",
-  createdDate: "2019-11-13",
-  changeDate: "2019-11-13",
-  userID: "김현민",
-};
-arrDataFromDB[3] = {
-  businessID: "0004",
-  businessNum: "20180012",
-  businessName: "병관상회",
-  status: "wait",
-  createdDate: "2019-11-13",
-  changeDate: "2019-11-13",
-  userID: "강병관",
-};
-
-const data = Array.from({
-  length: size,
-}).map((_, i) => ({
-  number: i,
-  businessID: arrDataFromDB[i].businessID,
-  businessNum: arrDataFromDB[i].businessNum,
-  businessName: arrDataFromDB[i].businessName,
-  status: arrDataFromDB[i].status,
-  createdDate: arrDataFromDB[i].createdDate,
-  changeDate: arrDataFromDB[i].changeDate,
-  userID: arrDataFromDB[i].userID,
-}));
-
 const BusinessDefault = () => {
   const { businessId } = useParams();
-  let [num, setNum] = useState(0);
+  let [data, setData] = useState({});
 
   useEffect(() => {
-    for (let i = 0; i < size; i++) {
-      const tempId = arrDataFromDB[i].businessID;
-      if (businessId == tempId) {
-        setNum(i);
-        break;
-      }
-    }
+    axios
+      .get(`/api/business/${businessId}`, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response.data.result);
+        setData(response.data.result);
+      });
   }, []);
+
+  const accept = () => {
+    axios
+      .post(`/api/business/accept/${businessId}`, 
+        { withCredentials: true })
+      .then((res) => {
+        console.log(res.data.result);
+        alert(res.data.result.msg);
+      })
+      .catch((err) => {console.log(err); alert(err.response.data.msg)});
+  }
+
+  const reject = () => {
+    axios
+    .post(`/api/business/reject/${businessId}`, 
+      { withCredentials: true })
+    .then((res) => {
+      console.log(res.data.result);
+      alert(res.data.result.msg);
+    })
+    .catch((err) => {console.log(err); alert(err.response.data.msg)});
+  }
 
     return (
         <>
@@ -130,27 +91,31 @@ const BusinessDefault = () => {
                   <tbody>
                     <tr>
                       <th>사업자 번호</th>
-                      <td>{arrDataFromDB[num].businessNum}</td>
+                      <td>{data.businessNumber}</td>
                     </tr>
                     <tr>
                       <th>상호명</th>
-                      <td>{arrDataFromDB[num].businessName}</td>
+                      <td>{data.businessName}</td>
                     </tr>
                     <tr>
                       <th>신청 날짜</th>
-                      <td>{arrDataFromDB[num].createdDate}</td>
+                      <td>{data.createdDate}</td>
                     </tr>
                     <tr>
-                      <th>회원 아이디</th>
-                      <td>{arrDataFromDB[num].userID}</td>
+                      <th>회원 전화번호</th>
+                      <td>{data.phoneNumber}</td>
+                    </tr>
+                    <tr>
+                      <th>회원 이름</th>
+                      <td>{data.userName}</td>
                     </tr>
                   </tbody>
               </table>
-              <img style={imgStyle} src={picture} />
-              <Button className="button1" type="primary" style={style2}>
+              <img style={imgStyle} src={`http://localhost:8080/${data.imgSrc}`} />
+              <Button className="button1" type="primary" style={style2} onClick = {accept}>
                 승인
               </Button>
-              <Button className="button2" type="primary" style={style2}>
+              <Button className="button2" type="primary" style={style2} onClick = {reject}>
                 거부
               </Button>
               <div className="padding" style={style3}></div>
