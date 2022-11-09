@@ -18,30 +18,23 @@ const contentStyle = {
   margin: "auto",
   marginTop: "10px",
 };
-const productNum = ["0001", "0002", "0003", "0004"]
-const productAddress = [];
-productNum.map((value, i) => {
-  productAddress[i] = "shop-detail/" + value;
-});
-function MainCarousel() {
+
+const productRootAddress = "shop-list/shop-detail/";
+
+function MainCarousel({ topOrder }) {
   return (
     <Carousel autoplay>
-      <div>
-        <h3 style={contentStyle}>
-          <NavLink to={productAddress[0]}>
-            <img src={pic} style={imgStyle} />
-          </NavLink>
-        </h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>2</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>3</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>4</h3>
-      </div>
+      {topOrder.map((value, i) => {
+        return (
+          <div key={i}>
+            <h3 style={contentStyle}>
+              <NavLink to={productRootAddress + value.productId}>
+                <img src={value.imgSigSrc} style={imgStyle} />
+              </NavLink>
+            </h3>
+          </div>
+        );
+      })}
     </Carousel>
   );
 }

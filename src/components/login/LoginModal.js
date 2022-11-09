@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
@@ -49,7 +49,18 @@ const LoginModal = () => {
         }
       });
   };
-
+  useEffect(() => {
+    axios
+      .get("/api/user/login-check", {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {})
+      .catch((error) => {
+        if (error.response.data.status===401&& user !== null) {
+          setUser(null);
+        }
+      });
+  }, []);
   return (
     <>
       <Button
