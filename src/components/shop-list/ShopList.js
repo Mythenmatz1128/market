@@ -20,36 +20,42 @@ const IconText = ({ icon, text }) => (
 
 //function ShopList(props) {
 function ShopList({ selId, casId, serverData, setServerData }) {
-  const pageNum=useRef(1);
-  const pageSize="5";
+  const [pageNum, setPageNum] = useState(1);
+  const [totalItemNum, setTotalItemNum] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
   useEffect(() => {
     axios
       .get(
-        `/api/products?productName=&orderBy=${selId.current}&itemCategoryCode=${casId.current[0]}&itemCode=${casId.current[1]}&kindId=${casId.current[2]}&kindGradeId=${casId.current[3]}`,
+        `/api/products?productName=&orderBy=${selId.current}&itemCategoryCode=${casId.current[0]}&itemCode=${casId.current[1]}&kindId=${casId.current[2]}&kindGradeId=${casId.current[3]}&pageSize=${pageSize}&pageNum=${pageNum}`,
         {
           headers: { "Content-Type": "application/json" },
         }
       )
       .then((response) => {
-        const data = response.data.result;
+        const data = response.data;
 
-        setServerData(data);
-        console.log("serverdata: ", serverData);
+        setServerData(data.result);
+        setTotalItemNum(data.lastPageNum * pageSize);
+        console.log("serverdata: ", data);
       })
       .catch((error) => alert(error.response));
-  }, []);
+  }, [pageNum,pageSize]);
 
   return (
     <List
       itemLayout="vertical"
       size="large"
       pagination={{
-        onChange: (page) => {
-          pageNum.current=page;
-          console.log(page);
+        onChange: (page,size) => {
+         
+          setPageSize(size);
+          setPageNum(page);
+ 
         },
-        //total
-        pageSize: pageSize,
+        total: totalItemNum,
+        pageSize:pageSize,
+        pageSizeOptions: [5, 10],
+ 
       }}
       dataSource={serverData}
       renderItem={(item) => {

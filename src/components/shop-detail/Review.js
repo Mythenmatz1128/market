@@ -8,7 +8,6 @@ import { RestOutlined, FormOutlined } from "@ant-design/icons";
 import ReviewWriting from "./ReviewWriting.js";
 import CommentUpdateModal from "./CommentUpdateModal.js";
 import { useRecoilState } from "recoil";
-import { commentState } from "../../recoil/commentState.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const { TextArea } = Input;
