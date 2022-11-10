@@ -29,7 +29,7 @@ const Shop = () => {
   const casId = useRef(["", "", "", ""]);
   const selId = useRef("latest");
   const searchText = useRef("");
-  const [serverData, setServerData] = useState([]);
+  const [serverData, setServerData] = useState();
   return (
     <div>
       <div style={CasStyle}>

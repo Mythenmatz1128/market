@@ -8,6 +8,9 @@ function MainContent() {
     {
       imgSigSrc: null,
       productId: null,
+      productName: null,
+      price: null,
+      retailUnit: null,
     },
   ]);
 
@@ -15,6 +18,9 @@ function MainContent() {
     {
       imgSigSrc: null,
       productId: null,
+      productName: null,
+      price: null,
+      retailUnit: null,
     },
   ]);
   useEffect(() => {
@@ -39,21 +45,40 @@ function MainContent() {
     <div>
       <MainCarousel topOrder={topOrder}></MainCarousel>
       <Divider></Divider>
+      <div>
+        {" "}
+        <b>최근 등록된 상품</b>
+      </div>
+
       <Row gutter={[16, 24]}>
         {lastet.map((value, i) => {
           return (
-            <Grid key={i}
+            <Grid
+              key={i}
               imgSigSrc={value.imgSigSrc}
               productId={value.productId}
+              productName={value.productName}
+              price={value.price}
+              retailUnit={value.retailUnit}
             ></Grid>
           );
         })}
-        <Divider></Divider>
+      </Row>
+      <Divider></Divider>
+      <div>
+        {" "}
+        <b> 가장 많이 팔린 상품</b>
+      </div>
+      <Row gutter={[16, 24]}>
         {topOrder.map((value, i) => {
           return (
-            <Grid key={i}
+            <Grid
+              key={i}
               imgSigSrc={value.imgSigSrc}
               productId={value.productId}
+              productName={value.productName}
+              price={value.price}
+              retailUnit={value.retailUnit}
             ></Grid>
           );
         })}
