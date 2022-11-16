@@ -7,25 +7,28 @@ function PriceComparison({ price, retail, wholesale }) {
   const blueStyle = {
     color: "blue",
   };
-  const [retailGap, setRetailGap] = useState(0);
-  const [retailGapPer, setRetailGapPer] = useState(0);
-  const [wholeSaleGap, setwholeSaleGap] = useState(0);
-  const [wholeSaleGapPer, setwholeSaleGapPer] = useState(0);
-
+  const [retailGap, setRetailGap] = useState();
+  const [retailGapPer, setRetailGapPer] = useState();
+  const [wholeSaleGap, setwholeSaleGap] = useState();
+  const [wholeSaleGapPer, setwholeSaleGapPer] = useState();
+  const [returnType, setReturnType] = useState();
   useEffect(() => {
     console.log(retail);
     console.log(wholesale);
     if (retail.price) {
       setRetailGap(Math.abs(retail.price - price));
-      setRetailGapPer(Math.floor(price /retail.price * 100));
+      setRetailGapPer(Math.floor((price / retail.price) * 100));
+
     }
 
     if (wholesale.price) {
       setwholeSaleGap(Math.abs(wholesale.price - price));
-      setwholeSaleGapPer(Math.floor(price /wholesale.price * 100));
+      setwholeSaleGapPer(Math.floor((price / wholesale.price) * 100));
+ 
     }
-  },[]);
-  if (retail.price != null && wholesale.price != null) {
+  }, [price]);
+
+  if (retail.price !== null && wholesale.price !== null) {
     return (
       <div>
         <h2>
@@ -44,7 +47,7 @@ function PriceComparison({ price, retail, wholesale }) {
         </h2>
       </div>
     );
-  } else if (wholesale.price != null) {
+  } else if (wholesale.price !== null) {
     return (
       <div>
         <h2>
@@ -56,7 +59,7 @@ function PriceComparison({ price, retail, wholesale }) {
         </h2>
       </div>
     );
-  } else if (retail.price != null) {
+  } else if (retail.price !== null) {
     return (
       <div>
         <h2>

@@ -30,7 +30,7 @@ import ProductPieGraph from "./ProductPieGraph";
 import ProductLineGraph from "./ProductStatistics.js/ProductLineGraph";
 const ShopContent = () => {
   const { Text, Link, Title } = Typography;
-  const [count,setCount] = useState();
+  const [count,setCount] = useState(1);
   const onChange = (value) => {
     setCount(value)
   };
@@ -186,7 +186,7 @@ const ShopContent = () => {
                 style={btnStyle}
                 min={1}
                 max={100}
-                defaultValue={1}
+                value={count}
                 onChange={onChange}
               ></InputNumber>
               <Button style={btnStyle} onClick={handleClick}>
