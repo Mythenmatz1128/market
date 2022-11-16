@@ -31,7 +31,7 @@ const style3 = {
 
 function MemberEdit(){
   let [userInfo,setUserInfo] = useState({ });
-  const { name, loginId, password, email, phoneNumber, jibun, road, zipcode, detailAddress} = userInfo; 
+  const { name, loginId, password, birth, email, phoneNumber, jibun, road, zipcode, detailAddress} = userInfo; 
 
   useEffect(() => {
     axios
@@ -54,7 +54,7 @@ function MemberEdit(){
     }
 
     setUserInfo(nextInputs)
-    console.log(userInfo);;       
+    console.log(userInfo);     
   }  
   
   const updateUserInfo = () => {
@@ -62,9 +62,10 @@ function MemberEdit(){
       .patch("/api/user", userInfo,
       { withCredentials: true })
       .then((res) => {
-
+        console.log(res.data.result.msg);
+        alert(res.data.result.msg);
       })
-      .catch((err) => {console.log(err);});
+      .catch((err) => {console.log(err.response.data.msg); alert(err.response.data.msg);});
   }
 
     return (
@@ -116,6 +117,19 @@ function MemberEdit(){
                           placeholder={userInfo.password}
                           onChange={onChange}
                           value={password}
+                          >
+                        </input>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>생년월일</th>
+                      <td>
+                        <input 
+                          name="birth" 
+                          type = "text" 
+                          placeholder={userInfo.birth}
+                          onChange={onChange}
+                          value={birth}
                           >
                         </input>
                       </td>
@@ -200,8 +214,8 @@ function MemberEdit(){
                     </tr>
                   </tbody>
               </table>
-              <Link to="/BuyerMyPage/first">
-                <Button className="button1" type="primary" style={style2} onChange = {updateUserInfo}>
+              <Link to="/BuyerMyPage/MemberInquiry">
+                <Button className="button1" type="primary" style={style2} onClick = {updateUserInfo}>
                   수정
                 </Button>
               </Link>  

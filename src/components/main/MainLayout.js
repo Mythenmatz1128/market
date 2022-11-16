@@ -26,7 +26,7 @@ function MainLayout() {
     else if(user.userType == "BUYER"){
       setMyPage("/BuyerMyPage");
     }
-    else if(user.userType == "MANAGER"){
+    else if(user.userType == "ADMIN"){
       setMyPage("/ManagerMyPage");
     }
   }, [user]);
@@ -77,17 +77,7 @@ function MainLayout() {
               <label> 마이페이지 </label>
             </Link>
           </Menu.Item>
-          <Menu.Item key="4">
-            <Link to="/fourth">
-              <label> 임시(상품등록) </label>
-            </Link>
-          </Menu.Item>
 
-          <Menu.Item key="6">
-            <Link to="/sixth">
-              <label> 임시(상품수정) </label>
-            </Link>
-          </Menu.Item>
         </Menu>
       </Header>
     </Layout>

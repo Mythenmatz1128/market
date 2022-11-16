@@ -16,12 +16,14 @@ import ImageUpload from "./ImgaeUpload";
 import { Typography } from "antd";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import SellerModifyWriting from "../sellerMyPage/SellerModifyWriting";
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-function CreateWriting() {
+function ModifyWriting() {
+  const productId = useParams().productId;
   const [fileList, setFileList] = useState([]);
   const temp = useRef([]);
   const [sigList, setSigList] = useState([]);
@@ -62,16 +64,16 @@ function CreateWriting() {
   const [form] = Form.useForm();
   const [options, setOptions] = useState(null);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate("/SellerMyPage/second");
 
   const refreshPage = () => {
-    navigate(0);
+    navigate("/SellerMyPage/second");
   };
   const urlToObject = async (props) => {
     let tempArr = [];
     for (let i = 0; i < props.length; i++) {
       if (props[i].src && fileList.length < props.length) {
-        const response = await fetch(props[i].src);
+        const response = await fetch(`../../${props[i].src}`);
         const blob = await response.blob();
         const file = new File([blob], props[i].name, { type: blob.Image });
         tempArr = tempArr.concat(file);
@@ -82,7 +84,7 @@ function CreateWriting() {
   };
   const urlToSig = async (props) => {
     if (props.src) {
-      const response = await fetch(props.src);
+      const response = await fetch(`../../${props.src}`);
       const blob = await response.blob();
       const file = new File([blob], props.name, { type: blob.Image });
       setSigList(sigList.concat(file));
@@ -93,7 +95,7 @@ function CreateWriting() {
 
   useEffect(() => {
     axios
-      .get("/api/products/update/93")
+      .get(`/api/products/update/${productId}`)
       .then((response) => {
         console.log(response.data.result);
         setOri(response.data.result);
@@ -133,7 +135,7 @@ function CreateWriting() {
       .then((response) => {
         console.log(response.data.result);
         response.data.result.criteriaSrc
-          ? setUrl(response.data.result.criteriaSrc)
+          ? setUrl(`../../${response.data.result.criteriaSrc}`)
           : setUrl(null);
 
         setUnit(response.data.result.retailUnit);
@@ -150,7 +152,7 @@ function CreateWriting() {
       .then((response) => {
         console.log(response.data.result);
         response.data.result.criteriaSrc
-          ? setUrl(response.data.result.criteriaSrc)
+          ? setUrl(`../../${response.data.result.criteriaSrc}`)
           : setUrl(null);
 
         setUnit(response.data.result.retailUnit);
@@ -185,7 +187,7 @@ function CreateWriting() {
     }
 
     axios
-      .post("/api/products/update/93", formData, {
+      .post(`/api/products/update/${productId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => alert(response.data.result.msg))
@@ -311,4 +313,4 @@ function CreateWriting() {
   );
 }
 
-export default CreateWriting;
+export default ModifyWriting;
