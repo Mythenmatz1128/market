@@ -56,7 +56,7 @@ function PaymentHistoryDetail(props){
             navigate(0);
             //window.location.reload();
         })
-        .catch((err) => {console.log(err); alert(err.reponse.data.msg);});
+        .catch((err) => {console.log(err); alert(err.response.data.msg);});
     };
 
     return(

@@ -129,23 +129,6 @@ function SellerMyPage() {
           </div>
         </div>
       </div>
-
-      <div
-        className="seller-mypage-title-box"
-        style={style1}
-        onClick={() => window.location.reload()}
-      >
-        <NavLink to="/SellerMyPage">
-          <PageHeader
-            className="seller-mypage-title"
-            title="판매자 마이 페이지"
-          />
-        </NavLink>
-        <NavLink to="/BuyerMyPage">
-          <div style={style11}>구매자 마이 페이지로 이동</div>
-        </NavLink>
-      </div>
-
             <div className = "seller-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
                 <NavLink to="/SellerMyPage">
                     <PageHeader className="seller-mypage-title" title="판매자 마이 페이지" />
@@ -158,7 +141,7 @@ function SellerMyPage() {
             <div className = "seller-mypage-menu-box" style={style8}>
                 <Menu>
                     <Menu.Item key="1"style={style9}>
-                        <Link to="/SellerMyPage/second">
+                        <Link to="/SellerMyPage/RegisteredProduct">
                             <label style={style10}> 등록 상품 관리 </label>
                         </Link>
                     </Menu.Item>

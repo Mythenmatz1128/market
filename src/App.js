@@ -94,7 +94,7 @@ function App() {
         <Route path="/SellerMyPage/SaleDataGraph" element={<SaleDataGraph />}></Route>
   
         <Route
-          path="/SellerMyPage/second"
+          path="/SellerMyPage/RegisteredProduct"
           element={<RegisteredProduct />}
         ></Route>
         <Route
