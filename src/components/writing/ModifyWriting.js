@@ -13,11 +13,12 @@ import {
   Upload,
 } from "antd";
 import ImageUpload from "./ImgaeUpload";
-import { Typography } from "antd";
+import { Typography,Spin } from "antd";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import SellerModifyWriting from "../sellerMyPage/SellerModifyWriting";
+
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -203,113 +204,115 @@ function ModifyWriting() {
 
   const style = { margin: "2rem" };
   return (
-    <div>
-      <div style={imgStyle}>
-        <Image width={600} height={200} src={url} />
-        <h2> 단위 {unit || ori.retailUnit}</h2>
-      </div>
-
-      <Form
-        form={form}
-        name="form-name"
-        style={style}
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 14,
-        }}
-        layout="horizontal"
-        autoComplete="off"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        initialValues={ori}
-      >
-        <Form.Item label="품목" name="품목">
-          <Cascader
-            options={options}
-            //changeOnSelect
-            onChange={onChange}
-            fieldNames={{
-              label: "name",
-              value: "id",
-
-              children: "category",
-            }}
-          />
-        </Form.Item>
-        <Form.Item label="상품명" name="상품명">
-          <Input />
-        </Form.Item>
-        <Form.Item label="가격" name="가격">
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="설명" name="설명">
-          <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
-        </Form.Item>
-        <Form.Item label="대표이미지" name="대표이미지">
-          <Upload
-            beforeUpload={(file) => {
-              if (sigList.length < 1) {
-                console.log("file", file);
-                setSigList((sigList) => sigList.concat(file));
-              }
-              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
-            }}
-            fileList={sigList}
-            listType="text"
-            maxCount={1.5}
-            onRemove={(file) => {
-              setSigList(sigList.filter((i) => i.uid !== file.uid));
-            }}
-          >
-            <div>
-              <PlusOutlined />
-              <div
-                style={{
-                  marginTop: 8,
-                }}
-              >
-                Upload
-              </div>
-            </div>
-          </Upload>
-        </Form.Item>
-        <Form.Item label="이미지" name="이미지">
-          <Upload
-            fileList={fileList}
-            beforeUpload={(file) => {
-              console.log("file", file);
-              if (sigList.length <= 4) setFileList(fileList.concat(file));
-              return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
-            }}
-            listType="text"
-            maxCount={5}
-            onRemove={(file) => {
-              setFileList(fileList.filter((i) => i.uid !== file.uid));
-            }}
-          >
-            <div>
-              <PlusOutlined />
-              <div
-                style={{
-                  marginTop: 8,
-                }}
-              >
-                Upload
-              </div>
-            </div>
-          </Upload>
-        </Form.Item>
-        <div>
-          <Form.Item label="제출">
-            <Button type="primary" htmlType="submit">
-              글 등록
-            </Button>
-          </Form.Item>
+    <Spin>
+      <div>
+        <div style={imgStyle}>
+          <Image width={600} height={200} src={url} />
+          <h2> 단위 {unit || ori.retailUnit}</h2>
         </div>
-      </Form>
-    </div>
+
+        <Form
+          form={form}
+          name="form-name"
+          style={style}
+          labelCol={{
+            span: 4,
+          }}
+          wrapperCol={{
+            span: 14,
+          }}
+          layout="horizontal"
+          autoComplete="off"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          initialValues={ori}
+        >
+          <Form.Item label="품목" name="품목">
+            <Cascader
+              options={options}
+              //changeOnSelect
+              onChange={onChange}
+              fieldNames={{
+                label: "name",
+                value: "id",
+
+                children: "category",
+              }}
+            />
+          </Form.Item>
+          <Form.Item label="상품명" name="상품명">
+            <Input />
+          </Form.Item>
+          <Form.Item label="가격" name="가격">
+            <InputNumber />
+          </Form.Item>
+          <Form.Item label="설명" name="설명">
+            <TextArea rows={10} placeholder="maxLength is 6" maxLength={10} />
+          </Form.Item>
+          <Form.Item label="대표이미지" name="대표이미지">
+            <Upload
+              beforeUpload={(file) => {
+                if (sigList.length < 1) {
+                  console.log("file", file);
+                  setSigList((sigList) => sigList.concat(file));
+                }
+                return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+              }}
+              fileList={sigList}
+              listType="text"
+              maxCount={1.5}
+              onRemove={(file) => {
+                setSigList(sigList.filter((i) => i.uid !== file.uid));
+              }}
+            >
+              <div>
+                <PlusOutlined />
+                <div
+                  style={{
+                    marginTop: 8,
+                  }}
+                >
+                  Upload
+                </div>
+              </div>
+            </Upload>
+          </Form.Item>
+          <Form.Item label="이미지" name="이미지">
+            <Upload
+              fileList={fileList}
+              beforeUpload={(file) => {
+                console.log("file", file);
+                if (sigList.length <= 4) setFileList(fileList.concat(file));
+                return false; // 파일 선택시 바로 업로드 하지 않고 후에 한꺼번에 전송하기 위함
+              }}
+              listType="text"
+              maxCount={5}
+              onRemove={(file) => {
+                setFileList(fileList.filter((i) => i.uid !== file.uid));
+              }}
+            >
+              <div>
+                <PlusOutlined />
+                <div
+                  style={{
+                    marginTop: 8,
+                  }}
+                >
+                  Upload
+                </div>
+              </div>
+            </Upload>
+          </Form.Item>
+          <div>
+            <Form.Item label="제출">
+              <Button type="primary" htmlType="submit">
+                글 등록
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
+      </div>
+    </Spin>
   );
 }
 
