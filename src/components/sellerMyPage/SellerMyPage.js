@@ -146,8 +146,13 @@ function SellerMyPage(){
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="4"style={style9}>
-                        <Link to="/SellerMyPage/forth">
+                        <Link to="/SellerMyPage/SaleHistory">
                             <label style={style10}> 판매 내역 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="5"style={style9}>
+                        <Link to="/SellerMyPage/SaleDataGraph">
+                            <label style={style10}> 판매 정보 그래프 </label>
                         </Link>
                     </Menu.Item>
                 </Menu>
