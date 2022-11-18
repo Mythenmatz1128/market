@@ -149,12 +149,12 @@ function BuyerMyPage(){
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="3"style={style9}>
-                        <Link to="/BuyerMyPage/third">
+                        <Link to="/BuyerMyPage/PaymentHistory">
                             <label style={style10}> 결제 내역 </label>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="4"style={style9}>
-                        <Link to="/BuyerMyPage/forth">
+                        <Link to="/BuyerMyPage/PaymentHistoryGraph">
                             <label style={style10}> 결제 금액 그래프 </label>
                         </Link>
                     </Menu.Item>

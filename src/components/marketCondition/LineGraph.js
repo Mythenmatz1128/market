@@ -7,6 +7,7 @@ import axios from 'axios';
 let options = {
     spanGaps: true,
 };
+
 const style4 = {
     display: "flex",
     lineHeight: "90px",
