@@ -65,10 +65,10 @@ function ModifyWriting() {
   const [form] = Form.useForm();
   const [options, setOptions] = useState(null);
 
-  const navigate = useNavigate("/SellerMyPage/second");
+  const navigate = useNavigate("/SellerMyPage/RegisteredProduct");
 
   const refreshPage = () => {
-    navigate("/SellerMyPage/second");
+    navigate("/SellerMyPage/RegisteredProduct");
   };
   const urlToObject = async (props) => {
     let tempArr = [];
