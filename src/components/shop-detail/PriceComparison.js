@@ -33,14 +33,14 @@ function PriceComparison({ price, retail, wholesale }) {
       <div>
         <h2>
           {wholesale.latestDate} 도매가 {wholesale.price}원 보다{" "}
-          <span style={redStyle}>
+          <span style={price>wholesale.price?redStyle:blueStyle}>
             {wholeSaleGap} ({wholeSaleGapPer}%)
           </span>{" "}
           원 차이
         </h2>
         <h2>
           {retail.latestDate} 소매가 {retail.price}원 보다{" "}
-          <span style={blueStyle}>
+          <span style={price>retail.price?redStyle:blueStyle}>
             {retailGap} ({retailGapPer}%){" "}
           </span>
           원 차이
@@ -52,7 +52,7 @@ function PriceComparison({ price, retail, wholesale }) {
       <div>
         <h2>
           {wholesale.latestDate} 도매가 ({wholesale.price}) 보다{" "}
-          <span style={redStyle}>
+          <span style={price>wholesale.price?redStyle:blueStyle}>
             {wholeSaleGap} ({wholeSaleGapPer}%)
           </span>{" "}
           원 차이
@@ -64,7 +64,7 @@ function PriceComparison({ price, retail, wholesale }) {
       <div>
         <h2>
           {retail.latestDate} 소매가 {retail.price}원 보다{" "}
-          <span style={blueStyle}>
+          <span style={price>retail.price?redStyle:blueStyle}>
             {retailGap} ({retailGapPer}%){" "}
           </span>
           원 차이
