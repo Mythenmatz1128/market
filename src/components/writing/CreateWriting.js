@@ -36,11 +36,12 @@ function CreateWriting() {
 
   const [options, setOptions] = useState(null);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate("/SellerMyPage/second");
 
   const refreshPage = () => {
-    navigate(0);
+    navigate("/SellerMyPage/second");
   };
+
   useEffect(() => {
     axios.get("/api/item-category").then((response) => {
       console.log(response.data.category);
@@ -57,7 +58,7 @@ function CreateWriting() {
       .then((response) => {
         console.log(response.data.result);
         response.data.result.criteriaSrc
-          ? setUrl(response.data.result.criteriaSrc)
+          ? setUrl(`../${response.data.result.criteriaSrc}`)
           : setUrl(null);
 
         setUnit(response.data.result.retailUnit);
