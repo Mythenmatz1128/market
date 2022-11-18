@@ -146,26 +146,40 @@ function SellerMyPage() {
         </NavLink>
       </div>
 
-      <div className="seller-mypage-menu-box" style={style8}>
-        <Menu>
-          <Menu.Item key="1" style={style9}>
-            <Link to="/SellerMyPage/second">
-              <label style={style10}> 등록 상품 관리 </label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="2" style={style9}>
-            <Link to="/SellerMyPage/third">
-              <label style={style10}> 판매자 등급 </label>
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="3" style={style9}>
-            <Link to="/SellerMyPage/forth">
-              <label style={style10}> 판매 내역 </label>
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </div>
-    </Layout>
-  );
+            <div className = "seller-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
+                <NavLink to="/SellerMyPage">
+                    <PageHeader className="seller-mypage-title" title="판매자 마이 페이지" />
+                </NavLink>  
+                <NavLink to="/BuyerMyPage">
+                <div style={style11}>구매자 마이 페이지로 이동</div>
+                </NavLink> 
+            </div>
+
+            <div className = "seller-mypage-menu-box" style={style8}>
+                <Menu>
+                    <Menu.Item key="1"style={style9}>
+                        <Link to="/SellerMyPage/second">
+                            <label style={style10}> 등록 상품 관리 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="2"style={style9}>
+                        <Link to="/SellerMyPage/third">
+                            <label style={style10}> 판매자 등급 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="3"style={style9}>
+                        <Link to="/SellerMyPage/SaleHistory">
+                            <label style={style10}> 판매 내역 </label>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="4"style={style9}>
+                        <Link to="/SellerMyPage/SaleDataGraph">
+                            <label style={style10}> 판매 정보 그래프 </label>
+                        </Link>
+                    </Menu.Item>
+                </Menu>
+            </div>
+        </Layout>
+    );
 }
 export default SellerMyPage;

@@ -10,10 +10,14 @@ import MainLayout from "./components/main/MainLayout";
 import ManagerMyPage from "./components/managerMyPage/ManagerMyPage";
 import BuyerMyPage from "./components/buyerMyPage/BuyerMyPage";
 import SellerMyPage from "./components/sellerMyPage/SellerMyPage";
+import SaleHistory from "./components/sellerMyPage/SaleHistory";
+import SaleDataGraph from "./components/sellerMyPage/SaleDataGraph";
 import BusinessApplicationInquiry from "./components/managerMyPage/BusinessApplicationInquiry";
 import MemberInquiry from "./components/buyerMyPage/MemberInquiry";
 import MemberEdit from "./components/buyerMyPage/MemberEdit";
 import Cart from "./components/buyerMyPage/Cart";
+import PaymentHistory from "./components/buyerMyPage/PaymentHistory.js";
+import PaymentHistoryGraph from "./components/buyerMyPage/PaymentHistoryGraph.js";
 import BusinessApplication from "./components/buyerMyPage/BusinessApplication";
 import BusinessApplicationList from "./components/buyerMyPage/BusinessApplicationList";
 import BusinessDefault from "./components/managerMyPage/BusinessDefault";
@@ -80,16 +84,15 @@ function App() {
           element={<MemberEdit />}
         ></Route>
         <Route path="/BuyerMyPage/Cart" element={<Cart />}></Route>
-        <Route
-          path="/BuyerMyPage/BusinessApplication"
-          element={<BusinessApplication />}
-        ></Route>
-        <Route
-          path="/BuyerMyPage/BusinessApplicationList"
-          element={<BusinessApplicationList />}
-        ></Route>
+        <Route path="/BuyerMyPage/PaymentHistory" element={<PaymentHistory />}></Route>
+        <Route path="/BuyerMyPage/PaymentHistoryGraph" element={<PaymentHistoryGraph />}></Route>
+        <Route path="/BuyerMyPage/BusinessApplication" element={<BusinessApplication />}></Route>
+        <Route path="/BuyerMyPage/BusinessApplicationList" element={<BusinessApplicationList />}></Route>
         {/*---판매자 마이 페이지--- */}
         <Route path="/SellerMyPage" element={<SellerMyPage />}></Route>
+        <Route path="/SellerMyPage/SaleHistory" element={<SaleHistory />}></Route>
+        <Route path="/SellerMyPage/SaleDataGraph" element={<SaleDataGraph />}></Route>
+  
         <Route
           path="/SellerMyPage/second"
           element={<RegisteredProduct />}
