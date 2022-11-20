@@ -18,24 +18,40 @@ const contentStyle = {
   margin: "auto",
   marginTop: "10px",
 };
-
+const textStyle = {
+  width: "750px",
+  margin: "auto",
+  marginTop: "10px",
+  textAlign: "center",
+};
+const flexBox = {
+  display:"flex"
+}
 const productRootAddress = "shop-list/shop-detail/";
 
-function MainCarousel({ topOrder }) {
+function MainCarousel({ reviewRate }) {
   return (
-    <Carousel autoplay>
-      {topOrder.map((value, i) => {
-        return (
-          <div key={i}>
-            <h3 style={contentStyle}>
-              <NavLink to={productRootAddress + value.productId}>
-                <img src={value.imgSigSrc} style={imgStyle} />
-              </NavLink>
-            </h3>
-          </div>
-        );
-      })}
-    </Carousel>
+    <div>
+      {" "}
+      <div style={textStyle}>
+        <div>
+          <b>평점 높은 상품</b>
+        </div>
+      </div>
+      <Carousel autoplay>
+        {reviewRate.map((value, i) => {
+          return (
+            <div key={i}>
+              <h3 style={contentStyle}>
+                <NavLink to={productRootAddress + value.productId}>
+                  <img src={value.imgSigSrc} style={imgStyle} />
+                </NavLink>
+              </h3>
+            </div>
+          );
+        })}
+      </Carousel>
+    </div>
   );
 }
 
