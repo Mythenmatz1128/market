@@ -3,6 +3,13 @@ import { useEffect, useState } from "react";
 import Grid from "./Grid";
 import MainCarousel from "./MainCarousel";
 import { AutoComplete, Col, Divider, Row } from "antd";
+
+const textStyle = {
+
+  margin: "auto",
+
+  textAlign: "center",
+};
 function MainContent() {
   const [lastet, setLastet] = useState([
     {
@@ -23,6 +30,12 @@ function MainContent() {
       retailUnit: null,
     },
   ]);
+  const [reviewRate, setReviewRate] = useState([
+    {
+      imgSigSrc: null,
+      productId: null,
+    },
+  ]);
   useEffect(() => {
     axios
       .get("/api/products/main-page/latest", {
@@ -40,49 +53,60 @@ function MainContent() {
         setTopOrder(res.data.result);
         console.log(topOrder);
       });
+    axios
+      .get("/api/products/main-page/review-rate-avg", {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        setReviewRate(res.data.result);
+        console.log(reviewRate);
+      });
   }, []);
   return (
     <div>
-      <MainCarousel topOrder={topOrder}></MainCarousel>
-      <Divider></Divider>
-      <div>
-        {" "}
-        <b>최근 등록된 상품</b>
-      </div>
+      <MainCarousel reviewRate={reviewRate}></MainCarousel>
 
-      <Row gutter={[16, 24]}>
-        {lastet.map((value, i) => {
-          return (
-            <Grid
-              key={i}
-              imgSigSrc={value.imgSigSrc}
-              productId={value.productId}
-              productName={value.productName}
-              price={value.price}
-              retailUnit={value.retailUnit}
-            ></Grid>
-          );
-        })}
-      </Row>
       <Divider></Divider>
       <div>
-        {" "}
-        <b> 가장 많이 팔린 상품</b>
+        <div style={textStyle}>
+          <b>최근에 등록된 상품</b>
+        </div>
+
+        <Row gutter={[16, 24]}>
+          {lastet.map((value, i) => {
+            return (
+              <Grid
+                key={i}
+                imgSigSrc={value.imgSigSrc}
+                productId={value.productId}
+                productName={value.productName}
+                price={value.price}
+                retailUnit={value.retailUnit}
+              ></Grid>
+            );
+          })}
+        </Row>
       </div>
-      <Row gutter={[16, 24]}>
-        {topOrder.map((value, i) => {
-          return (
-            <Grid
-              key={i}
-              imgSigSrc={value.imgSigSrc}
-              productId={value.productId}
-              productName={value.productName}
-              price={value.price}
-              retailUnit={value.retailUnit}
-            ></Grid>
-          );
-        })}
-      </Row>
+      <Divider></Divider>
+      <div>
+        <div style={textStyle}>
+          <b>많이 팔린 상품</b>
+        </div>
+        <Row gutter={[16, 24]}>
+          {topOrder.map((value, i) => {
+            return (
+              <Grid
+                key={i}
+                imgSigSrc={value.imgSigSrc}
+                productId={value.productId}
+                productName={value.productName}
+                price={value.price}
+                retailUnit={value.retailUnit}
+              ></Grid>
+            );
+          })}
+        </Row>
+      </div>
     </div>
   );
 }
