@@ -10,6 +10,7 @@ import axios from "axios";
 import { useResetRecoilState } from "recoil";
 const LoginModal = () => {
   const [user, setUser] = useRecoilState(userState);
+  
 
   const navigate = useNavigate;
   const [open, setOpen] = useState(false);
