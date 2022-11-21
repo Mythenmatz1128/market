@@ -1,14 +1,14 @@
 import { Button, Checkbox, Form, Input } from "antd";
 
 import { useState } from "react";
-
+import { userState } from "../../recoil/userState";
 import axios from "axios";
+import Password from "antd/lib/input/Password";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 function WithDrawl({ onCancel }) {
-  const [address, setAddress] = useState(null); // 주소
-  const [jibun, setJibun] = useState(null);
-  const [zipCode, setZipCode] = useState(null);
-
+  const [user, setUser] = useRecoilState(userState);
   const style = {
     display: "flex",
     flexDirection: "column",
@@ -18,20 +18,50 @@ function WithDrawl({ onCancel }) {
     alignItems: "left",
   };
   const btnStyle = {
-    textAlign:"Right"
+    textAlign: "Right",
   };
-  const onFinish = (values) => {
-    let object = new Object(values);
-    const json = JSON.stringify(object);
-    console.log(json);
+  const navigate = useNavigate("/");
+
+  const refreshPage = () => {
+    navigate("/");
+  };
+
+  const loginCheck = () => {
     axios
-      .delete("/api/user", json, {
+      .get("/api/user/login-check", {
         headers: { "Content-Type": "application/json" },
       })
+      .then(() => {
+       
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data.status === 401 && user !== null) {
+          setUser(null);
+        }
+      });
+  };
+  const onFinish = (values) => {
+    // let object = new Object(values);
+    //let json = JSON.stringify(object);
+
+    //console.log(json);
+
+    axios
+      .delete("/api/user", {
+        data: { password: values.password },
+      })
+
       .then((response) => alert(response.data.result.msg))
 
-      .catch((error) => alert(error.response.data.msg))
-      .then(() => onCancel());
+      .then(() => onCancel())
+      .then(() => {
+        loginCheck();
+      })
+      .then(() => {
+        refreshPage();
+      })
+      .catch((error) => console.log(error));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -44,7 +74,6 @@ function WithDrawl({ onCancel }) {
       style={style}
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 14 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -56,7 +85,7 @@ function WithDrawl({ onCancel }) {
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password />
+          <Input />
         </Form.Item>
         <Form.Item style={btnStyle}>
           <Button type="primary" htmlType="submit">
