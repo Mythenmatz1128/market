@@ -21,7 +21,7 @@ function SignUp({ onCancel }) {
     marginTop: "1rem",
   };
   const onFinish = (values) => {
-    var object = new Object(values);
+    let object = new Object(values);
     console.log(object);
     object.road = address;
     object.jibun = jibun;
