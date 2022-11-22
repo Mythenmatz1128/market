@@ -209,7 +209,7 @@ const ShopContent = () => {
                   <Image
                     width="800px"
                     height="600px"
-                    src={`http://localhost:8080/${product.ordinalImgSrc[i]}`}
+                    src={`../../${product.ordinalImgSrc[i]}`}
                   ></Image>
                   <Divider />
                 </div>
