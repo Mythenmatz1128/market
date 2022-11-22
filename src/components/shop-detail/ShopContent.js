@@ -30,9 +30,9 @@ import ProductPieGraph from "./ProductPieGraph";
 import ProductLineGraph from "./ProductStatistics.js/ProductLineGraph";
 const ShopContent = () => {
   const { Text, Link, Title } = Typography;
-  const [count,setCount] = useState(1);
+  const [count, setCount] = useState(1);
   const onChange = (value) => {
-    setCount(value)
+    setCount(value);
   };
 
   const style = {
@@ -88,7 +88,7 @@ const ShopContent = () => {
   const basketStyle = {
     display: "flex",
     flexDirection: "column",
-    alignItems : "strech"
+    alignItems: "strech",
   };
 
   function handleClick() {
@@ -209,7 +209,7 @@ const ShopContent = () => {
                   <Image
                     width="800px"
                     height="600px"
-                    src={`http://localhost:8080/${product.ordinalImgSrc[i]}`}
+                    src={`../../${product.ordinalImgSrc[i]}`}
                   ></Image>
                   <Divider />
                 </div>
