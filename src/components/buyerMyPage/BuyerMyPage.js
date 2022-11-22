@@ -123,7 +123,7 @@ function BuyerMyPage() {
             안녕하세요 {userName}님.
           </span>
           <div className="button-box" style={style5}>
-            <Button className="button1" type="button" onClick={logout}>
+            <Button className="button1" type="primary" onClick={logout}>
               로그아웃
             </Button>
             <span style={style7}>

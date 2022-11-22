@@ -111,7 +111,7 @@ const BusinessDefault = () => {
                     </tr>
                   </tbody>
               </table>
-              <img style={imgStyle} src={`http://localhost:8080/${data.imgSrc}`} />
+              <img style={imgStyle} src={`/${data.imgSrc}`} />
               <Button className="button1" type="primary" style={style2} onClick = {accept}>
                 승인
               </Button>

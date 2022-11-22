@@ -48,11 +48,16 @@ const style6 = {
     marginTop: "10%",
 };
 
+const style7 = {
+    color: "red",
+};
+
 let options = {
     spanGaps: true,
 };
 
 function SellerGrade(){
+    const [curGrade,setCurGrade] = useState(0);
     const [date, setDate] = useState();
     const [data1,setData1] = useState({
         labels: null,
@@ -80,6 +85,19 @@ function SellerGrade(){
             data: [],
         },
     ];
+
+    useEffect(() => {
+        axios
+        .get("/api/seller-mypage/trust-score", {
+            headers: { "Content-Type": "application/json" },
+        },)
+        .then((response) => {
+            console.log(response.data.result);
+            setCurGrade(response.data.result);
+        })
+        .catch((err) => {console.log(err); alert(err.response.data.msg);});
+    }, []);
+
 
     const getGraphData1 = () => {
         axios
@@ -127,6 +145,7 @@ function SellerGrade(){
                     </Button>
                 </div>
             </div>
+            <div className="sale-data" style={style1}>현재 신뢰점수 : <span style={style7}>{curGrade}</span></div>
             <div className="sale-data-graph1" style={style1}>신뢰점수 그래프</div>
             <div style = {style2}>
                 <Line type="line" data={data1} options ={options} />
