@@ -124,7 +124,7 @@ function SaleDataGraph(){
                 },
             },)
             .then((response) => {
-                console.log(response.data.result);
+                console.log(response.data);
                 arr1[0].data = response.data.result.myPriceList;
                 arr1[1].data = response.data.result.avgPriceList;
                 setData1({"labels" : response.data.result.dateList, "datasets" : arr1});
@@ -146,7 +146,7 @@ function SaleDataGraph(){
                 },
             },)
             .then((response) => {
-                console.log(response.data.result);
+                console.log(response.data);
                 arr2[0].data = response.data.result.percentileList;
                 setData2({"labels" : response.data.result.dateList, "datasets" : arr2});
             })

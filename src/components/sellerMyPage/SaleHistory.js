@@ -80,9 +80,9 @@ function SaleHistory(){
                 },
             },)
             .then((response) => {
-                console.log(response.data);
+                console.log(response);
                 setServerData(response.data.result);
-                setTotalItemNum(response.data.lastPageNum * pageSize);
+                setTotalItemNum(response.data.totalNum * pageSize);
         
             })
             .catch((err) => {console.log(err); alert(err.response.data.msg);});
@@ -125,7 +125,7 @@ function SaleHistory(){
                                 <img
                                     width={272}
                                     alt="logo"
-                                    src={`http://localhost:8080/${item.path}`}
+                                    src={`/${item.path}`}
                                     style={imgStyle}
                                 />
                                 }

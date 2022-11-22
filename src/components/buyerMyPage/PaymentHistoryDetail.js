@@ -56,7 +56,7 @@ function PaymentHistoryDetail(props){
             navigate(0);
             //window.location.reload();
         })
-        .catch((err) => {console.log(err); alert(err.response.data.msg);});
+        .catch((err) => {console.log(err); alert(err.reponse.data.msg);});
     };
 
     return(
@@ -79,7 +79,7 @@ function PaymentHistoryDetail(props){
                             <img
                                 width={272}
                                 alt="logo"
-                                src={`http://localhost:8080/${item.path}`}
+                                src={`/${item.path}`}
                                 style={imgStyle}
                             />
                         }
