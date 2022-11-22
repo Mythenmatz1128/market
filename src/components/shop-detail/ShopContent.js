@@ -173,7 +173,7 @@ const ShopContent = () => {
           <Image
             width={250}
             height={250}
-            src={`http://localhost:8080/${product.signatureImgSrc}`}
+            src={`../../${product.signatureImgSrc}`}
           />
           <div style={buttonBoxStyle}>
             <OrderModal
