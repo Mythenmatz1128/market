@@ -146,7 +146,7 @@ function SellerMyPage() {
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="2"style={style9}>
-                        <Link to="/SellerMyPage/third">
+                        <Link to="/SellerMyPage/SellerGrade">
                             <label style={style10}> 판매자 등급 </label>
                         </Link>
                     </Menu.Item>
