@@ -80,7 +80,7 @@ function SaleHistory(){
                 },
             },)
             .then((response) => {
-                console.log(response.data);
+                console.log(response);
                 setServerData(response.data.result);
                 setTotalItemNum(response.data.lastPageNum * pageSize);
         

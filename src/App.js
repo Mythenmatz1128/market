@@ -35,6 +35,7 @@ import ModifyWritng from "./components/writing/ModifyWriting";
 import ShopContent from "./components/shop-detail/ShopContent";
 import MainContent from "./components/main/MainContent";
 import RegisteredProduct from "./components/sellerMyPage/RegisteredProduct";
+import SellerGrade from "./components/sellerMyPage/SellerGrade";
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
         <Route path="/SellerMyPage" element={<SellerMyPage />}></Route>
         <Route path="/SellerMyPage/SaleHistory" element={<SaleHistory />}></Route>
         <Route path="/SellerMyPage/SaleDataGraph" element={<SaleDataGraph />}></Route>
+        <Route path="/SellerMyPage/SellerGrade" element={<SellerGrade />}></Route>
   
         <Route
           path="/SellerMyPage/RegisteredProduct"

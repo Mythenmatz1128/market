@@ -26,22 +26,40 @@ const style2 = {
     //marginLeft: "14%",
     paddingBottom: "3%",
 };
+
 const style3 = {
     float: "right",
     marginLeft: "10px",
 };
 
+const style4 = {
+    marginTop: "2%",
+    marginBottom: "3%",
+    fontSize: "25px",
+};
+
+const style5 = {
+    color: "blue",
+};
+
+const style6 = {
+    color: "red",
+};
+
 function PaymentHistory(){
     const [loading, setLoading] = useState(false);
-    const [date, setDate] = useState();
+    const [date, setDate] = useState([]);
     const [data, setData] = useState([]);
     const [trigger, setTrigger] = useState(0);
     const [listDetail, setListDetail] = useState([]);
     const [pageNum,setPageNum] = useState(1);
     const [orderNum,setOrderNum] = useState(0);
+    const [totalPrice,setTotalPrice] = useState(0);
 
     useEffect(() => {
         setData([]);
+        setPageNum(1);
+        setTotalPrice(0);
     }, [date]);
 
     const loadMoreData = () => {
@@ -65,11 +83,16 @@ function PaymentHistory(){
             console.log(res);
             setData([...data, ...res.data.result]);
             setPageNum(pageNum + 1);
-            setOrderNum(res.data.lastPageNum);
+            setOrderNum(res.data.totalNum);
+            setTotalPrice(res.data.totalPrice);
             setLoading(false);
         })
-        .catch(() => {
+        .catch((err) => {
             setLoading(false);
+            console.log(err); 
+            setDate([]);
+            setTotalPrice(0);
+            alert(err.response.data.msg);
         });
     };
 
@@ -83,7 +106,12 @@ function PaymentHistory(){
                         <Button className="button1" type="primary" style={style3} onClick={loadMoreData}>
                             조회
                         </Button>
-                    </div> 
+                    </div>
+                    {
+                        (totalPrice != 0)&&<div style={style4}>
+                            <span style={style5}>{date[0]}</span>에서 <span style={style5}>{date[1]}</span>까지의 총 결재액 : <span style={style6}>{totalPrice}원</span>
+                        </div>
+                    } 
                     <div
                         id="scrollableDiv"
                         style={{
