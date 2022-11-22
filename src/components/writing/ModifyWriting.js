@@ -13,7 +13,7 @@ import {
   Upload,
 } from "antd";
 import ImageUpload from "./ImgaeUpload";
-import { Typography,Spin } from "antd";
+import { Typography, Spin } from "antd";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -104,6 +104,10 @@ function ModifyWriting() {
       })
       .then(() => {
         console.log(def);
+ 
+      })
+      .then(()=>{
+        setIsLoading(false);
       })
       .catch((error) => alert(error.response.data.msg));
 
@@ -201,10 +205,10 @@ function ModifyWriting() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
+  const [isloading, setIsLoading] = useState(true);
   const style = { margin: "2rem" };
   return (
-    <Spin>
+    <Spin spinning={isloading} size="large">
       <div>
         <div style={imgStyle}>
           <Image width={600} height={200} src={url} />

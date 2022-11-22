@@ -1,8 +1,7 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import SignUp from "./SignUp.js";
-
-const SignUpModal = () => {
+import WithDrawl from "./WithDrawl.js";
+const  WithDrawlModal= () => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
@@ -28,20 +27,20 @@ const SignUpModal = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        회원가입
+        회원탈퇴
       </Button>
       <Modal
-        title="회원가입"
+        title="비밀번호 재입력"
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
         footer={false}
       >
-        <SignUp onCancel={handleCancel}></SignUp>
+        <WithDrawl onCancel={handleCancel}></WithDrawl>
       </Modal>
     </>
   );
 };
 
-export default SignUpModal;
+export default WithDrawlModal;

@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/userState";
+import WithDrawlModal from "../withdrawal/WithDrawlModal";
 
 const style0 = {
   marginLeft: "20%",
@@ -49,12 +50,9 @@ const style5 = {
   position: "relative",
   marginLeft: "40px",
 };
-const style6 = {
-  position: "absolute",
-};
+
 const style7 = {
-  position: "absolute",
-  left: "50%",
+  paddingLeft: "20px",
 };
 const style8 = {
   marginLeft: "40px",
@@ -115,28 +113,30 @@ function SellerMyPage() {
             안녕하세요 {userName}님.
           </span>
           <div className="button-box" style={style5}>
-            <Button
-              className="button1"
-              type="button"
-              style={style6}
-              onClick={logout}
-            >
+            <Button className="button1" type="button" onClick={logout}>
               로그아웃
             </Button>
-            <Button className="button2" type="button" style={style7}>
-              회원탈퇴
-            </Button>
+            <span style={style7}>
+              <WithDrawlModal ></WithDrawlModal>
+            </span>
           </div>
         </div>
       </div>
-            <div className = "seller-mypage-title-box" style={style1} onClick={() => window.location.reload()}>
-                <NavLink to="/SellerMyPage">
-                    <PageHeader className="seller-mypage-title" title="판매자 마이 페이지" />
-                </NavLink>  
-                <NavLink to="/BuyerMyPage">
-                <div style={style11}>구매자 마이 페이지로 이동</div>
-                </NavLink> 
-            </div>
+      <div
+        className="seller-mypage-title-box"
+        style={style1}
+        onClick={() => window.location.reload()}
+      >
+        <NavLink to="/SellerMyPage">
+          <PageHeader
+            className="seller-mypage-title"
+            title="판매자 마이 페이지"
+          />
+        </NavLink>
+        <NavLink to="/BuyerMyPage">
+          <div style={style11}>구매자 마이 페이지로 이동</div>
+        </NavLink>
+      </div>
 
             <div className = "seller-mypage-menu-box" style={style8}>
                 <Menu>

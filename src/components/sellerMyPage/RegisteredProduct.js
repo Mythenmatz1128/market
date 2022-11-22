@@ -41,7 +41,7 @@ function RegisteredProduct() {
         setTotalItemNum(data.lastPageNum * pageSize);
         console.log("serverdata: ", data);
       })
-      .catch((error) => alert(error.response));
+      .catch((error) => alert(error.response.data.msg));
   }, [pageNum, pageSize]);
   const style0 = {
     marginLeft: "20%",
