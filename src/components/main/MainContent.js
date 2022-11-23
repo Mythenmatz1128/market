@@ -42,7 +42,7 @@ function MainContent() {
   useEffect(() => {
     console.log(cloudServerIP);
     axios
-      .get(`${cloudServerIP}/api/products/main-page/latest`, {
+      .get(cloudServerIP + "/api/products/main-page/latest", {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -50,7 +50,7 @@ function MainContent() {
         console.log(lastet);
       });
     axios
-      .get(`${cloudServerIP}/api/products/main-page/order-count`, {
+      .get(cloudServerIP + "/api/products/main-page/order-count", {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -58,7 +58,7 @@ function MainContent() {
         console.log(topOrder);
       });
     axios
-      .get(`${cloudServerIP}/api/products/main-page/review-rate-avg`, {
+      .get(cloudServerIP + "/api/products/main-page/review-rate-avg", {
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
@@ -81,7 +81,7 @@ function MainContent() {
             return (
               <Grid
                 key={i}
-                imgSigSrc={value.imgSigSrc}
+                imgSigSrc={cloudServerIP + value.imgSigSrc}
                 productId={value.productId}
                 productName={value.productName}
                 price={value.price}
@@ -101,7 +101,7 @@ function MainContent() {
             return (
               <Grid
                 key={i}
-                imgSigSrc={value.imgSigSrc}
+                imgSigSrc={cloudServerIP + value.imgSigSrc}
                 productId={value.productId}
                 productName={value.productName}
                 price={value.price}

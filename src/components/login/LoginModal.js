@@ -41,7 +41,7 @@ const LoginModal = () => {
   const logout = () => {
     console.log("logout btn is clicked");
     axios
-      .get("/api/user/logout", {
+      .get(cloudServerIP + "/api/user/logout", {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -54,7 +54,7 @@ const LoginModal = () => {
   };
   useEffect(() => {
     axios
-      .get(`${cloudServerIP}/api/user/login-check`, {
+      .get(cloudServerIP + "/api/user/login-check", {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {})
