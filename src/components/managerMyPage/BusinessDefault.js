@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import ManagerMyPage from "./ManagerMyPage";
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const size = 4;
 
@@ -42,6 +43,7 @@ const imgStyle = {
 const BusinessDefault = () => {
   const { businessId } = useParams();
   let [data, setData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -61,6 +63,7 @@ const BusinessDefault = () => {
       .then((res) => {
         console.log(res.data.result);
         alert(res.data.result.msg);
+        navigate(0);
       })
       .catch((err) => {console.log(err); alert(err.response.data.msg)});
   }
@@ -72,6 +75,7 @@ const BusinessDefault = () => {
     .then((res) => {
       console.log(res.data.result);
       alert(res.data.result.msg);
+      navigate(0);
     })
     .catch((err) => {console.log(err); alert(err.response.data.msg)});
   }
