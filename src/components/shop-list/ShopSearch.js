@@ -22,7 +22,7 @@ function ShopSearch({ casId, selId, searchText, serverData ,setServerData }) {
   };
   return (
     <Search
-      placeholder="input search text"
+      placeholder="검색어 입력"
       allowClear
       enterButton="Search"
       size="large"
