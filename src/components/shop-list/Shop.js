@@ -15,14 +15,16 @@ const suffix = (
     }}
   />
 );
+const FlexStyle = {
+  display: "flex",
+};
 const CasStyle = {
   marginTop: "2rem",
   marginLeft: "2rem",
 };
 const style = {
   marginTop: "2rem",
-  marginRight: "2rem",
-  textAlign: "right",
+  marginLeft: "4rem",
 };
 const style2 = {
   position: 'fixed',
@@ -36,21 +38,23 @@ const Shop = () => {
   const [serverData, setServerData] = useState();
   return (
     <div>
-      <div style={CasStyle}>
-        <ShopCascader casId={casId} />
-        <ShopSelect selId={selId}></ShopSelect>
-      </div>
+      <div style={FlexStyle}>
+        <div style={CasStyle}>
+          <ShopCascader casId={casId} />
+          <ShopSelect selId={selId}></ShopSelect>
+        </div>
 
-      <div style={style}>
-        <Space direction="vertical">
-          <ShopSearch
-            casId={casId}
-            selId={selId}
-            searchText={searchText}
-            serverData={serverData}
-            setServerData={setServerData}
-          ></ShopSearch>
-        </Space>
+        <div style={style}>
+          <Space direction="vertical">
+            <ShopSearch
+              casId={casId}
+              selId={selId}
+              searchText={searchText}
+              serverData={serverData}
+              setServerData={setServerData}
+            ></ShopSearch>
+          </Space>
+        </div>
       </div>
 
       <ShopList

@@ -33,7 +33,7 @@ const OrderModal = ({ price, productId }) => {
         onCancel={handleCancel}
         footer={false}
       >
-        <Order price={price} productId={productId}></Order>
+        <Order price={price} productId={productId} handleCancel={handleCancel}></Order>
       </Modal>
     </>
   );
