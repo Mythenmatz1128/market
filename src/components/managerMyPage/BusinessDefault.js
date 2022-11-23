@@ -63,7 +63,7 @@ const BusinessDefault = () => {
       .then((res) => {
         console.log(res.data.result);
         alert(res.data.result.msg);
-        navigate(0);
+        navigate(-1);
       })
       .catch((err) => {console.log(err); alert(err.response.data.msg)});
   }
@@ -75,7 +75,7 @@ const BusinessDefault = () => {
     .then((res) => {
       console.log(res.data.result);
       alert(res.data.result.msg);
-      navigate(0);
+      navigate(-1);
     })
     .catch((err) => {console.log(err); alert(err.response.data.msg)});
   }
