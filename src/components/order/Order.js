@@ -3,7 +3,7 @@ import Address from "./Address";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function Order({ price, productId }) {
+function Order({ price, productId, handleCancel }) {
   const [form] = Form.useForm();
   const [address, setAddress] = useState(null); // 주소
   const [jibun, setJibun] = useState(null);
@@ -31,7 +31,10 @@ function Order({ price, productId }) {
           detailAddress: response.data.result.detailAddress,
         });
       })
-      .catch((error) => alert(error.response.data.msg));
+      .catch((error) => {
+        alert(error.response.data.msg);
+        handleCancel();
+      });
   }, []);
 
   const onFinish = (values) => {
@@ -48,7 +51,10 @@ function Order({ price, productId }) {
       .post("/api/order", json, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => alert(response.data.result.msg))
+      .then((response) => {
+        alert(response.data.result.msg);
+        handleCancel();
+      })
 
       .catch((error) => alert(error.response.data.msg));
   };
@@ -74,7 +80,6 @@ function Order({ price, productId }) {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         onValuesChange={onValuesChange}
-   
       >
         <Form.Item
           label="totalPrice"
