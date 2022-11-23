@@ -50,6 +50,20 @@ const style6 = {
   fontWeight: "500",
 };
 
+const style7 = {
+    marginTop: "2%",
+    marginBottom: "5%",
+    fontSize: "25px",
+};
+
+const style8 = {
+    color: "blue",
+};
+
+const style9 = {
+    color: "red",
+};
+
 const imgStyle = {
     width: "200px",
     height: "220px",
@@ -61,6 +75,7 @@ function SaleHistory(){
     const [totalItemNum, setTotalItemNum] = useState(0);
     const [pageSize, setPageSize] = useState(5);
     const [serverData, setServerData] = useState([]);
+    const [totalPrice,setTotalPrice] = useState(0);
 
     useEffect(() => {
         if(date != null){
@@ -83,9 +98,15 @@ function SaleHistory(){
                 console.log(response);
                 setServerData(response.data.result);
                 setTotalItemNum(response.data.totalNum * pageSize);
+                setTotalPrice(response.data.totalPrice);
         
             })
-            .catch((err) => {console.log(err); alert(err.response.data.msg);});
+            .catch((err) => {
+                console.log(err); 
+                setDate([]);
+                setTotalPrice(0);
+                alert(err.response.data.msg);
+            });
     };
 
 
@@ -101,6 +122,11 @@ function SaleHistory(){
                             조회
                         </Button>
                     </div>
+                    {
+                        (totalPrice != 0)&&<div style={style7}>
+                            <span style={style8}>{date[0]}</span>에서 <span style={style8}>{date[1]}</span>까지의 총 판매액 : <span style={style9}>{totalPrice}원</span>
+                        </div>
+                    } 
                     <List
                         itemLayout="vertical"
                         size="large"
