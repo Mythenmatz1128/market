@@ -24,6 +24,10 @@ const style = {
   marginRight: "2rem",
   textAlign: "right",
 };
+const style2 = {
+  position: 'fixed',
+  left: '20px',
+};
 
 const Shop = () => {
   const casId = useRef(["", "", "", ""]);
